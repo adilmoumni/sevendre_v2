@@ -88,7 +88,6 @@ class _FormPage4State extends State<FormPage4> {
                 // controller: controlle1,
                 controller: creditImmoDisponibleInLimineController,
                 labelField: "CRÉDIT IMMOBILIER DISPONIBLE IN LIMINE*",
-                helperText: "CRÉDIT IMMOBILIER DISPONIBLE IN LIMINE*",
                 isDouble: true,
                 enabled: true,
                 // isDouble: true,
@@ -104,7 +103,6 @@ class _FormPage4State extends State<FormPage4> {
                 // controller: controlle1,
                 controller: remboursementInfineDuCompteCourantController,
                 labelField: "REMBOURSEMENT IN FINE DU COMPTE COURANT**",
-                helperText: "REMBOURSEMENT IN FINE DU COMPTE COURANT**",
                 isDouble: true,
                 enabled: true,
                 onChanged: (val) {
@@ -113,9 +111,7 @@ class _FormPage4State extends State<FormPage4> {
                 }),
           ),
           Visibility(
-            visible: model.informationClient[
-                    "vente_a_soi_meme_suivie_dune_location"] ==
-                1,
+            visible: true,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFieldHelper2(
@@ -123,7 +119,6 @@ class _FormPage4State extends State<FormPage4> {
                   // controller: controlle1,
                   controller: chargeMensuellePendentLaDureDuCreditController,
                   labelField: "CHARGES MENSUELLE PENDANT LA DURÉE DU CRÉDIT",
-                  helperText: "CHARGES MENSUELLE PENDANT LA DURÉE DU CRÉDIT",
                   isDouble: true,
                   enabled: true,
                   // isDouble: true,

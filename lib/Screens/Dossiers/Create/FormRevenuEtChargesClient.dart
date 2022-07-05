@@ -335,8 +335,8 @@ class _FormFormRevenuEtChargesClientState
                 child: TextFieldHelper2(
                     controller: valeurDuBienEstimeParClientController,
                     width: widthTextField,
-                    labelText: "Valeur du bien estimée par le client*",
-                    labelField: "Valeur du bien estimée par le client*",
+                    labelText: "Valeur du bien estimée par le propriétaire*",
+                    labelField: "Valeur du bien estimée par le propriétaire*",
                     validator: model.validatorTextFieldisDouble,
                     isDouble: true,
                     onChanged: (val) {
@@ -517,9 +517,9 @@ class _FormFormRevenuEtChargesClientState
                     width: widthTextField,
                     controller: assurenceController,
                     labelField:
-                        "Montant annuel de l'assurance multi-risques habitation",
+                        "Montant annuel de l’assurance multi-risques habitation",
                     helperText:
-                        "Montant annuel de l'assurance multi-risques habitation",
+                        "Montant annuel de l’assurance multi-risques habitation",
                     validator: model.validatorTextFieldisDouble,
                     isDouble: true,
                     onChanged: (val) {
@@ -544,8 +544,10 @@ class _FormFormRevenuEtChargesClientState
                 child: TextFieldHelper2(
                     width: widthTextField,
                     controller: chargeDeCropoEntretienController,
-                    labelField: "Charge de Copro/Entretien annuel",
-                    helperText: "Charge de Copro/Entretien annuel",
+                    labelField:
+                        "Charges annuelles de copropriété ou d’entretien",
+                    helperText:
+                        "Charges annuelles de copropriété ou d’entretien",
                     validator: model.validatorTextFieldisDouble,
                     isDouble: true,
                     onChanged: (val) {
@@ -565,7 +567,7 @@ class _FormFormRevenuEtChargesClientState
                     Column(
                       children: [
                         Text(
-                          "Grosse réparation prévisible**",
+                          "Grosses réparations prévisibles**",
                           style: TextStyle(
                               fontFamily: "Neometric",
                               color: Color(0xFF57565e),
@@ -936,7 +938,7 @@ class _FormFormRevenuEtChargesClientState
                         left: 28,
                       ),
                       child: Text(
-                        "Vente à soi-même suivie d’une location à soi-même*",
+                        "Vente à soi-même suivi d’une location à soi-même*",
                         style: TextStyle(
                             fontFamily: "Neometric",
                             color: Color(0xFF57565e),

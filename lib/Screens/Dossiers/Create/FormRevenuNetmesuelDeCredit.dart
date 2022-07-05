@@ -25,6 +25,11 @@ class _FormRevenuNetmensuelDeCreditState
   TextEditingController revenueP1Controller = TextEditingController();
   TextEditingController revenueP1LocatifController =
       TextEditingController(text: '0');
+
+   TextEditingController revenueP2LocatifController =
+      TextEditingController(text: '0');
+
+
   TextEditingController revenueP2Controller = TextEditingController();
   TextEditingController revenueNetDeCreditP1Controller =
       TextEditingController();
@@ -84,6 +89,9 @@ class _FormRevenuNetmensuelDeCreditState
      ageDuPro1Controller.text =  model.informationClient["age_du_propriétaire"];
      ageDuPro2Controller.text =  model.informationClient["age_du_propriétaire_2"];
 
+     
+    revenueP2LocatifController.text  = 
+                  model.informationClient["revenue_anuelle_du_proprietaire_2"];
 
     isSecondeUserChecked =  model.informationClient['isSecondeUserChecked'];      
     revenuePAnnuelController.addListener(() => _printLatestValue1(model));
@@ -258,6 +266,30 @@ class _FormRevenuNetmensuelDeCreditState
                       }),
                 )
               : Container(),
+
+                     Visibility(
+                      visible: isSecondeUserChecked,
+                       child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                width: widthTextField,
+                labelField: "Revenus annuels (locatifs) de l'associé 2",
+                // helperText: "Entrer Mensualité du crédit",
+                validator: model.validatorTextFieldString,
+                controller: revenueP2LocatifController,
+                isDouble: true,
+                onChanged: (val) {
+                  // this is the champs must be changed  we can take juste 70%
+
+                  model.informationClient["revenue_anuelle_du_proprietaire_2"] =
+                      val;
+                  calculRvnAnetCreditduprop2();
+                  CalculRevenueAnnuelETCpaciteMaximal(context);
+                }),
+          ),
+                     ),
+
+
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -402,7 +434,7 @@ class _FormRevenuNetmensuelDeCreditState
     } else {
       revenuePAnnuelController.text =
           (int.parse(revenueNetDeCreditP1Controller.text ?? "0") +
-                  int.parse(revenueNetDeCreditP1Controller.text ?? "0"))
+                  int.parse(revenueNetDeCreditP2Controller.text ?? "0"))
               .toString();
 
       capaciteMaximalRemboursementMensuelController.text =
@@ -444,7 +476,7 @@ class _FormRevenuNetmensuelDeCreditState
     }
     revenueNetDeCreditP2Controller.text = ((int.parse(revenueP2Controller.text) 
     -
-            int.parse(chargeAnunelleDeCreditEnCoursDuP2Controller.text) ) + ( int.parse( revenueP1LocatifController.text ) * 0.7 ).round())
+            int.parse(chargeAnunelleDeCreditEnCoursDuP2Controller.text) ) + ( int.parse( revenueP2LocatifController.text ) * 0.7 ).round())
         .toString();
   }
 

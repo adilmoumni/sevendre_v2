@@ -148,8 +148,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 width: widthTextField,
                 // controller: controlle1,
                 controller: montantCreditBancaireDemandecontroller,
-                labelField: "Montant du crédit bancaire demandé",
-                helperText: "Montant du crédit bancaire demandé",
+                labelField: "Montant du crédit bancaire demandé*",
                 validator: model.validatorTextFieldisDouble,
                 isDouble: true,
                 // isDouble: true,
@@ -171,7 +170,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                       left: 8,
                     ),
                     child: Text(
-                      "Durée de remboursement (ans)",
+                      "Durée de remboursement du crédit bancaire (années)",
                       style: TextStyle(
                           fontFamily: "Neometric",
                           color: Color(0xFF57565e),
@@ -331,8 +330,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 controller: tauxDinteretMoyencontrolle,
                 width: widthTextField,
                 // validator: model.validatorTextFieldisDouble,
-                labelField: "Taux d'intérêt du crédit-immobilier en %",
-                helperText: "Taux d'intérêt du crédit-immobilier en %",
+                labelField: "Taux d’intérêt du crédit-immobilier en %",
                 isDouble: true,
                 enabled: false,
 
@@ -350,9 +348,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 controller: taux_de_lassurance_emprunteur_assure_1_quotite,
                 width: widthTextField,
                 labelField:
-                    "Taux de l'assurance emprunteur assuré 1 quotité 100%",
-                helperText:
-                    "Taux de l'assurance emprunteur assuré 1 quotité 100%",
+                    "Taux de l’assurance emprunteur assuré 1 (quotité 100%)",
                 isDouble: true,
                 enabled: true,
 
@@ -373,9 +369,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                   controller: taux_de_lassurance_emprunteur_assure_2_quotite,
                   width: widthTextField,
                   labelField:
-                      "Taux de l'assurance emprunteur assuré 2 quotité 100%",
-                  helperText:
-                      "Taux de l'assurance emprunteur assuré 2 quotité 100%",
+                      "Taux de l’assurance emprunteur assuré 2 (quotité 100%)",
                   isDouble: true,
                   enabled: true,
                   onChanged: (val) {
