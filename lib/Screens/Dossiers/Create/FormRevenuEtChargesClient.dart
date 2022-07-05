@@ -149,7 +149,7 @@ class _FormFormRevenuEtChargesClientState
   Widget build(BuildContext context) {
     var model = Provider.of<ProviderSM>(context);
 
-    model.client1['is_seconde_useer_selected'] = isSecondSelected;
+    // model.client1['is_seconde_useer_selected'] = isSecondSelected;
     
     
     return Form(
@@ -316,14 +316,27 @@ class _FormFormRevenuEtChargesClientState
                 ),
               ),
 
+              Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFieldHelper2(
+                              controller: codePostalController,
+                              width: widthTextField,
+                              labelText: "Code postal du bien",
+                              labelField: "Code postal du bien",
+                              validator: model.validatorTextFieldisDouble,
+                              isDouble: true,
+                              onChanged: (val) {
+                                model.informationClient["code_postal"] = val;
+                              }),
+                        ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFieldHelper2(
                     controller: valeurDuBienEstimeParClientController,
                     width: widthTextField,
-                    labelText: "Valeur du bien estimée par le client",
-                    labelField: "Valeur du bien estimée par le client",
+                    labelText: "Valeur du bien estimée par le client*",
+                    labelField: "Valeur du bien estimée par le client*",
                     validator: model.validatorTextFieldisDouble,
                     isDouble: true,
                     onChanged: (val) {
@@ -352,6 +365,8 @@ class _FormFormRevenuEtChargesClientState
 
                     }),
               ),
+
+         
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -538,17 +553,11 @@ class _FormFormRevenuEtChargesClientState
                           val;
                     }),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: TextFieldHelper2(
-              //     width: widthTextField,
-              //     controller: taxeFonciereController,
-              //     labelField: "Grosse réparation prévisible",
-              //     helperText: "Grosse réparation prévisible",
-              //     validator: model.validatorTextFieldisDouble,
-              //     isDouble: true,
-              //   ),
-              // ),
+
+                  
+          
+
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -556,7 +565,7 @@ class _FormFormRevenuEtChargesClientState
                     Column(
                       children: [
                         Text(
-                          "Grosse réparation prévisible",
+                          "Grosse réparation prévisible**",
                           style: TextStyle(
                               fontFamily: "Neometric",
                               color: Color(0xFF57565e),
@@ -822,10 +831,182 @@ class _FormFormRevenuEtChargesClientState
                         ),
                       ),
                     )
+
+                
                   ],
                 ),
               ),
-            ],
+            
+
+                              Visibility(
+                                visible: false,
+                                child: Container(
+                width: widthTextField,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 28,
+                      ),
+                      child: Text(
+                        "* L’estimation de votre bien immobilier sera réévaluée par des professionnels, elle peut être déterminée à titre provisoire via l’application disponible sur le site www.meilleursagents.com leader de l’estimation immobilière en ligne.",
+                        style: TextStyle(
+                            fontFamily: "Neometric",
+                            color: Color(0xFF57565e),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w200),
+                      ),
+                ), 
+
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 28,
+                      ),
+                      child: Text(
+                        "** Ravalement de façade, remise aux normes énergétiques, climatisation, plomberie etc ",
+                        style: TextStyle(
+                            fontFamily: "Neometric",
+                            color: Color(0xFF57565e),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w200),
+                      ),
+                ), 
+
+
+                
+
+
+                
+                
+                
+                 ],
+                ),
+              ),
+                              ),
+          
+            
+
+
+                  Container(
+                    width: widthTextField,
+                    child: Column(children: [
+                      Text('* Veuillez renseigner à titre provisoire la valeur de votre bien telle qu’elle vous apparaît la mieux correspondre à sa valeur de marché en cas de vente à un tiers dans l’attente de l’évaluation qui sera faite par un expert immobilier. Vous pouvez solliciter à cet effet une évaluation approximative par un agent immobilier à proximité. ',
+                       style: TextStyle(
+                        fontSize: 12
+
+                      ),),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('\n** Veuillez renseigner les grosses réparations vous apparaissant prévisibles pendant la durée du crédit immobilier devant être sollicité : ravalement de façade, remise en état de la toiture, remplacement du chauffage, mise aux normes de performance énergétique, etc...',style: TextStyle(
+                          fontSize: 12
+                        ),textAlign: TextAlign.start,),
+                      ),
+
+                    ],)
+
+                  )
+              
+              
+              ,
+
+
+              Padding(
+                padding: const EdgeInsets.only(top:30.0, bottom: 20),
+                child: Text(
+                                                                "Information relative au projet",
+                                                                style: TextStyle(
+                                                                    fontSize: 30,
+                                                                    color: Color(
+                                                                        0xFF045258),
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+              ),
+              Container(
+                width: widthTextField,
+                padding:EdgeInsets.only(top:20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 28,
+                      ),
+                      child: Text(
+                        "Vente à soi-même suivie d’une location à soi-même*",
+                        style: TextStyle(
+                            fontFamily: "Neometric",
+                            color: Color(0xFF57565e),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w200),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Radio(
+                                  value: 0,
+                                  groupValue: model.informationClient[
+                                      "vente_a_soi_meme_suivie_dune_location"],
+                                  onChanged: (newValue) => setState(() =>
+                                      model.informationClient[
+                                          "vente_a_soi_meme_suivie_dune_location"] = newValue),
+                                  activeColor: Color(0xFF06464b),
+                                ),
+                                Text('Oui'),
+                              ]),
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Radio(
+                                value: 1,
+                                groupValue: model
+                                    .informationClient["vente_a_soi_meme_suivie_dune_location"],
+                                onChanged: (newValue) => setState(() =>
+                                    model.informationClient[
+                                        "vente_a_soi_meme_suivie_dune_location"] = newValue),
+                                activeColor: Color(0xFF06464b),
+                              ),
+                              Text('Non'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+
+
+  Container(
+                    width: widthTextField,
+                    child: Column(children: [
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('\n* Veuillez renseigner l’option que vous envisagez dans le prolongement de votre vente à soi-même, entre une location à vous-même du bien pour en conserver la jouissance moyennant le paiement d’un loyer par vous-même, ou la location à un tiers (longue durée, saisonnière ou touristique) ne donnant pas lieu au paiement d’un loyer par vous-même.',style: TextStyle(
+                          fontSize: 12
+                        ),textAlign: TextAlign.start,),
+                      ),
+
+                    ],)
+
+                  )
+
+                ],
           ),
         ],
       ),

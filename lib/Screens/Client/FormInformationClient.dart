@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:flutter/scheduler.dart';
+import 'package:plan_de_financement/Screens/Dossiers/Create/FormsScreen.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/AppbarWidget.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/ButtonWidgetHelper.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/TextFieldWidget2.dart';
@@ -370,10 +371,13 @@ class _FormClientState extends State<FormClient> {
                                       btnOkText: checkwidth 
                                          ?"": "Annuler",
                                       btnCancelText:checkwidth 
-                                         ?"": "dashboard",
+                                         ? "" : "Retour",
                                       btnCancelOnPress: () {
-                                        Navigator.pushNamed(
-                                            context, '/clients');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    StepperScreen()));
                                         // Navigator.pushNamed(context, '/TableauDeBoard');
                                       },
                                       btnOkIcon: Icons.save,

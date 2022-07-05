@@ -19,12 +19,6 @@ class _FormRevenuNetmensuelDeCreditState
     extends State<FormRevenuNetmensuelDeCredit> {
   double widthTextField = 600;
   bool check = false;
-  Future getUserCheck() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      check = prefs.getBool("check");
-    });
-  }
 
 //-----------------------Controller Text --------------------------------
 
@@ -47,11 +41,19 @@ class _FormRevenuNetmensuelDeCreditState
       TextEditingController();
   TextEditingController revenuAnnuelleGlobalNetController =
       TextEditingController();
+
+
+        TextEditingController codePostalDuDomicileProprietaire =
+      TextEditingController();
+ TextEditingController ageDuPro1Controller =
+      TextEditingController(); TextEditingController ageDuPro2Controller =
+      TextEditingController();
+    
+      bool isSecondeUserChecked =  false;
 //-----------------------Controller Text --------------------------------
 
   @override
   void initState() {
-    getUserCheck();
     final model = Provider.of<ProviderSM>(context, listen: false);
     revenueP1Controller.text =
         model.informationClient["revenue_anuelle_du_proprietaire_1"];
@@ -59,10 +61,6 @@ class _FormRevenuNetmensuelDeCreditState
         model.informationClient["revenue_anuelle_du_proprietaire_2"];
     revenueNetDeCreditP1Controller.text = model.informationClient[
         "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"];
-
-        print('================= ');
-        print( model.informationClient[
-        "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"]);
     revenueNetDeCreditP2Controller.text = model.informationClient[
         "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"];
     chargeAnunelleDeCreditEnCoursDuP2Controller.text = model.informationClient[
@@ -81,6 +79,13 @@ class _FormRevenuNetmensuelDeCreditState
     model.informationClient["revenu_annuel_global_net"] =
         revenuePAnnuelController.text;
 
+    codePostalDuDomicileProprietaire.text =  model.informationClient["code_postal_du_domicile_proprietaire"];
+    
+     ageDuPro1Controller.text =  model.informationClient["age_du_propriétaire"];
+     ageDuPro2Controller.text =  model.informationClient["age_du_propriétaire_2"];
+
+
+    isSecondeUserChecked =  model.informationClient['isSecondeUserChecked'];      
     revenuePAnnuelController.addListener(() => _printLatestValue1(model));
     revenueNetDeCreditP1Controller.addListener(() => _printLatestValue2(model));
     revenueNetDeCreditP2Controller.addListener(() => _printLatestValue3(model));
@@ -101,6 +106,76 @@ class _FormRevenuNetmensuelDeCreditState
         crossAxisAlignment: CrossAxisAlignment.center,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                width: widthTextField,
+                labelField:
+                    "Code postal du domicile propriétaire(s)",
+                validator: model.validatorTextFieldString,
+                controller: codePostalDuDomicileProprietaire,
+                onChanged: (val) {
+                  model.informationClient["code_postal_du_domicile_proprietaire"] =
+                      val;
+              
+                }),
+          ),
+
+          Container(
+            width: widthTextField,
+            padding: EdgeInsets.only(left: 21,  bottom: 21),
+            child: Row(children: [
+              Checkbox(value: isSecondeUserChecked, onChanged: (val){
+                setState(() {
+                  model.informationClient['isSecondeUserChecked'] = val;
+                  isSecondeUserChecked = val;
+                });
+
+              }),
+              Text('Ajouter un co-propriétaire (option)'),
+            ],)
+          ),
+
+
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldHelper2(
+                    width: widthTextField,
+                    labelField:
+                        "Age du propriétaire",
+                    // helperText: "Entrer Mensualité du crédit",
+                    validator: model.validatorTextFieldString,
+                    controller: ageDuPro1Controller,
+                    isDouble: true,
+                    onChanged: (val) {
+                      model.informationClient["age_du_propriétaire"] =
+                          val;
+
+                    }),
+              ),
+
+               Visibility(
+                visible:isSecondeUserChecked ,
+                 child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFieldHelper2(
+                      width: widthTextField,
+                      labelField:
+                          "Age du propriétaire 2",
+                      // helperText: "Entrer Mensualité du crédit",
+                      validator: model.validatorTextFieldString,
+                      controller: ageDuPro2Controller,
+                      isDouble: true,
+                      onChanged: (val) {
+                        model.informationClient["age_du_propriétaire_2"] =
+                            val;
+
+                      }),
+              ),
+               ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -160,7 +235,7 @@ class _FormRevenuNetmensuelDeCreditState
                   // CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),
           ),
-          model.client1['is_seconde_useer_selected']
+          isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
@@ -183,7 +258,7 @@ class _FormRevenuNetmensuelDeCreditState
                       }),
                 )
               : Container(),
-          model.client1['is_seconde_useer_selected']
+          isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
@@ -225,7 +300,7 @@ class _FormRevenuNetmensuelDeCreditState
                 }),
           ),
 
-          model.client1['is_seconde_useer_selected']
+          isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(

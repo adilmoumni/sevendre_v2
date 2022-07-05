@@ -3,6 +3,7 @@
     "source": "functions"
   },
   "hosting": {
+    "site": "sevendrev2-0",
     "public": "build/web",
     "ignore": [
       "firebase.json",

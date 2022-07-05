@@ -27,10 +27,7 @@ class _FormRemboursementMensuelCreditImmobillierState
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            double.parse(model
-                        .informationClient['remboursement_mensuel_du_credit']) <
-                    double.parse(model.informationClient[
-                        'capacite_maximal_de_rembouresement_mensuel'])
+            true
                 ? "assets/images/validation.png"
                 : "assets/images/refuser.gif",
             height: 300.0,
@@ -42,10 +39,7 @@ class _FormRemboursementMensuelCreditImmobillierState
             padding: const EdgeInsets.all(8.0),
             child: Text(
                 // test == false
-                double.parse(model.informationClient[
-                            'remboursement_mensuel_du_credit']) <
-                        double.parse(model.informationClient[
-                            'capacite_maximal_de_rembouresement_mensuel'])
+                true
                     ? "Félicitation votre crédit est possible"
                     : "veuillez modifier les informations du crédit immobilier",
                 style: TextStyle(

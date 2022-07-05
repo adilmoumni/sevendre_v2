@@ -497,7 +497,7 @@ class ScreenPdfNew extends StatelessWidget {
                 value_table.montant_assurance_proprietaire_1),
 
             isSecondClientSelect
-                ? depenses("Assurance du prêt associé 1", start, lenght,
+                ? depenses("Assurance du prêt associé 2", start, lenght,
                 value_table.montant_assurance_proprietaire_2)
                 : pw.TableRow(children: []),
 
@@ -1384,7 +1384,7 @@ class ScreenPdfNew extends StatelessWidget {
                             mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
                             children: [
                               pw.Text(
-                                "Date",
+                                "",
                                 style: pw.TextStyle(
                                   font: font,
                                   color: PdfColor.fromHex('#3f5e59'),
@@ -1392,15 +1392,15 @@ class ScreenPdfNew extends StatelessWidget {
                                 ),
                               ),
                               pw.Text(
-                                "Mention « lu et approuvé »",
+                                "Projet",
                                 style: pw.TextStyle(
                                   font: font,
                                   color: PdfColor.fromHex('#3f5e59'),
-                                  fontSize: 6,
+                                  fontSize: 30,
                                 ),
                               ),
                               pw.Text(
-                                "Signature",
+                                "",
                                 style: pw.TextStyle(
                                   font: font,
                                   color: PdfColor.fromHex('#3f5e59'),
@@ -1557,7 +1557,7 @@ class ScreenPdfNew extends StatelessWidget {
                     mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
                     children: [
                       pw.Text(
-                        "Date",
+                        "",
                         style: pw.TextStyle(
                           font: font,
                           color: PdfColor.fromHex('#3f5e59'),
@@ -1565,19 +1565,19 @@ class ScreenPdfNew extends StatelessWidget {
                         ),
                       ),
                       pw.Text(
-                        "Mention « lu et approuvé »",
+                        "Projet",
                         style: pw.TextStyle(
                           font: font,
                           color: PdfColor.fromHex('#3f5e59'),
-                          fontSize: 6,
+                          fontSize: 30,
                         ),
                       ),
                       pw.Text(
-                        "Signature",
+                        "",
                         style: pw.TextStyle(
                           font: font,
                           color: PdfColor.fromHex('#3f5e59'),
-                          fontSize: 6,
+                            fontSize: 12
                         ),
                       ),
                     ],
@@ -1738,7 +1738,7 @@ class ScreenPdfNew extends StatelessWidget {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
                       children: [
                         pw.Text(
-                          "Date",
+                          "",
                           style: pw.TextStyle(
                             font: font,
                             color: PdfColor.fromHex('#3f5e59'),
@@ -1746,15 +1746,15 @@ class ScreenPdfNew extends StatelessWidget {
                           ),
                         ),
                         pw.Text(
-                          "Mention « lu et approuvé »",
+                          "Projet",
                           style: pw.TextStyle(
                             font: font,
                             color: PdfColor.fromHex('#3f5e59'),
-                            fontSize: 6,
+                            fontSize: 30,
                           ),
                         ),
                         pw.Text(
-                          "Signature",
+                          "",
                           style: pw.TextStyle(
                             font: font,
                             color: PdfColor.fromHex('#3f5e59'),

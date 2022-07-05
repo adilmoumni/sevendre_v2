@@ -14,10 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'FormChargesMensuel.dart';
 import 'FormEvaluationFinaciere.dart';
+import 'FormPage4.dart';
 import 'FormRemboursementMensuelCreditImmobillier.dart';
 import 'FormRevenuEtChargesClient.dart';
 import 'FormRevenuNetmesuelDeCredit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'FormYourAccount.dart';
 
 class StepperScreen extends StatefulWidget {
   String uidClient = "";
@@ -43,9 +46,11 @@ class _StepperScreenState extends State<StepperScreen> {
 
   List<Widget> formsScreens = [];
   List<String> formsNameScreens = [
-    "Informations sur le bien",
-    "Évaluation des revenus des client",
-    "Financement envisagé",
+    "Informations relatives au bien immobilier",
+    "Informations relatives au(x) propriétaire(s)",
+    "Financement envisagé ",
+    'La vente à soi-même en trois chiffres clés ',
+    'TELECHARGER',
     "Validation du crédit immobilier",
   ];
   ScrollController controller;
@@ -55,13 +60,20 @@ class _StepperScreenState extends State<StepperScreen> {
   void initState() {
     getUserCheck();
     formsScreens = [
-      FormRevenuEtChargesClient(
-          modification: widget.modification, modifier: widget.modifier),
-      FormRevenuNetmensuelDeCredit(nombreCliet :widget.nombreCliet), //completed
+
+
+            FormRevenuEtChargesClient(
+          modification: widget.modification, modifier: widget.modifier),  
+          
+              FormRevenuNetmensuelDeCredit(nombreCliet :widget.nombreCliet), //completed
+
       FormEvaluationFinaciere(),
 
+      FormPage4(),
+      FormYourAccount(),
       FormRemboursementMensuelCreditImmobillier(),
-
+      
+    
     ];
     super.initState();
     
@@ -218,12 +230,15 @@ class _StepperScreenState extends State<StepperScreen> {
                                                                   btnOkText:checkwidth ?'':
                                                                       "Annuler",
                                                                   btnCancelText:checkwidth ?''
-                                                                     : "dashboard",
+                                                                     : "Retour",
                                                                   btnCancelOnPress:
                                                                       () {
-                                                                    Navigator.pushNamed(
-                                                                        context,
-                                                                        '/clients');
+                                                                    Navigator.push(
+                                                                        context,   MaterialPageRoute(
+                                    builder: (context) => StepperScreen(
+                                   
+                                
+                                        )));
                                                                     // Navigator.pushNamed(context, '/TableauDeBoard');
                                                                   },
                                                                 

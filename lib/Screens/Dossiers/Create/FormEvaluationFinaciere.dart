@@ -23,27 +23,24 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
   Future getUserCheck(ProviderSM model) async {
     if (model.informationClient['uidClient'].toString().isEmpty) {
     } else {
-      DocumentSnapshot<Object> docSnap =
-          await getUserByUID(model.informationClient['uidClient']);
 
       String ageClient1 =
-          getPercentParApportAlage(int.parse(docSnap['DateNaissance']))
+          getPercentParApportAlage(int.parse(model.informationClient['age_du_propriétaire']))
               .toString();
 
-      print('=========ageClient1');
-      print(ageClient1);
+      
 
       model.informationClient[
           "taux_de_lassurance_emprunteur_assure_1_quotite"] = ageClient1;
       taux_de_lassurance_emprunteur_assure_1_quotite.text = ageClient1;
-      if (docSnap['DateNaissance2'].toString().isNotEmpty) {
+      if (model.informationClient['isSecondeUserChecked']) {
         setState(() {
           check = true;
         });
 
 
         String ageClient2 =
-            getPercentParApportAlage(int.parse(docSnap['DateNaissance2']))
+            getPercentParApportAlage(int.parse(model.informationClient['age_du_propriétaire_2']))
                 .toString();
         taux_de_lassurance_emprunteur_assure_2_quotite.text = ageClient2;
 
@@ -369,7 +366,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
           ),
 
           Visibility(
-            visible: model.client1['is_seconde_useer_selected'],
+            visible: model.informationClient['isSecondeUserChecked'],
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFieldHelper2(
@@ -389,6 +386,22 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                   }),
             ),
           ),
+
+
+          Container(
+                    width: widthTextField,
+                    child: Column(children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('*Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier. Il peut aussi être inférieur à la valeur du bien immobilier, le différentiel entre le prix de vente et le montant du crédit bancaire demandé si il est inférieur sera remboursé IN FINE par la société au(x) propriétaire(s) lorsque celle-ci aura fini de rembourser le crédit-bancaire.  ',style: TextStyle(
+                          fontSize: 12
+                        ),textAlign: TextAlign.start,),
+                      ),
+                
+
+                    ],)
+
+                  )
 
         ],
       ),

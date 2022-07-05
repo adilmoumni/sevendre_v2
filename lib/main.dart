@@ -90,18 +90,7 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: () => MaterialApp(
-        routes: {
-          '/folder/1': (context) => StepperScreen(),
-          '/forgetPassword': (context) => const ForgetPasswordScreen(),
-          '/Login': (context) => LoginScreens(),
-          '/TableauDeBoard': (context) => const ListDesClient(),
-          '/client/add': (context) => FormInformationClient(),
-          '/clients': (context) => ListDesClient(),
-          '/profile': (context) => ProfileClient(),
-          // '/ListDesDossiers': (context) => ListDesDossiers(),
-          '/CommencerLaSumilation': (context) => CommencerLaSumilation(),
-          //  MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
-        },
+        routes: {},
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         // supportedLocales: [const Locale('fr')],
         title: 'PREVISIONNEL - SVASM',
@@ -115,8 +104,8 @@ class _MyAppState extends State<MyApp> {
         ),
 
         debugShowCheckedModeBanner: false,
-        initialRoute: uid == null ? '/Login' : '/CommencerLaSumilation',
-        // home: ScreenPdfNew({}, {}),
+
+        home:StepperScreen(),
         // onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );

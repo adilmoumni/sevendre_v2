@@ -30,7 +30,6 @@ class ProviderSM extends ChangeNotifier {
         doc['tauxInternetBancaire'].toString();
     informationClient['impotSurLesSocieteDeuxiemValue'] =
         doc['impotSurLesSocieteDeuxiemValue'].toString();
-
     informationClient['tauxFraisDeNotaire'] =
         doc['tauxFraisDeNotaire'].toString();
 
@@ -154,6 +153,7 @@ class ProviderSM extends ChangeNotifier {
   String anneesPardefaut = "";
 //---------------- dossier ------------------------------
   var informationClient = {
+    "isSecondeUserChecked": false,
     "uidClient": "",
     "created_at": DateTime.now(),
     'status': 'noSign',
@@ -170,6 +170,7 @@ class ProviderSM extends ChangeNotifier {
     "charge_De_Cropo_Entretien": "",
     "reparation": [],
 
+    "vente_a_soi_meme_suivie_dune_location": 1,
     'loyer_annule_infor': '',
 
     //------------------2----------------------
@@ -202,7 +203,7 @@ class ProviderSM extends ChangeNotifier {
     "Honoraire_se_vendre_a_asoi-meme": "",
 
 
-    'taux_de_lassurance_emprunteur_assure_1_quotite': '',
+    'taux_de_lassurance_emprunteur_assure_1_quotite': '10',
     'taux_de_lassurance_emprunteur_assure_2_quotite': '100',
 
     // -------------------- affichage ------------------
@@ -428,7 +429,14 @@ class ProviderSM extends ChangeNotifier {
 
     double fraisDeBank = 100;
     double fraisDePTT = 100;
+
+  
     double fraisImmo = 600;
+
+      if(informationClient[
+                                      "vente_a_soi_meme_suivie_dune_location"] == 0 ){
+                                          fraisImmo = 0;
+                                      }
 
     double fraisDeBankAnneUne = fraisDeBank;
     double fraisDePTTAnneUne = fraisDePTT;
@@ -484,7 +492,7 @@ class ProviderSM extends ChangeNotifier {
 
 
           try {
-            if (client1['is_seconde_useer_selected']) {
+            if (informationClient['isSecondeUserChecked']) {
               calcuTauxDassurance_client2 = nouvelMontantCredi *
                   double.parse(informationClient[
                       'taux_de_lassurance_emprunteur_assure_2_quotite']) /
@@ -774,7 +782,12 @@ class ProviderSM extends ChangeNotifier {
             int.parse(informationClient['Année de construction']) + 15;
 
         if (anneDeConstruction < DateTime.now().year + i) {
-          crl = loyerAnnuel * 2.5 / 100;
+            crl = loyerAnnuel * 2.5 / 100;
+               if(informationClient[
+                                      "vente_a_soi_meme_suivie_dune_location"] == 0 ){
+                                          crl = 0;
+                                      }
+        
           totalDesDepense += crl;
           totalDesChargeDeductibleSom += crl;
         }
@@ -1013,8 +1026,17 @@ class ProviderSM extends ChangeNotifier {
 
         ( calculChargeMen).round().toString();
 
-informationClient['cumuleMoyenLoyer'] = (cumuleMoyenLoyer  / 12 / int.parse(
-        informationClient["duree_de_remboursement"]) ).round().toString();
+
+
+ if(informationClient[
+                                      "vente_a_soi_meme_suivie_dune_location"] == 1 ){
+                                        informationClient['cumuleMoyenLoyer'] = '0';
+                                      }
+                                      else {
+          informationClient['cumuleMoyenLoyer'] = (cumuleMoyenLoyer  / 12 / int.parse(
+                  informationClient["duree_de_remboursement"]) ).round().toString();
+                                      }
+
 
     var apple_de_tresosire_sci = (double.parse(
             informationClient['CHARGE_MENSUELLE_PENDANT_LA_DUREE_DU_CREDIT']) -
