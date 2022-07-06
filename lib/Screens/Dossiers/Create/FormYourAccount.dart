@@ -143,7 +143,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       width: widthTextField,
                       controller: numeroTelController,
                       labelField: "TELEPHONE PORTABLE",
-                      hintText: '+33 6 11 22 33 44',
+                      hintText: '+33611223344',
                       validator: model.validatorTextFieldString,
                       isText: true,
                       onChanged: (val) {
@@ -163,7 +163,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
                 onChanged: (e) {},
                 width: widthTextField,
                 controller: validatinSmsController,
-                labelField: "Varification sms",
+                labelField: "Vérification  sms",
                 validator: model.validatorTextFieldTelephone,
                 isDouble: true,
               ),
@@ -325,6 +325,8 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       UserCredential userCredential = await confirmationResult
                           .confirm(validatinSmsController.text);
 
+                      model.informationClient['uidClient'] = userCredential.user.uid;
+
                       model.nextSteppe();
 
                       print(userCredential);
@@ -351,6 +353,8 @@ class _FormYourAccountState extends State<FormYourAccount> {
                         isNumberPhoneInVerification = true;
                       });
                     } catch (e) {
+
+
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
                               "une erreur s'est produite, veuillez vérifier votre numéro de téléphone")));

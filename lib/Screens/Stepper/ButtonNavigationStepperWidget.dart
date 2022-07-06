@@ -64,7 +64,7 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
 
     void addDossier() {
       FirebaseFirestore.instance
-          .collection('dossiers')
+          .collection('dossiers-v2')
           .add(model.informationClient)
           .then((value) {
 
@@ -245,6 +245,9 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                         width: 200,
                         height: 40.0,
                         onTap: () async {
+
+                          print('===================== this is etap');
+                          print(model.steppe);
                           
                           if (widget.modifier == true) {
                           } else {
@@ -261,6 +264,20 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
 
 
                           if (model.formKey.currentState.validate()) {
+
+                            if(model.steppe == 2 ){
+
+                                  double montantDuCredit = double.parse( model.informationClient['montant_du_credit_bancaire_demande']);
+                                  double valDuBien = double.parse(model.informationClient["valeur_du_bien_estimee_par_le_client"]);
+
+                                  if(montantDuCredit > valDuBien){
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier.')));
+                                    return;
+
+                                  }
+                                }
+
+                                
                             var i = model.steppe + 2;
                             html.window.history
                                 .pushState(null, "Home", "/#/folder/$i");
@@ -271,6 +288,8 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                                 ? model.informationClient["reparation"] =
                                     model.lisGrosseReparation
                                 : print("!!");
+
+                                
                             model.steppe == 3
                                 ? model.mensualiteDucredit_calculer()
                                 : print("pas de calcul");

@@ -53,7 +53,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
   getPercentParApportAlage(int age) {
     if (age < 30) {
       return 0.15;
-    } else if (age >= 31 && age < 36) {
+    } else if (age >= 30 && age < 36) {
       return 0.22;
     } else if (age >= 36 && age < 41) {
       return 0.38;

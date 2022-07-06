@@ -177,7 +177,7 @@ class ProviderSM extends ChangeNotifier {
     "revenue_anuelle_du_proprietaire_1": "",
 
     "charges_annuelle_de_credit_en_cours_du_proprieteire_1": "",
-    "revenue_anuelle_du_proprietaire_2": "",
+    "revenue_anuelle_du_proprietaire_2": "0",
     "charges_annuelle_de_credit_en_cours_du_proprieteire_2": "",
     "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1": "",
     "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2": "",
@@ -485,7 +485,8 @@ class ProviderSM extends ChangeNotifier {
 
 
         if (i <= annneCredit) {
-          calcuTauxDassurance_client1 = nouvelMontantCredi *
+          calcuTauxDassurance_client1 = double.parse(
+                  informationClient['montant_du_credit_bancaire_demande']) *
               double.parse(informationClient[
                   'taux_de_lassurance_emprunteur_assure_1_quotite']) /
               100;
@@ -493,7 +494,8 @@ class ProviderSM extends ChangeNotifier {
 
           try {
             if (informationClient['isSecondeUserChecked']) {
-              calcuTauxDassurance_client2 = nouvelMontantCredi *
+              calcuTauxDassurance_client2 = double.parse(
+                      informationClient['montant_du_credit_bancaire_demande']) *
                   double.parse(informationClient[
                       'taux_de_lassurance_emprunteur_assure_2_quotite']) /
                   100;

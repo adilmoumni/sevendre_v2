@@ -89,7 +89,7 @@ class _FormRevenuNetmensuelDeCreditState
      ageDuPro1Controller.text =  model.informationClient["age_du_propriétaire"];
      ageDuPro2Controller.text =  model.informationClient["age_du_propriétaire_2"];
 
-     
+
     revenueP2LocatifController.text  = 
                   model.informationClient["revenue_anuelle_du_proprietaire_2"];
 
@@ -121,7 +121,7 @@ class _FormRevenuNetmensuelDeCreditState
             child: TextFieldHelper2(
                 width: widthTextField,
                 labelField:
-                    "Code postal du domicile propriétaire(s)",
+                    "Code postal du domicile du(des) propriétaire(s)*",
                 validator: model.validatorTextFieldString,
                 controller: codePostalDuDomicileProprietaire,
                 onChanged: (val) {
@@ -171,7 +171,7 @@ class _FormRevenuNetmensuelDeCreditState
                   child: TextFieldHelper2(
                       width: widthTextField,
                       labelField:
-                          "Age du propriétaire 2",
+                          "Age du co-propriétaire",
                       // helperText: "Entrer Mensualité du crédit",
                       validator: model.validatorTextFieldString,
                       controller: ageDuPro2Controller,
@@ -189,7 +189,7 @@ class _FormRevenuNetmensuelDeCreditState
             child: TextFieldHelper2(
                 width: widthTextField,
                 labelField:
-                    "Revenus annuels de l'associé 1 (Travail, Retraite, Pension hors revenus locatifs)",
+                    "Revenus annuels hors revenus locatifs du propriétaire (salaire, honoraires, pension(s), etc)",
                 // helperText: "Entrer Mensualité du crédit",
                 validator: model.validatorTextFieldString,
                 controller: revenueP1Controller,
@@ -205,7 +205,7 @@ class _FormRevenuNetmensuelDeCreditState
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField: "Revenus annuels (locatifs) de l'associé 1",
+                labelField: "Revenus annuels locatifs du propriétaire",
                 // helperText: "Entrer Mensualité du crédit",
                 validator: model.validatorTextFieldString,
                 controller: revenueP1LocatifController,
@@ -225,9 +225,7 @@ class _FormRevenuNetmensuelDeCreditState
             child: TextFieldHelper2(
                 width: widthTextField,
                 labelField:
-                    "Charges annuelles de crédit en cours de l'associé 1",
-                helperText:
-                    "Charges annuelles de crédit en cours de l'associé 1",
+                    "Charges annuelles de crédit en cours du propriétaire",
                 validator: model.validatorTextFieldString,
                 controller: chargeAnunelleDeCreditEnCoursDu1Controller,
                 isDouble: true,
@@ -243,13 +241,35 @@ class _FormRevenuNetmensuelDeCreditState
                   // CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),
           ),
+
+            Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                // isInt: true,
+                width: widthTextField,
+                labelField:
+                    "Revenus annuel net de crédit en cours du propriétaire",
+                // validator: model.validatorTextFieldisDouble,//automatik
+                controller: revenueNetDeCreditP1Controller,
+                isDouble: true,
+                enabled: true,
+                onChanged: (val) {
+                  model.informationClient[
+                          "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] =
+                      val;
+                  CalculRevenueAnnuelETCpaciteMaximal(context);
+                }),
+          ),
+
+
+
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
                       width: widthTextField,
                       labelField:
-                          "Revenus annuels de l'associé 2 (Travail, Retraite, Pension hors revenus locatifs)",
+                          "Revenus annuels du co-propriétaire (Travail, Retraite, Pension(s) hors revenus locatifs)",
                       // helperText: "Entrer Mensualité du crédit",
                       validator: model.validatorTextFieldString,
                       controller: revenueP2Controller,
@@ -273,7 +293,7 @@ class _FormRevenuNetmensuelDeCreditState
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField: "Revenus annuels (locatifs) de l'associé 2",
+                labelField: "Revenus annuels locatifs du co-propriétaire",
                 // helperText: "Entrer Mensualité du crédit",
                 validator: model.validatorTextFieldString,
                 controller: revenueP2LocatifController,
@@ -296,9 +316,7 @@ class _FormRevenuNetmensuelDeCreditState
                   child: TextFieldHelper2(
                       width: widthTextField,
                       labelField:
-                          "Charges annuelles de crédit en cours de l'associé 2",
-                      helperText:
-                          "Charges annuelles de crédit en cours de l'associé 2",
+                          "Charges annuelles de crédit en cours du co-propriétaire",
                       validator: model.validatorTextFieldString,
                       controller: chargeAnunelleDeCreditEnCoursDuP2Controller,
                       isDouble: true,
@@ -311,27 +329,7 @@ class _FormRevenuNetmensuelDeCreditState
                       }),
                 )
               : Container(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFieldHelper2(
-                // isInt: true,
-                width: widthTextField,
-                labelField:
-                    "Revenu annuel net de crédit en cours de l'associé 1",
-                helperText:
-                    "Revenu annuelles net de crédit en cours de l'associé 1",
-                // validator: model.validatorTextFieldisDouble,//automatik
-                controller: revenueNetDeCreditP1Controller,
-                isDouble: true,
-                enabled: true,
-                onChanged: (val) {
-                  model.informationClient[
-                          "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] =
-                      val;
-                  CalculRevenueAnnuelETCpaciteMaximal(context);
-                }),
-          ),
-
+        
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -339,9 +337,7 @@ class _FormRevenuNetmensuelDeCreditState
                     // isInt: true,
                     width: widthTextField,
                     labelField:
-                        "Revenu annuel net de crédit en cours de l'associé 2",
-                    helperText:
-                        "Revenu annuel net de crédit en cours de l'associé 2",
+                        "Revenus annuel net de crédit en cours du co-propriétaire ",
                     // validator: model.validatorTextFieldisDouble,
                     controller: revenueNetDeCreditP2Controller,
                     enabled: true,
@@ -360,8 +356,7 @@ class _FormRevenuNetmensuelDeCreditState
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField: "Revenu annuel net",
-                helperText: "Revenu annuel net",
+                labelField: "Revenus annuel net de crédit en cours des co-propriétaires",
                 // validator: model.validatorTextFieldisDouble,
                 controller: revenuePAnnuelController,
                 isDouble: true,
@@ -478,6 +473,10 @@ class _FormRevenuNetmensuelDeCreditState
     -
             int.parse(chargeAnunelleDeCreditEnCoursDuP2Controller.text) ) + ( int.parse( revenueP2LocatifController.text ) * 0.7 ).round())
         .toString();
+
+      if(revenueP2LocatifController.text == null || revenueP2LocatifController.text.isEmpty){
+        revenueP2LocatifController.text = '0';
+      }
   }
 
   _printLatestValue1(ProviderSM model) {

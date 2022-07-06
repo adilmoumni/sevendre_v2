@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
         routes: {},
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         // supportedLocales: [const Locale('fr')],
-        title: 'PREVISIONNEL - SVASM',
+        title: 'PRÉVISIONNEL - SVASM',
         theme: ThemeData(
           textTheme: GoogleFonts.montserratTextTheme(
             Theme.of(context).textTheme,
