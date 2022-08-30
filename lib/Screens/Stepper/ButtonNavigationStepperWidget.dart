@@ -269,6 +269,29 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
 
                           if (model.formKey.currentState.validate()) {
 
+                        if (model.steppe == 1) {
+                          double age1 = double.parse(
+                              model.informationClient['age_du_propriétaire']);
+                          if (age1 < 18) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    "l'âge du propriétaire doit être supérieur ou égal à 18 ans")));
+                            return;
+                          }
+
+                          if (model.informationClient['isSecondeUserChecked']) {
+                            double age2 = double.parse(model
+                                .informationClient['age_du_propriétaire_2']);
+                            if (age2 < 18) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      "l'âge du co-propriétaire doit être supérieur ou égal à 18 ans")));
+                              return;
+                            }
+                          }
+                        }
+
+
                             if(model.steppe == 2 ){
 
                                   double montantDuCredit = double.parse( model.informationClient['montant_du_credit_bancaire_demande']);
