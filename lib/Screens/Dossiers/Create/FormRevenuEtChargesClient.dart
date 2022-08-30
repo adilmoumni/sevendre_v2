@@ -82,7 +82,7 @@ class _FormFormRevenuEtChargesClientState
       }
 
     model.informationClient["type_de_bien"] =
-        ["Appartements en copropriété", "Maison individuelle", "Terrain"].first;
+        ["Appartement en copropriété", "Maison individuelle", "Terrain"].first;
     codePostalController.text = model.informationClient["code_postal"];
     valeurDuBienEstimeParClientController.text =
         model.informationClient["valeur_du_bien_estimee_par_le_client"];
@@ -299,7 +299,7 @@ class _FormFormRevenuEtChargesClientState
                             showSelectedItem: true,
                             //list of dropdown items
                             items: [
-                              "Appartements en copropriété",
+                              "Appartement en copropriété",
                               "Maison individuelle",
                               "Terrain"
                             ],
@@ -307,7 +307,7 @@ class _FormFormRevenuEtChargesClientState
                             onChanged: (String item) =>
                                 model.informationClient["type_de_bien"] = item,
                             //show selected item
-                            selectedItem: "Appartements en copropriété",
+                            selectedItem: "Appartement en copropriété",
                           ),
                         ),
                       ),
@@ -321,10 +321,9 @@ class _FormFormRevenuEtChargesClientState
                           child: TextFieldHelper2(
                               controller: codePostalController,
                               width: widthTextField,
-                              labelText: "Code postal du bien",
-                              labelField: "Code postal du bien",
-                              validator: model.validatorTextFieldisDouble,
-                              isDouble: true,
+                    labelText: "Code postal du bien",
+                    labelField: "Code postal du bien",
+                    validator: model.validatorTextFieldString,
                               onChanged: (val) {
                                 model.informationClient["code_postal"] = val;
                               }),

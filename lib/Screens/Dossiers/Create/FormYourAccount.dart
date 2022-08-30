@@ -163,7 +163,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
                 onChanged: (e) {},
                 width: widthTextField,
                 controller: validatinSmsController,
-                labelField: "Vérification  sms",
+                labelField: "Vérification sms",
                 validator: model.validatorTextFieldTelephone,
                 isDouble: true,
               ),
@@ -317,7 +317,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
                 ),
               ),
               ButtonWidgetHelper(
-                width: 200,
+                width: isNumberPhoneInVerification ? 140 : 320,
                 height: 40.0,
                 onTap: () async {
                   if (isNumberPhoneInVerification) {
@@ -363,7 +363,9 @@ class _FormYourAccountState extends State<FormYourAccount> {
 
                   // model.nextSteppe();
                 },
-                textButton: "   Crée un compte",
+                textButton: isNumberPhoneInVerification
+                    ? "   Suivant"
+                    : "   Obtenir le prévisionnel pluriannuel",
                 icon: Container(),
               ),
             ],

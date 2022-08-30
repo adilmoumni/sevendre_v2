@@ -196,6 +196,8 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             model.getterSteppe + 1 == widget.maxStepper
                 ? InkWell(
                     onTap: () {
+
+
                       if (model.formKey.currentState.validate()) {
                         if (widget.modifier == true) {
                           updateDossier2(idDossier);
@@ -203,6 +205,8 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                           addDossier();
                         }
                       }
+
+
                       //
                     },
                     child: Container(
