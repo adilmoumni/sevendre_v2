@@ -116,24 +116,9 @@ class _FormRevenuNetmensuelDeCreditState
         children: [
 
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFieldHelper2(
-                width: widthTextField,
-                labelField:
-                    "Code postal du domicile du(des) propriétaire(s)*",
-                validator: model.validatorTextFieldString,
-                controller: codePostalDuDomicileProprietaire,
-                onChanged: (val) {
-                  model.informationClient["code_postal_du_domicile_proprietaire"] =
-                      val;
-              
-                }),
-          ),
-
           Container(
             width: widthTextField,
-            padding: EdgeInsets.only(left: 21,  bottom: 21),
+            padding: EdgeInsets.only(left: 21,  bottom: 21, top: 21),
             child: Row(children: [
               Checkbox(value: isSecondeUserChecked, onChanged: (val){
                 setState(() {
