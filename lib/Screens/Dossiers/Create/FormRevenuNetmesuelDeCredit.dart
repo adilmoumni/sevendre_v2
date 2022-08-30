@@ -22,7 +22,7 @@ class _FormRevenuNetmensuelDeCreditState
 
 //-----------------------Controller Text --------------------------------
 
-  TextEditingController revenueP1Controller = TextEditingController();
+  TextEditingController revenueP1Controller = TextEditingController(text: '0');
   TextEditingController revenueP1LocatifController =
       TextEditingController(text: '0');
 
@@ -30,7 +30,7 @@ class _FormRevenuNetmensuelDeCreditState
       TextEditingController(text: '0');
 
 
-  TextEditingController revenueP2Controller = TextEditingController();
+  TextEditingController revenueP2Controller = TextEditingController(text: '0');
   TextEditingController revenueNetDeCreditP1Controller =
       TextEditingController();
   TextEditingController revenueNetDeCreditP2Controller =
@@ -62,6 +62,10 @@ class _FormRevenuNetmensuelDeCreditState
     final model = Provider.of<ProviderSM>(context, listen: false);
     revenueP1Controller.text =
         model.informationClient["revenue_anuelle_du_proprietaire_1"];
+
+        if(revenueP1Controller.text== '' || revenueP1Controller.text.isEmpty){
+          revenueP1Controller.text = '0';
+        }
     revenueP2Controller.text =
         model.informationClient["revenue_anuelle_du_proprietaire_2"];
     revenueNetDeCreditP1Controller.text = model.informationClient[
