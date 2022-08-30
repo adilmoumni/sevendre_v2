@@ -334,8 +334,10 @@ class _FormFormRevenuEtChargesClientState
                 child: TextFieldHelper2(
                     controller: valeurDuBienEstimeParClientController,
                     width: widthTextField,
-                    labelText: "Valeur du bien estimée par le propriétaire*",
-                    labelField: "Valeur du bien estimée par le propriétaire*",
+                    labelText:
+                        "Valeur du bien estimée par le(s) propriétaire(s)",
+                    labelField:
+                        "Valeur du bien estimée par le(s) propriétaire(s)",
                     validator: model.validatorTextFieldisDouble,
                     isDouble: true,
                     onChanged: (val) {
