@@ -269,7 +269,7 @@ class _FormRevenuNetmensuelDeCreditState
                   child: TextFieldHelper2(
                       width: widthTextField,
                       labelField:
-                          "Revenus annuels du co-propriétaire (Travail, Retraite, Pension(s) hors revenus locatifs)",
+                          "Revenus annuels hors revenus locatifs du co-propriétaire (salaire, honoraires, pension(s), etc)",
                       // helperText: "Entrer Mensualité du crédit",
                       validator: model.validatorTextFieldString,
                       controller: revenueP2Controller,
