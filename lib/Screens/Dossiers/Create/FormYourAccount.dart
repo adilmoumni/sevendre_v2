@@ -1,8 +1,10 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:plan_de_financement/Screens/Client/Dashboard/FormTableauDeBoardScreen.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/ButtonWidgetHelper.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/TextFieldWidget2.dart';
 
@@ -34,6 +36,8 @@ class _FormYourAccountState extends State<FormYourAccount> {
 
   TextEditingController validatinSmsController =
       TextEditingController(text: '');
+
+  bool isWaiting = false;
 
   @override
   void initState() {
@@ -157,18 +161,99 @@ class _FormYourAccountState extends State<FormYourAccount> {
 
           Visibility(
             visible: isNumberPhoneInVerification,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFieldHelper2(
-                onChanged: (e) {},
-                width: widthTextField,
-                controller: validatinSmsController,
-                labelField: "Vérification sms",
-                validator: model.validatorTextFieldTelephone,
-                isDouble: true,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFieldHelper2(
+                    onChanged: (e) {},
+                    width: widthTextField,
+                    controller: validatinSmsController,
+                    labelField: "Vérification sms",
+                    validator: model.validatorTextFieldTelephone,
+                    isDouble: true,
+                  ),
+                ),
+                Visibility(
+                  visible: !isWaiting,
+                  child: ButtonWidgetHelper(
+                    width: 200,
+                    height: 40.0,
+                    onTap: () async {
+                      try {
+                        FirebaseAuth auth = FirebaseAuth.instance;
+
+                        String numberPhone = (model.informationClient[
+                            "NUMERO_DE_TELEPHONE_PORTABLE_CREATION"]);
+
+                        // Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
+                        await auth.verifyPhoneNumber(
+                            phoneNumber: numberPhone,
+                            verificationCompleted: (auth) {},
+                            verificationFailed: (err) {},
+                            codeSent: (val , i) {
+                              print('===================== confirmationResult ======================= ');
+                            },
+                            codeAutoRetrievalTimeout: (val) {});
+
+                        setState(() {
+                          isWaiting = true;
+                        });
+                      } catch (e) {}
+                    },
+                    textButton: "   Renvoyer un SMS",
+                    icon: Container(),
+                  ),
+          
+                ),
+                Visibility(
+                  visible: isWaiting,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 10, bottom: 10),
+                        child: CircularCountDownTimer(
+                          duration: 10,
+                          initialDuration: 0,
+                          width: 30,
+                          height: 30,
+                          ringColor: Colors.grey[300],
+                          ringGradient: null,
+                          fillColor: Colors.greenAccent[100],
+                          fillGradient: null,
+                          backgroundColor: Colors.green[500],
+                          backgroundGradient: null,
+                          strokeWidth: 10.0,
+                          strokeCap: StrokeCap.round,
+                          textStyle: TextStyle(
+                              fontSize: 13.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                          textFormat: CountdownTextFormat.S,
+                          isReverse: false,
+                          isReverseAnimation: false,
+                          isTimerTextShown: true,
+                          autoStart: true,
+                          onComplete: () {
+                            setState(() => isWaiting = false);
+                          },
+                        ),
+                      ),
+                      Text('Renvoyer un code SMS...')
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20)
+              ],
             ),
           ),
+
+
 
           Visibility(
             visible: !isNumberPhoneInVerification,
@@ -351,6 +436,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
 
                       setState(() {
                         isNumberPhoneInVerification = true;
+                        isWaiting = true;
                       });
                     } catch (e) {
 
