@@ -38,6 +38,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
       TextEditingController(text: '');
 
   bool isWaiting = false;
+  
 
   @override
   void initState() {
@@ -183,25 +184,28 @@ class _FormYourAccountState extends State<FormYourAccount> {
                     height: 40.0,
                     onTap: () async {
                       try {
+                        print('================= this si resend');
                         FirebaseAuth auth = FirebaseAuth.instance;
 
                         String numberPhone = (model.informationClient[
                             "NUMERO_DE_TELEPHONE_PORTABLE_CREATION"]);
 
-                        // Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
-                        await auth.verifyPhoneNumber(
-                            phoneNumber: numberPhone,
-                            verificationCompleted: (auth) {},
-                            verificationFailed: (err) {},
-                            codeSent: (val , i) {
-                              print('===================== confirmationResult ======================= ');
-                            },
-                            codeAutoRetrievalTimeout: (val) {});
+                        confirmationResult =
+                            await auth.signInWithPhoneNumber(numberPhone,RecaptchaVerifier(
+  container: 'recaptcha',
+  size: RecaptchaVerifierSize.compact,
+  
+  theme: RecaptchaVerifierTheme.dark,
+) );
+
 
                         setState(() {
                           isWaiting = true;
                         });
-                      } catch (e) {}
+                      } catch (e) {
+                        print(e);
+                        print('err');
+                      }
                     },
                     textButton: "   Renvoyer un SMS",
                     icon: Container(),
