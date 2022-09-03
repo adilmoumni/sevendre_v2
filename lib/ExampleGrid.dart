@@ -22,6 +22,7 @@ class _PageExState extends State<PageEx> {
   }
 
   List<dynamic> codePostal;
+  bool isLoadingCodes = true;
 
   getCodePostal() async {
     String data = await DefaultAssetBundle.of(context)
@@ -29,9 +30,17 @@ class _PageExState extends State<PageEx> {
     final jsonResult = jsonDecode(data); //latest Dart
     setState(() {
       codePostal = jsonResult;
+      isLoadingCodes = true;
+
+      print('================ codePostal[0]');
+      print(codePostal[0]);
+
+      dropdownEditingController = DropdownEditingController(
+          value: "{nom_de_la_commune: VILLE DU PONT, code_postal: 25650}");
     });
   }
 
+  DropdownEditingController dropdownEditingController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,21 +49,55 @@ class _PageExState extends State<PageEx> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            IconButton(
+              onPressed: (){
+                  print(dropdownEditingController.value.toString());
+                  setState(() {
+                  dropdownEditingController.value = "{nom_de_la_commune: VILLERS GRELOT, code_postal: 25640}";  
+                  });
+                  
+              },
+              icon: Icon(Icons.ac_unit_outlined),
+              
+
+            ),
             Container(
               width: widget.width ?? 500,
+              height: 40,
               padding: EdgeInsets.only(left: 20, right: 20),
               child: DropdownFormField<dynamic>(
+                  controller: dropdownEditingController,
                   onEmptyActionPressed: null,
-                  emptyText: 'Aucune correspondance trouvée !',
+                  emptyText: isLoadingCodes
+                      ? 'En attente de données...'
+                      : 'Aucune correspondance trouvée !',
                   emptyActionText: null,
                   decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 10, right: 10),
+                      suffixIcon: Icon(Icons.arrow_drop_down),
+                      fillColor: Colors.white,
+                      filled: true,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0)),
-                      suffixIcon: Icon(Icons.arrow_drop_down)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.7),
+                          borderSide: new BorderSide(width: 1.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Color(0xFFe0d4e4))),
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFe0d4e4))),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFe0d4e4))),
+                      labelStyle: TextStyle(
+                          fontSize: 12,
+                          color: Color.fromRGBO(153, 153, 153, 1))), 
                   onSaved: (dynamic str) {},
                   onChanged: (dynamic str) {
                     print('================== str');
                     print(str);
+                    return str;
                   },
                   displayItemFn: (dynamic item) {
                     String name;
@@ -64,9 +107,11 @@ class _PageExState extends State<PageEx> {
                           ' - ' +
                           item['nom_de_la_commune'];
                     // return text with name
-                    return Text(
-                      name ?? '',
-                      style: TextStyle(fontSize: 16),
+                    return Container(
+                      child: Text(
+                        name ?? '',
+                        style: TextStyle(fontSize: 15),
+                      ),
                     );
                   },
                   findFn: (dynamic str) async => codePostal,
@@ -99,4 +144,12 @@ class _PageExState extends State<PageEx> {
       ),
     );
   }
+}
+
+
+class CodePostal {
+  String nameDeLaComune;
+  String  codePostal;
+
+  CodePostal(this.codePostal, this.nameDeLaComune);
 }
