@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:plan_de_financement/Screens/Login/LoginScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'ExampleGrid.dart';
 import 'Provider/Provider_StateManagemant.dart';
 import 'Screens/Client/FormInformationClient.dart';
 import 'Screens/Client/AgentScreen.dart';
@@ -101,8 +102,8 @@ class _MyAppState extends State<MyApp> {
               primaryColor: Color(0xFF3a6259),
               primarySwatch: createMaterialColor(Color(0xFF3a6259))),
           debugShowCheckedModeBanner: false,
-
-           home:StepperScreen(),
+            home: PageEx(),
+          //  home:StepperScreen(),
           // onGenerateRoute: RouteGenerator.generateRoute,
           ),
     );
