@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -102,8 +103,9 @@ class _MyAppState extends State<MyApp> {
               primaryColor: Color(0xFF3a6259),
               primarySwatch: createMaterialColor(Color(0xFF3a6259))),
           debugShowCheckedModeBanner: false,
-            home: PageEx(),
-          //  home:StepperScreen(),
+
+             
+           home:StepperScreen(),
           // onGenerateRoute: RouteGenerator.generateRoute,
           ),
     );

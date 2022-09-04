@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ import 'dart:html' as html;
 
 import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../ExampleGrid.dart';
 
 class FormRevenuEtChargesClient extends StatefulWidget {
   String uidClient = "";
@@ -29,7 +32,6 @@ class _FormFormRevenuEtChargesClientState
     extends State<FormRevenuEtChargesClient> {
   double widthTextField = 600;
 
-  TextEditingController codePostalController = TextEditingController();
   TextEditingController typeDeBiENController = TextEditingController();
   TextEditingController valeurDuBienEstimeParClientController =
       TextEditingController();
@@ -55,6 +57,8 @@ class _FormFormRevenuEtChargesClientState
       TextEditingController();
   TextEditingController annesController = TextEditingController();
   TextEditingController motantController = TextEditingController();
+  DropdownEditingController dropdownEditingController =
+      DropdownEditingController<CodePostal>(value: CodePostal('', ''));
 
   var list = new List<int>.generate(25, (i) => i + 1);
   List<int> listSelcted = new List<int>.generate(25, (i) => i + 0);
@@ -83,7 +87,6 @@ class _FormFormRevenuEtChargesClientState
 
     model.informationClient["type_de_bien"] =
         ["Appartement en copropriété", "Maison individuelle", "Terrain"].first;
-    codePostalController.text = model.informationClient["code_postal"];
     valeurDuBienEstimeParClientController.text =
         model.informationClient["valeur_du_bien_estimee_par_le_client"];
 
@@ -99,6 +102,13 @@ class _FormFormRevenuEtChargesClientState
     taxeFonciereController.text = model.informationClient["taxe_fonciere"];
     chargeDeCropoEntretienController.text =
         model.informationClient["charge_De_Cropo_Entretien"];
+
+    if (model.informationClient["code_postal"].toString().isNotEmpty) {
+      dropdownEditingController = DropdownEditingController<CodePostal>(
+          value: CodePostal(model.informationClient["code_postal"],
+              model.informationClient["code_postal_commune"]));
+    }
+
 
     motantController.addListener(() => _printLatestValue1(model));
 
@@ -316,18 +326,31 @@ class _FormFormRevenuEtChargesClientState
                 ),
               ),
 
-              Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFieldHelper2(
-                              controller: codePostalController,
-                              width: widthTextField,
-                    labelText: "Code postal du bien",
-                    labelField: "Code postal du bien",
-                    validator: model.validatorTextFieldString,
-                              onChanged: (val) {
-                                model.informationClient["code_postal"] = val;
-                              }),
-                        ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: PageEx(
+                  width: widthTextField,
+                  dropdownEditingController: dropdownEditingController,
+                  onChanged: (val) {
+                    model.informationClient["code_postal"] = val.codePostal;
+                    model.informationClient["code_postal_commune"] =
+                        val.nameDeLaComune;
+                  },
+                ),
+              ),
+
+              // Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: TextFieldHelper2(
+              //                 controller: codePostalController,
+              //                 width: widthTextField,
+              //       labelText: "Code postal du bien",
+              //       labelField: "Code postal du bien",
+              //       validator: model.validatorTextFieldString,
+              //                 onChanged: (val) {
+              //                   model.informationClient["code_postal"] = val;
+              //                 }),
+              //           ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),

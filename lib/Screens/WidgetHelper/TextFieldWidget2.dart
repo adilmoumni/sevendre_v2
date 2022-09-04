@@ -76,10 +76,7 @@ class _TextFieldHelperState extends State<TextFieldHelper2> {
   Widget build(BuildContext context) {
     return Container(
         width: widget.width ?? 500,
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20
-        ),
+        padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

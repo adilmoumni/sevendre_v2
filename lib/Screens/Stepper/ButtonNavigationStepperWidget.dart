@@ -269,6 +269,16 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
 
                           if (model.formKey.currentState.validate()) {
 
+                        if (model.steppe == 0 &&
+                            model.informationClient["code_postal"]
+                                .toString()
+                                .isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  "Le champs code postal est obligatoir")));
+                          return;
+                        }
+
                         if (model.steppe == 1) {
                           double age1 = double.parse(
                               model.informationClient['age_du_propriétaire']);
