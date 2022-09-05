@@ -1,6 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../../ExampleGrid.dart';
 
 class FormYourAccount extends StatefulWidget {
   const FormYourAccount({Key key}) : super(key: key);
@@ -37,6 +40,9 @@ class _FormYourAccountState extends State<FormYourAccount> {
   TextEditingController validatinSmsController =
       TextEditingController(text: '');
 
+        DropdownEditingController dropdownEditingController =
+      DropdownEditingController<CodePostal>(value: CodePostal('', ''));
+
   bool isWaiting = false;
   
 
@@ -54,6 +60,12 @@ class _FormYourAccountState extends State<FormYourAccount> {
         model.informationClient['ADRESSE_MAIL_CREATION'];
     numeroTelController.text =
         model.informationClient['NUMERO_DE_TELEPHONE_PORTABLE_CREATION'];
+
+           if (model.informationClient["code_postal_telechargement"].toString().isNotEmpty) {
+      dropdownEditingController = DropdownEditingController<CodePostal>(
+          value: CodePostal(model.informationClient["code_postal_telechargement"],
+              model.informationClient["code_postal_commune_telechargement"]));
+    }
 
     super.initState();
   }
@@ -130,6 +142,21 @@ class _FormYourAccountState extends State<FormYourAccount> {
                         model.informationClient["VILLE_DU_BIEN_CREATION"] = val;
                       }),
                 ),
+
+
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: PageEx(
+                  width: widthTextField,
+                  dropdownEditingController: dropdownEditingController,
+                  onChanged: (val) {
+                    model.informationClient["code_postal_telechargement"] = val.codePostal;
+                    model.informationClient["code_postal_commune_telechargement"] =
+                        val.nameDeLaComune;
+                  },
+                ),
+              ),
+              
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(

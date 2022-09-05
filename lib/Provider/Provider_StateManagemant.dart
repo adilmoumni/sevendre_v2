@@ -162,6 +162,7 @@ class ProviderSM extends ChangeNotifier {
     //----------------------1-------------------
     "type_de_bien": "",
     "code_postal": "",
+    "code_postal_telechargement": "",
     "valeur_du_bien_estimee_par_le_client": "",
     "residence_principale": 1,
     "frais_de_notaire_estime": "",
