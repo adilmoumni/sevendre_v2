@@ -292,17 +292,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                         }
 
 
-                            if(model.steppe == 2 ){
-
-                                  double montantDuCredit = double.parse( model.informationClient['montant_du_credit_bancaire_demande']);
-                                  double valDuBien = double.parse(model.informationClient["valeur_du_bien_estimee_par_le_client"]);
-
-                                  if(montantDuCredit > valDuBien){
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier.')));
-                                    return;
-
-                                  }
-                                }
 
                                 
                             var i = model.steppe + 2;
