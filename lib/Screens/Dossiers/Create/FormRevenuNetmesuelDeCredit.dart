@@ -24,10 +24,10 @@ class _FormRevenuNetmensuelDeCreditState
 
   TextEditingController revenueP1Controller = TextEditingController();
   TextEditingController revenueP1LocatifController =
-      TextEditingController(text: '0');
+      TextEditingController(text: '');
 
    TextEditingController revenueP2LocatifController =
-      TextEditingController(text: '0');
+      TextEditingController(text: '');
 
 
   TextEditingController revenueP2Controller = TextEditingController();
@@ -191,15 +191,11 @@ class _FormRevenuNetmensuelDeCreditState
             child: TextFieldHelper2(
                 width: widthTextField,
                 labelField: "Revenus annuels locatifs du propriétaire",
-                // helperText: "Entrer Mensualité du crédit",
                 validator: model.validatorTextFieldString,
                 controller: revenueP1LocatifController,
                 isDouble: true,
                 onChanged: (val) {
                   // this is the champs must be changed  we can take juste 70%
-
-                  // model.informationClient["revenue_anuelle_du_proprietaire_1"] =
-                  //     val;
                   calculRvnAnetCreditduprop1();
                   CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),

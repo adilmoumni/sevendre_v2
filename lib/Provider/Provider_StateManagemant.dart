@@ -177,7 +177,7 @@ class ProviderSM extends ChangeNotifier {
     "revenue_anuelle_du_proprietaire_1": "",
 
     "charges_annuelle_de_credit_en_cours_du_proprieteire_1": "",
-    "revenue_anuelle_du_proprietaire_2": "0",
+    "revenue_anuelle_du_proprietaire_2": "",
     "charges_annuelle_de_credit_en_cours_du_proprieteire_2": "",
     "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1": "",
     "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2": "",

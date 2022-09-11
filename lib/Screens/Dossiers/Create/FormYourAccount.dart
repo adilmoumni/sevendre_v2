@@ -170,6 +170,92 @@ class _FormYourAccountState extends State<FormYourAccount> {
             ),
           ),
 
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                customBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                onTap: () {
+                  model.returnSteppe();
+                },
+                child: Container(
+                  width: 100,
+                  height: 40.0,
+                  child: Center(
+                    child: Wrap(
+                      children: [
+                        Text(
+                          'Retour',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Color(0xFF3a6259),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              ButtonWidgetHelper(
+                width: isNumberPhoneInVerification ? 140 : 320,
+                height: 40.0,
+                onTap: () async {
+                  if (isNumberPhoneInVerification) {
+                    try {
+                      UserCredential userCredential = await confirmationResult
+                          .confirm(validatinSmsController.text);
+
+                      model.informationClient['uidClient'] =
+                          userCredential.user.uid;
+
+                      model.nextSteppe();
+
+                      print(userCredential);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Le code de sms est incorrect")));
+                    }
+
+                    return;
+                  }
+
+                  if (model.formKey.currentState.validate()) {
+                    try {
+                      FirebaseAuth auth = FirebaseAuth.instance;
+
+                      String numberPhone = (model.informationClient[
+                          "NUMERO_DE_TELEPHONE_PORTABLE_CREATION"]);
+
+                      // Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
+                      confirmationResult =
+                          await auth.signInWithPhoneNumber(numberPhone);
+
+                      setState(() {
+                        isNumberPhoneInVerification = true;
+                      });
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "une erreur s'est produite, veuillez vérifier votre numéro de téléphone")));
+                    }
+                  }
+
+                  // model.nextSteppe();
+                },
+                textButton: isNumberPhoneInVerification
+                    ? "   Suivant"
+                    : "   Obtenir le prévisionnel pluriannuel",
+                icon: Container(),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 10),
+       
+
           Visibility(
             visible: !isNumberPhoneInVerification,
             child: Container(
@@ -286,89 +372,6 @@ class _FormYourAccountState extends State<FormYourAccount> {
                     ),
                   ],
                 )),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                customBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                onTap: () {
-                  model.returnSteppe();
-                },
-                child: Container(
-                  width: 100,
-                  height: 40.0,
-                  child: Center(
-                    child: Wrap(
-                      children: [
-                        Text(
-                          'Retour',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Color(0xFF3a6259),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              ButtonWidgetHelper(
-                width: isNumberPhoneInVerification ? 140 : 320,
-                height: 40.0,
-                onTap: () async {
-                  if (isNumberPhoneInVerification) {
-                    try {
-                      UserCredential userCredential = await confirmationResult
-                          .confirm(validatinSmsController.text);
-
-                      model.informationClient['uidClient'] = userCredential.user.uid;
-
-                      model.nextSteppe();
-
-                      print(userCredential);
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Le code de sms est incorrect")));
-                    }
-
-                    return;
-                  }
-
-                  if (model.formKey.currentState.validate()) {
-                    try {
-                      FirebaseAuth auth = FirebaseAuth.instance;
-
-                      String numberPhone = (model.informationClient[
-                          "NUMERO_DE_TELEPHONE_PORTABLE_CREATION"]);
-
-                      // Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
-                      confirmationResult =
-                          await auth.signInWithPhoneNumber(numberPhone);
-
-                      setState(() {
-                        isNumberPhoneInVerification = true;
-                      });
-                    } catch (e) {
-
-
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              "une erreur s'est produite, veuillez vérifier votre numéro de téléphone")));
-                    }
-                  }
-
-                  // model.nextSteppe();
-                },
-                textButton: isNumberPhoneInVerification
-                    ? "   Suivant"
-                    : "   Obtenir le prévisionnel pluriannuel",
-                icon: Container(),
-              ),
-            ],
           ),
         ],
       ),

@@ -76,13 +76,10 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             dialogType: DialogType.SUCCES,
             showCloseIcon: true,
             dismissOnBackKeyPress: false,
-            title: 'Succes',
-            desc: 'Le dossier a enregistré avec succès',
+            title: '',
+            desc: 'Le dossier a été enregistré avec succès',
             btnOkOnPress: () {
               debugPrint('OnClcik');
-              // Navigator.pushNamed(context, '/folder/1');
-              // _createPDF(model.informationClient).then(
-              //     (value) => Navigator.pushNamed(context, '/TableauDeBoard'));
                    Navigator.push(
     context,
                 MaterialPageRoute(
@@ -92,7 +89,7 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                             model.informationClient['isSecondeUserChecked'])),
   );
             },
-            btnOkText: checkwidth ?'':"Télecharger le Pdf",
+            btnOkText: checkwidth ? '' : "Télécharger le Pdf",
             btnCancelText: checkwidth ?'':"Retour",
             btnCancelOnPress: () {
                Navigator.push(
@@ -104,7 +101,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             btnOkIcon: Icons.save,
             btnCancelIcon: Icons.dashboard,
             onDissmissCallback: (type) {
-              // debugPrint('Dialog Dissmiss from callback $type');
             })
           ..show();
       });
@@ -125,7 +121,7 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             headerAnimationLoop: false,
             dialogType: DialogType.SUCCES,
             showCloseIcon: false,
-            title: 'Succes',
+            title: '',
             desc: 'Le dossier a été enregistré avec succès',
             btnOkOnPress: () {
 
