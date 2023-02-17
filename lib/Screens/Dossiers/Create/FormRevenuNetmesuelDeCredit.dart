@@ -382,8 +382,8 @@ class _FormRevenuNetmensuelDeCreditState
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField: "Capacité maximal de remboursement mensuel",
-                helperText: "Capacité maximal de remboursement mensuel",
+                labelField: "Capacité maximale de remboursement mensuel",
+                helperText: "Capacité maximale de remboursement mensuel",
                 // validator: model.validatorTextFieldisDouble,
                 controller: capaciteMaximalRemboursementMensuelController,
                 isDouble: true,

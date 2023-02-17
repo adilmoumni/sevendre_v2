@@ -780,8 +780,8 @@ class _FormFormRevenuEtChargesClientState
                           ),
                           TextFieldHelper2(
                             width: widthTextField/2.09 ,
-                            labelField: "montant",
-                            helperText: "montant",
+                            labelField: "Montant",
+                            helperText: "Montant",
                             // validator: model.validatorTextFieldisDouble,
                             controller: TextEditingController( 
                                 text: model.lisGrosseReparation[i]["montant"] ??
