@@ -188,7 +188,7 @@ class ProviderSM extends ChangeNotifier {
 
     //---------------------3-------------------
     "montant_du_credit_bancaire_demande": "",
-    "duree_de_remboursement": "",
+    "duree_de_remboursement": "20",
     "Taux_interet_Moyen_en_%": "1.62", // from Back
 
     //--------------------5--------------------

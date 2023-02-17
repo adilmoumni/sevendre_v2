@@ -106,15 +106,26 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
 
     final model = Provider.of<ProviderSM>(context, listen: false);
 
-    montantCreditBancaireDemandecontroller.text =
-        model.informationClient["montant_du_credit_bancaire_demande"];
+      String str = "invalid";
+      try {
+        double duree = double.parse(model.informationClient["duree_de_remboursement"]);
+        double capacite = double.parse(model.informationClient["capacite_maximal_de_rembouresement_mensuel"]);
+        montantCreditBancaireDemandecontroller.text = (capacite * duree * 12).toString() ;
+        model.informationClient["montant_du_credit_bancaire_demande"] = montantCreditBancaireDemandecontroller.text;
+      } catch (e) {
+        print("Error: $e");
+      }
+
+
+    // montantCreditBancaireDemandecontroller.text =
+    //     model.informationClient["montant_du_credit_bancaire_demande"];
     dureeDeRemboursementcontrolle.text =
         model.informationClient["duree_de_remboursement"];
     tauxDinteretMoyencontrolle.text =
         model.informationClient["Taux_interet_Moyen_en_%"];
         if( model.informationClient["duree_de_remboursement"] == "")
         {
-            model.informationClient["duree_de_remboursement"] = list.first.toString();
+            model.informationClient["duree_de_remboursement"] = "20";
         }
        
     taux_de_lassurance_emprunteur_assure_1_quotite.text = model
@@ -299,7 +310,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                         },
                         //
                         //show selected item
-                        selectedItem:  int.parse(model.informationClient["duree_de_remboursement"]) ??5,
+                        selectedItem:  int.parse(model.informationClient["duree_de_remboursement"]) ?? 20,
                       ),
                     ),
                   ),
