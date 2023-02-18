@@ -49,7 +49,7 @@ class _StepperScreenState extends State<StepperScreen> {
     "Informations relatives au bien immobilier",
     "Informations relatives au(x) propriétaire(s)",
     "Financement envisagé ",
-    'La vente à soi-même en trois chiffres clés ',
+    'La vente à soi-même en quatre chiffres clés',
     'TELECHARGER',
     "Validation du crédit immobilier",
   ];

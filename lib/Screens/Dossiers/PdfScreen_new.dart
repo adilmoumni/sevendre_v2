@@ -40,7 +40,7 @@ enum value_dossier {
   appel_de_tresorerie_de_la_sci,
   loyer_initial_paye_a_la_sci,
 
-  sommeReparation
+  montant_credit_mensuel_societe
 
 }
 
@@ -250,8 +250,8 @@ class ScreenPdfNew extends StatelessWidget {
           val = this.dataDossier['Loyer_initial_paye_à_la_SCI'].toString();
           break;
 
-        case value_dossier.sommeReparation:
-          val = this.dataDossier['sommeReparation'].toString();
+        case value_dossier.montant_credit_mensuel_societe:
+          val = this.dataDossier['montant_credit_mensuel_societe'].toString();
           break;
 
 
@@ -779,10 +779,10 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text('Grosses réparations prévisibles',
+                child: pw.Text('Montant du crédit mensuel de la société',
                     style: pw.TextStyle(
                       font: font,
-                      fontSize: 7.0,
+                      fontSize: 6.5,
                       fontWeight: pw.FontWeight.bold,
                       color: PdfColor.fromHex('#3f5e59'),
                     )),
@@ -796,7 +796,7 @@ class ScreenPdfNew extends StatelessWidget {
                       mainAxisAlignment: pw.MainAxisAlignment.center,
                       children: [
 
-                        pw.Text(getValueDossier(value_dossier.sommeReparation),
+                        pw.Text(getValueDossier(value_dossier.montant_credit_mensuel_societe),
                 
                     style: pw.TextStyle(font: font, fontSize: 7.0)),
 

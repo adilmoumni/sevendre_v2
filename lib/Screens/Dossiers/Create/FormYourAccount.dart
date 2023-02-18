@@ -143,7 +143,7 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       width: widthTextField,
                       controller: numeroTelController,
                       labelField: "TELEPHONE PORTABLE",
-                      hintText: '(+33) 0611223344',
+                      hintText: '0611223344',
                       validator: model.validatorTextFieldisPhone,
                       isText: true,
                       onChanged: (val) {

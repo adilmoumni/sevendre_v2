@@ -33,6 +33,9 @@ class _FormPage4State extends State<FormPage4> {
   TextEditingController creditImmoDisponibleInLimineController =
       TextEditingController(text: "");
 
+        TextEditingController montantCreditMensuelSocieteController =
+      TextEditingController(text: "");
+
   TextEditingController remboursementInfineDuCompteCourantController =
       TextEditingController(text: "");
 
@@ -58,6 +61,9 @@ class _FormPage4State extends State<FormPage4> {
 
     creditImmoDisponibleInLimineController.text =
         model.informationClient["CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"];
+
+            montantCreditMensuelSocieteController.text =
+        model.informationClient["montant_credit_mensuel_societe"];
 
     remboursementInfineDuCompteCourantController.text =
         model.informationClient["remboursement_in_fine_du_compte_courant"];
@@ -99,13 +105,13 @@ class _FormPage4State extends State<FormPage4> {
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                controller: creditImmoDisponibleInLimineController,
+                controller: montantCreditMensuelSocieteController,
                 labelField: "LE MONTANT DU CRÉDIT MENSUEL DE LA SOCIÉTÉ",
                 isDouble: true,
                 enabled: true,
                 onChanged: (val) {
                   model.informationClient[
-                      "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] = val;
+                      "montant_credit_mensuel_societe"] = val;
                 }),
           ),
 

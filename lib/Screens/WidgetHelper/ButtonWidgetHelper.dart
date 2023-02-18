@@ -25,12 +25,12 @@ class _ButtonWidgetHelperState extends State<ButtonWidgetHelper> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.onTap,
+      borderRadius: BorderRadius.circular(50),
       child: Container(
         width: widget.width ?? 100,
         height: widget.height ?? 40.0,
         decoration: new BoxDecoration(
           color: Color(0xFF045258),
-          // border: new Border.all(color: Colors.white, width: 2.0),
           borderRadius: new BorderRadius.circular(50.0),
         ),
         child: Center(

@@ -72,7 +72,7 @@ class _FormRevenuNetmensuelDeCreditState
         "charges_annuelle_de_credit_en_cours_du_proprieteire_2"];
     chargeAnunelleDeCreditEnCoursDu1Controller.text = model.informationClient[
         "charges_annuelle_de_credit_en_cours_du_proprieteire_1"];
-       revenueP1LocatifController.text =   model.informationClient[
+       revenueP1LocatifController.text =  model.informationClient[
             "revenueP1Locatif"] ;
 
     revenuePAnnuelController.text =
@@ -213,8 +213,8 @@ class _FormRevenuNetmensuelDeCreditState
                 onChanged: (val) {
                   // this is the champs must be changed  we can take juste 70%
 
-                  // model.informationClient["revenue_anuelle_du_proprietaire_1"] =
-                  //     val;
+                  model.informationClient["revenueP1Locatif"] =
+                      val;
                   calculRvnAnetCreditduprop1();
                   CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),

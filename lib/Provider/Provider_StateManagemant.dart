@@ -89,14 +89,11 @@ class ProviderSM extends ChangeNotifier {
 
   getIsSecondeUseerSelected() async {
     try {
-      print('====================== getIsSecondeUseerSelected ');
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool isSecondeUserSelect = prefs.getBool("is_seconde_useer_selected");
       client1["is_seconde_useer_selected"] =
           prefs.getBool("is_seconde_useer_selected");
 
-      print(isSecondeUserSelect);
     } catch (e) {}
   }
 
@@ -540,7 +537,6 @@ class ProviderSM extends ChangeNotifier {
         double admGestion = (loyerAnnuel * 4 / 100);
 
         // faire ladition des depense
-        //  depenseAnnuel +
         depenseAnnuel = taxe_fonciere +
             assurance +
             entretien +
@@ -558,9 +554,6 @@ class ProviderSM extends ChangeNotifier {
             fraisImmo +
             fraisDePTT;
 
-        // if (i <= annneCredit) {
-        //   depenseAnnuel += totalAmmortisementCredi;
-        // }
         double amorImm = 0;
         if (i <= 10) {
           amorImm = double.parse(
@@ -643,14 +636,6 @@ class ProviderSM extends ChangeNotifier {
         totalDesChargeDeductible +=
             calcuTauxDassurance_client1 + interet + calcuTauxDassurance_client2;
 
-        // add this to appel CAA calcuTauxDassurance_client2
-
-        // double tresorieMois = 0;
-        // tresorieMois = loyerAnnuel / 12 * 4;
-
-        // if(reportDepert > 0){
-        //   tresorieMois += reportDepert;
-        // }
 
         double totalDesDepense = taxe_fonciere +
             assurance +
@@ -751,6 +736,10 @@ class ProviderSM extends ChangeNotifier {
           totalDesChargeDeductibleSom += crl;
         }
 
+        // the fisrt year to calculate montant _credit mensual 
+        if(i == 1 ) {
+          informationClient["montant_credit_mensuel_societe"] =  (( totalAmmortisementCredi +  totlalInteterParAnnee +  (calcuTauxDassurance_client1  + calcuTauxDassurance_client2 ) )/12 ).round().toString();
+        }
         data.add({
           "crl": crl.round().toString(),
           "annee": (i),
@@ -1102,10 +1091,10 @@ class ProviderSM extends ChangeNotifier {
     }
 
     // Check if the parsed value is between 0 and 100 (inclusive)
-    if (parsedValue >= 0 && parsedValue <= 100) {
+    if (parsedValue >= 0 && parsedValue <= 1) {
       return null;
     } else {
-      return "Enter un nombre entre 0 et 100";
+      return "Enter un nombre entre 0% et 1%";
     }
   };
 
