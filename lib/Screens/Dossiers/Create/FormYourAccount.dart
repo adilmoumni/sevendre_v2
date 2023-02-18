@@ -143,8 +143,8 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       width: widthTextField,
                       controller: numeroTelController,
                       labelField: "TELEPHONE PORTABLE",
-                      hintText: '+33611223344',
-                      validator: model.validatorTextFieldString,
+                      hintText: '(+33) 0611223344',
+                      validator: model.validatorTextFieldisPhone,
                       isText: true,
                       onChanged: (val) {
                         model.informationClient[
@@ -325,7 +325,8 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       UserCredential userCredential = await confirmationResult
                           .confirm(validatinSmsController.text);
 
-                      model.informationClient['uidClient'] = userCredential.user.uid;
+                      model.informationClient['uidClient'] =
+                          userCredential.user.uid;
 
                       model.nextSteppe();
 
@@ -345,6 +346,12 @@ class _FormYourAccountState extends State<FormYourAccount> {
                       String numberPhone = (model.informationClient[
                           "NUMERO_DE_TELEPHONE_PORTABLE_CREATION"]);
 
+                      if (numberPhone.startsWith("0")) {
+                        numberPhone = "+33" + numberPhone.substring(1);
+                      } else {
+                        numberPhone = "+33" + numberPhone;
+                      }
+
                       // Wait for the user to complete the reCAPTCHA & for an SMS code to be sent.
                       confirmationResult =
                           await auth.signInWithPhoneNumber(numberPhone);
@@ -353,8 +360,6 @@ class _FormYourAccountState extends State<FormYourAccount> {
                         isNumberPhoneInVerification = true;
                       });
                     } catch (e) {
-
-
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
                               "une erreur s'est produite, veuillez vérifier votre numéro de téléphone")));

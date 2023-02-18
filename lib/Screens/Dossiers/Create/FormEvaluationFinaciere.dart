@@ -173,7 +173,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 labelField: "Montant du crédit bancaire demandé*",
                 validator: model.validatorTextFieldisDouble,
                 isDouble: true,
-                // isDouble: true,
                 onChanged: (val) {
                   model.informationClient[
                       "montant_du_credit_bancaire_demande"] = val;
@@ -294,8 +293,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 labelField: "Taux d’intérêt du crédit-immobilier en %",
                 isDouble: true,
                 enabled: false,
-
-                // isDouble: true,
                 onChanged: (val) {
                   model.informationClient["Taux_interet_Moyen_en_%"] = val;
                   model.informationClient["Interet_du_credit"] = val;

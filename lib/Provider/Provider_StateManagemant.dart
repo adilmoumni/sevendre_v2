@@ -1031,6 +1031,7 @@ class ProviderSM extends ChangeNotifier {
     }
     return null;
   };
+
   Function(String) validatorTextFieldEmail = (value) {
     return MultiValidator([
       RequiredValidator(errorText: "le champ est obligatoire !"),
@@ -1068,6 +1069,17 @@ class ProviderSM extends ChangeNotifier {
       return 'le champ est obligatoire !';
     } else if (!regExp.hasMatch(value)) {
       return 'Veuillez entrer une valeur valide ';
+    }
+    return null;
+  };
+
+  Function(String) validatorTextFieldisPhone = (value) {
+    String pattern = r'^((0\d{9})|(6\d{8}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.isEmpty) {
+      return 'Le champ est obligatoire !';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Veuillez entrer un numéro de téléphone valide (ex: 0611223344 ou 061223344)';
     }
     return null;
   };

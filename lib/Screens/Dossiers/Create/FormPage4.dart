@@ -85,17 +85,30 @@ class _FormPage4State extends State<FormPage4> {
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                // controller: controlle1,
                 controller: creditImmoDisponibleInLimineController,
                 labelField: "CRÉDIT IMMOBILIER DISPONIBLE IN LIMINE*",
                 isDouble: true,
                 enabled: true,
-                // isDouble: true,
                 onChanged: (val) {
                   model.informationClient[
                       "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] = val;
                 }),
           ),
+
+                    Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                width: widthTextField,
+                controller: creditImmoDisponibleInLimineController,
+                labelField: "LE MONTANT DU CRÉDIT MENSUEL DE LA SOCIÉTÉ",
+                isDouble: true,
+                enabled: true,
+                onChanged: (val) {
+                  model.informationClient[
+                      "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] = val;
+                }),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -121,7 +134,6 @@ class _FormPage4State extends State<FormPage4> {
                   labelField: "CHARGES MENSUELLE PENDANT LA DURÉE DU CRÉDIT",
                   isDouble: true,
                   enabled: true,
-                  // isDouble: true,
                   onChanged: (val) {}),
             ),
           ),
