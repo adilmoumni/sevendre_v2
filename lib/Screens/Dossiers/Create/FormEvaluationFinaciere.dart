@@ -44,6 +44,12 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
         });
 
         if (model.informationClient[
+                "taux_de_lassurance_emprunteur_assure_2_quotite"] ==
+            "100") {
+          taux_de_lassurance_emprunteur_assure_2_quotite.text =
+              model.informationClient[
+                  "taux_de_lassurance_emprunteur_assure_2_quotite"];
+        } else if (model.informationClient[
                 "taux_de_lassurance_emprunteur_assure_2_quotite"] !=
             "") {
           taux_de_lassurance_emprunteur_assure_2_quotite.text =
