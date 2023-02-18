@@ -24,10 +24,10 @@ class _FormRevenuNetmensuelDeCreditState
 
   TextEditingController revenueP1Controller = TextEditingController();
   TextEditingController revenueP1LocatifController =
-      TextEditingController(text: '0');
+      TextEditingController();
 
    TextEditingController revenueP2LocatifController =
-      TextEditingController(text: '0');
+      TextEditingController();
 
 
   TextEditingController revenueP2Controller = TextEditingController();
@@ -365,19 +365,6 @@ class _FormRevenuNetmensuelDeCreditState
                   model.informationClient["revenu_annuel_global_net"] = val;
                 }),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextFieldHelper2(
-          //       width: widthTextField,
-          //       labelField: "Revenu annuels du propriétaire",
-          //       helperText: "Revenu annuels du propriétaire",
-          //       // validator: model.validatorTextFieldisDouble,
-          //       controller: revenuAnnuelleDuProprietaireController,
-          //       onChanged: (val) {
-          //         model.informationClient["revenu_annuels_du_propriétaire"] =
-          //             val;
-          //       }),
-          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -393,18 +380,6 @@ class _FormRevenuNetmensuelDeCreditState
                       "capacite_maximal_de_rembouresement_mensuel"] = val;
                 }),
           ),
-
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextFieldHelper2(
-          //       width: widthTextField,
-          //       labelField: "Capacité maximale",
-          //       helperText: "Capacité maximale",
-          //       validator: model.validatorTextFieldisDouble,
-          //       // controller: capaciteMaximalRemboursementMensuelController,
-
-          //       onChanged: (val) {}),
-          // ),
         ],
       ),
     );
