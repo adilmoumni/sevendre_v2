@@ -18,34 +18,46 @@ class FormEvaluationFinaciere extends StatefulWidget {
 }
 
 class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
-
   bool check = false;
   Future getUserCheck(ProviderSM model) async {
     if (model.informationClient['uidClient'].toString().isEmpty) {
     } else {
+      // check if quotite 1 is empty, then if empty make a auto percentage
+      if (model.informationClient[
+              "taux_de_lassurance_emprunteur_assure_1_quotite"] ==
+          "") {
+        String ageClient1 = getPercentParApportAlage(
+                int.parse(model.informationClient['age_du_propriétaire']))
+            .toString();
+        model.informationClient[
+            "taux_de_lassurance_emprunteur_assure_1_quotite"] = ageClient1;
+        taux_de_lassurance_emprunteur_assure_1_quotite.text = ageClient1;
+      } else {
+        taux_de_lassurance_emprunteur_assure_1_quotite.text =
+            model.informationClient[
+                "taux_de_lassurance_emprunteur_assure_1_quotite"];
+      }
 
-      String ageClient1 =
-          getPercentParApportAlage(int.parse(model.informationClient['age_du_propriétaire']))
-              .toString();
-
-      
-
-      model.informationClient[
-          "taux_de_lassurance_emprunteur_assure_1_quotite"] = ageClient1;
-      taux_de_lassurance_emprunteur_assure_1_quotite.text = ageClient1;
       if (model.informationClient['isSecondeUserChecked']) {
         setState(() {
           check = true;
         });
 
+        if (model.informationClient[
+                "taux_de_lassurance_emprunteur_assure_2_quotite"] !=
+            "") {
+          taux_de_lassurance_emprunteur_assure_2_quotite.text =
+              model.informationClient[
+                  "taux_de_lassurance_emprunteur_assure_2_quotite"];
+        } else {
+          String ageClient2 = getPercentParApportAlage(
+                  int.parse(model.informationClient['age_du_propriétaire_2']))
+              .toString();
+          taux_de_lassurance_emprunteur_assure_2_quotite.text = ageClient2;
 
-        String ageClient2 =
-            getPercentParApportAlage(int.parse(model.informationClient['age_du_propriétaire_2']))
-                .toString();
-        taux_de_lassurance_emprunteur_assure_2_quotite.text = ageClient2;
-
-        model.informationClient[
-            "taux_de_lassurance_emprunteur_assure_2_quotite"] = ageClient2;
+          model.informationClient[
+              "taux_de_lassurance_emprunteur_assure_2_quotite"] = ageClient2;
+        }
       }
     }
   }
@@ -76,15 +88,9 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
 
     DocumentSnapshot docSnap = await doc_ref.get();
 
-    print('================ this is doc');
-    print(docSnap['DateNaissance']);
-
     return docSnap;
-
   }
 
-
-  
   double widthTextField = 600;
   List<int> list = [5, 10, 15, 20, 25];
 
@@ -99,52 +105,51 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
       TextEditingController(text: "");
 
   TextEditingController taux_de_lassurance_emprunteur_assure_2_quotite =
-      TextEditingController(text: ""); 
+      TextEditingController(text: "");
 
   @override
   void initState() {
-
     final model = Provider.of<ProviderSM>(context, listen: false);
 
-      String str = "invalid";
+    if (model.informationClient["montant_du_credit_bancaire_demande"] == "") {
       try {
-        double duree = double.parse(model.informationClient["duree_de_remboursement"]);
-        double capacite = double.parse(model.informationClient["capacite_maximal_de_rembouresement_mensuel"]);
-        montantCreditBancaireDemandecontroller.text = (capacite * duree * 12).toString() ;
-        model.informationClient["montant_du_credit_bancaire_demande"] = montantCreditBancaireDemandecontroller.text;
+        double duree =
+            double.parse(model.informationClient["duree_de_remboursement"]);
+        double capacite = double.parse(model
+            .informationClient["capacite_maximal_de_rembouresement_mensuel"]);
+        montantCreditBancaireDemandecontroller.text =
+            (capacite * duree * 12).toString();
+        model.informationClient["montant_du_credit_bancaire_demande"] =
+            montantCreditBancaireDemandecontroller.text;
       } catch (e) {
         print("Error: $e");
       }
+    } else {
+      montantCreditBancaireDemandecontroller.text =
+          model.informationClient["montant_du_credit_bancaire_demande"];
+    }
 
-
-    // montantCreditBancaireDemandecontroller.text =
-    //     model.informationClient["montant_du_credit_bancaire_demande"];
     dureeDeRemboursementcontrolle.text =
         model.informationClient["duree_de_remboursement"];
     tauxDinteretMoyencontrolle.text =
         model.informationClient["Taux_interet_Moyen_en_%"];
-        if( model.informationClient["duree_de_remboursement"] == "")
-        {
-            model.informationClient["duree_de_remboursement"] = "20";
-        }
-       
+    if (model.informationClient["duree_de_remboursement"] == "") {
+      model.informationClient["duree_de_remboursement"] = "20";
+    }
+
     taux_de_lassurance_emprunteur_assure_1_quotite.text = model
         .informationClient["taux_de_lassurance_emprunteur_assure_1_quotite"];
 
     taux_de_lassurance_emprunteur_assure_2_quotite.text = model
         .informationClient["taux_de_lassurance_emprunteur_assure_2_quotite"];
 
-
     getUserCheck(model);
+
     super.initState();
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    // var conditionResponive = (MediaQuery.of(context).size.width >= 1024);
     var model = Provider.of<ProviderSM>(context);
 
     return Form(
@@ -202,18 +207,8 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                       height: 60,
                       child: DropdownSearch<int>(
                         //mode of dropdown
-                        // maxHeight :60,
                         showSearchBox: false,
                         dropdownSearchDecoration: InputDecoration(
-                            // suffixIcon: checkEmpty == false
-                            //     ? null
-                            //     : InkWell(
-                            //         borderRadius: BorderRadius.circular(20),
-                            //         onTap: () {
-                            //           // widget.controller.clear();
-                            //         },
-                            //         child: Icon(Icons.close,
-                            //             size: 20.0, color: Colors.black)),
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
@@ -228,17 +223,9 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
-                            // hintText: "widget.hintText",
                             helperText: "",
-                            // labelText: "widget.hintText",
-                            // prefixIcon: "widget.prefixIcon",
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 5),
-
-                            //  Icon(
-                            //   Icons.email,
-                            //   color: Color(0xFFa694ac),
-                            // ),
                             errorBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
@@ -246,21 +233,8 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
                             labelStyle: TextStyle(
-                                color:
-                                    // myFocusNode.hasFocus
-                                    //     ? Color(0xFFe0d4e4)
-                                    //     :
-                                    Color.fromRGBO(153, 153, 153, 1))),
+                                color: Color.fromRGBO(153, 153, 153, 1))),
                         searchBoxDecoration: InputDecoration(
-                            // suffixIcon: checkEmpty == false
-                            //     ? null
-                            //     : InkWell(
-                            //         borderRadius: BorderRadius.circular(20),
-                            //         onTap: () {
-                            //           // widget.controller.clear();
-                            //         },
-                            //         child: Icon(Icons.close,
-                            //             size: 20.0, color: Colors.black)),
                             fillColor: Colors.white,
                             filled: true,
                             border: OutlineInputBorder(
@@ -275,17 +249,9 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
-                            // hintText: "widget.hintText",
                             helperText: "",
-                            // labelText: "widget.hintText",
-                            // prefixIcon: "widget.prefixIcon",
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 5),
-
-                            //  Icon(
-                            //   Icons.email,
-                            //   color: Color(0xFFa694ac),
-                            // ),
                             errorBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
@@ -293,24 +259,19 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                                 borderSide:
                                     BorderSide(color: Color(0xFFe0d4e4))),
                             labelStyle: TextStyle(
-                                color:
-                                    // myFocusNode.hasFocus
-                                    //     ? Color(0xFFe0d4e4)
-                                    //     :
-                                    Color.fromRGBO(153, 153, 153, 1))),
+                                color: Color.fromRGBO(153, 153, 153, 1))),
                         mode: Mode.MENU,
 
-                        // showSelectedItem: true,
                         //list of dropdown items
                         items: [for (var i = 5; i <= 25; i++) i],
-                        // label: "",
                         onChanged: (int item) {
                           model.informationClient["duree_de_remboursement"] =
                               item.toString();
                         },
-                        //
                         //show selected item
-                        selectedItem:  int.parse(model.informationClient["duree_de_remboursement"]) ?? 20,
+                        selectedItem: int.parse(model
+                                .informationClient["duree_de_remboursement"]) ??
+                            20,
                       ),
                     ),
                   ),
@@ -318,23 +279,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextFieldHelper2(
-          //       controller: dureeDeRemboursementcontrolle,
-          //       validator: model.validatorTextFieldisDouble,
-          //       width: widthTextField,
-          //       labelField: "Durée de remboursement",
-          //       helperText: "Durée de remboursement",
-          //       isDouble: true,
-
-          //       // validator: model.validatorTextFieldisDouble,
-          //       // isDouble: true,
-
-          //       onChanged: (val) {
-          //         model.informationClient["duree_de_remboursement"] = val;
-          //       }),
-          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -351,19 +295,15 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                   model.informationClient["Interet_du_credit"] = val;
                 }),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
-
                 controller: taux_de_lassurance_emprunteur_assure_1_quotite,
                 width: widthTextField,
+                validator: model.validatorTextFieldisDouble,
                 labelField:
                     "Taux de l’assurance emprunteur assuré 1 (quotité 100%)",
                 isDouble: true,
-                enabled: true,
-
-                // isDouble: true,
                 onChanged: (val) {
                   model.informationClient[
                       "taux_de_lassurance_emprunteur_assure_1_quotite"] = val;
@@ -371,7 +311,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                       "taux_de_lassurance_emprunteur_assure_1_quotite"] = val;
                 }),
           ),
-
           Visibility(
             visible: model.informationClient['isSecondeUserChecked'],
             child: Padding(
@@ -379,10 +318,14 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
               child: TextFieldHelper2(
                   controller: taux_de_lassurance_emprunteur_assure_2_quotite,
                   width: widthTextField,
+                  validator: model.informationClient['isSecondeUserChecked']
+                      ? model.validatorTextFieldisDouble
+                      : (str) {
+                          return null;
+                        },
                   labelField:
                       "Taux de l’assurance emprunteur assuré 2 (quotité 100%)",
                   isDouble: true,
-                  enabled: true,
                   onChanged: (val) {
                     model.informationClient[
                         "taux_de_lassurance_emprunteur_assure_2_quotite"] = val;
@@ -391,23 +334,20 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                   }),
             ),
           ),
-
-
           Container(
-                    width: widthTextField,
-                    child: Column(children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('*Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier. Il peut aussi être inférieur à la valeur du bien immobilier, le différentiel entre le prix de vente et le montant du crédit bancaire demandé si il est inférieur sera remboursé IN FINE par la société au(x) propriétaire(s) lorsque celle-ci aura fini de rembourser le crédit-bancaire.  ',style: TextStyle(
-                          fontSize: 12
-                        ),textAlign: TextAlign.start,),
-                      ),
-                
-
-                    ],)
-
-                  )
-
+              width: widthTextField,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '*Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier. Il peut aussi être inférieur à la valeur du bien immobilier, le différentiel entre le prix de vente et le montant du crédit bancaire demandé si il est inférieur sera remboursé IN FINE par la société au(x) propriétaire(s) lorsque celle-ci aura fini de rembourser le crédit-bancaire.  ',
+                      style: TextStyle(fontSize: 12),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                ],
+              ))
         ],
       ),
     );

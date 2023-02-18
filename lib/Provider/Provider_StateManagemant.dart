@@ -203,8 +203,8 @@ class ProviderSM extends ChangeNotifier {
     "Honoraire_se_vendre_a_asoi-meme": "",
 
 
-    'taux_de_lassurance_emprunteur_assure_1_quotite': '10',
-    'taux_de_lassurance_emprunteur_assure_2_quotite': '100',
+    'taux_de_lassurance_emprunteur_assure_1_quotite': '',
+    'taux_de_lassurance_emprunteur_assure_2_quotite': '',
 
     // -------------------- affichage ------------------
     "total_des_caa": '',

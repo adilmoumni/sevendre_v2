@@ -249,10 +249,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                         width: 200,
                         height: 40.0,
                         onTap: () async {
-
-                          print('===================== this is etap');
-                          print(model.steppe);
-                          
                           if (widget.modifier == true) {
                           } else {
                             model.getIsSecondeUseerSelected();
