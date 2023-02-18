@@ -306,7 +306,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             child: TextFieldHelper2(
                 controller: taux_de_lassurance_emprunteur_assure_1_quotite,
                 width: widthTextField,
-                validator: model.validatorTextFieldisDouble,
+                validator: model.validatorTextFieldisDoubleQutotie,
                 labelField:
                     "Taux de l’assurance emprunteur assuré 1 (quotité 100%)",
                 isDouble: true,
@@ -325,7 +325,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                   controller: taux_de_lassurance_emprunteur_assure_2_quotite,
                   width: widthTextField,
                   validator: model.informationClient['isSecondeUserChecked']
-                      ? model.validatorTextFieldisDouble
+                      ? model.validatorTextFieldisDoubleQutotie
                       : (str) {
                           return null;
                         },

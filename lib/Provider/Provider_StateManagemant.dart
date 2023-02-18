@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:intl/intl.dart';
 import 'dart:developer';
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -32,7 +31,6 @@ class ProviderSM extends ChangeNotifier {
         doc['impotSurLesSocieteDeuxiemValue'].toString();
     informationClient['tauxFraisDeNotaire'] =
         doc['tauxFraisDeNotaire'].toString();
-
   }
 
 //===============================================================================
@@ -90,22 +88,16 @@ class ProviderSM extends ChangeNotifier {
   }
 
   getIsSecondeUseerSelected() async {
-
     try {
-      
+      print('====================== getIsSecondeUseerSelected ');
 
-            print('====================== getIsSecondeUseerSelected ');
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isSecondeUserSelect = prefs.getBool("is_seconde_useer_selected");
+      client1["is_seconde_useer_selected"] =
+          prefs.getBool("is_seconde_useer_selected");
 
-
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            bool isSecondeUserSelect = prefs.getBool("is_seconde_useer_selected");
-            client1["is_seconde_useer_selected"] =
-                prefs.getBool("is_seconde_useer_selected");
-
-            print(isSecondeUserSelect);    
-
-        } catch (e) {
-    }
+      print(isSecondeUserSelect);
+    } catch (e) {}
   }
 
   getUidClient() async {
@@ -201,7 +193,6 @@ class ProviderSM extends ChangeNotifier {
     "frais_de_notaire": "",
     "impot_sur_les_societes": "", //From back
     "Honoraire_se_vendre_a_asoi-meme": "",
-
 
     'taux_de_lassurance_emprunteur_assure_1_quotite': '',
     'taux_de_lassurance_emprunteur_assure_2_quotite': '',
@@ -307,13 +298,11 @@ class ProviderSM extends ChangeNotifier {
         double.parse(informationClient[
             'taux_de_lassurance_emprunteur_assure_1_quotite']) /
         1200;
-  
-
 
     var mensualite_du_credi =
         ((montant_du_credit * (taux_interet_moyen / 100 / 12))) /
-            (1 -
-                pow((1 + (taux_interet_moyen / 100 / 12)),
+                (1 -
+                    pow((1 + (taux_interet_moyen / 100 / 12)),
                         -(12 * dure_remboursement))) +
             assurance_mensual;
 
@@ -345,7 +334,6 @@ class ProviderSM extends ChangeNotifier {
 
   double diffFraisDeconditution = 0;
 
-
   calculeRemboursementInfinCompteCourant(double mensualiteDucredit) {
     uidUser().then((value) => informationClient["UIDuser"] = value);
     int annneCredit = int.parse(
@@ -374,7 +362,6 @@ class ProviderSM extends ChangeNotifier {
         0.05 /
         12 *
         4;
-
 
     if (double.parse(
             informationClient["valeur_du_bien_estimee_par_le_client"]) >
@@ -430,13 +417,11 @@ class ProviderSM extends ChangeNotifier {
     double fraisDeBank = 100;
     double fraisDePTT = 100;
 
-  
     double fraisImmo = 600;
 
-      if(informationClient[
-                                      "vente_a_soi_meme_suivie_dune_location"] == 0 ){
-                                          fraisImmo = 0;
-                                      }
+    if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 0) {
+      fraisImmo = 0;
+    }
 
     double fraisDeBankAnneUne = fraisDeBank;
     double fraisDePTTAnneUne = fraisDePTT;
@@ -468,7 +453,7 @@ class ProviderSM extends ChangeNotifier {
     double calcuTauxDassurance_client1 = 0;
     double calcuTauxDassurance_client2 = 0;
 
-    double sommeReparation =0;
+    double sommeReparation = 0;
 
     double cumuleTotalCCA = 0;
 
@@ -481,16 +466,12 @@ class ProviderSM extends ChangeNotifier {
         totlalInteterParAnnee = 0;
         totalAmmortisementCredi = 0;
 
-
-
-
         if (i <= annneCredit) {
           calcuTauxDassurance_client1 = double.parse(
                   informationClient['montant_du_credit_bancaire_demande']) *
               double.parse(informationClient[
                   'taux_de_lassurance_emprunteur_assure_1_quotite']) /
               100;
-
 
           try {
             if (informationClient['isSecondeUserChecked']) {
@@ -499,7 +480,6 @@ class ProviderSM extends ChangeNotifier {
                   double.parse(informationClient[
                       'taux_de_lassurance_emprunteur_assure_2_quotite']) /
                   100;
-
             } else {
               calcuTauxDassurance_client2 = 0;
             }
@@ -510,8 +490,6 @@ class ProviderSM extends ChangeNotifier {
           calcuTauxDassurance_client1 = 0;
           calcuTauxDassurance_client2 = 0;
         }
-
-
 
         if (i > annneCredit) {
           interet = 0;
@@ -528,20 +506,16 @@ class ProviderSM extends ChangeNotifier {
             //         "taux_de_lassurance_emprunteur_assure_1_quotite"]) /
             //     100;
 
-
-            
             amortisementCredit = mensualiteDucredit - interet;
 
             nouvelMontantCredi = nouvelMontantCredi - amortisementCredit;
 
             totalAmmortisementCredi += amortisementCredit;
             totlalInteterParAnnee += interet;
-
-
           }
         }
 
-        if(totlalInteterParAnnee < 0 ){
+        if (totlalInteterParAnnee < 0) {
           totlalInteterParAnnee = 0;
         }
 
@@ -567,8 +541,7 @@ class ProviderSM extends ChangeNotifier {
 
         // faire ladition des depense
         //  depenseAnnuel +
-        depenseAnnuel =
-            taxe_fonciere +
+        depenseAnnuel = taxe_fonciere +
             assurance +
             entretien +
             admGestion +
@@ -614,7 +587,6 @@ class ProviderSM extends ChangeNotifier {
 
         int grossRepartioon = 0;
 
-
         // calculer le total des depense
         for (var y = 0; y < grosses_reparations.length; y++) {
           try {
@@ -635,7 +607,6 @@ class ProviderSM extends ChangeNotifier {
             grossRepartioon = 0;
           }
         }
-
 
         double repo = 0;
         double reuslCom = 0;
@@ -667,27 +638,19 @@ class ProviderSM extends ChangeNotifier {
         depenseAnnuel += impot;
         totalDesChargeDeductible += impot;
 
-
-
         depenseAnnuel +=
             calcuTauxDassurance_client1 + calcuTauxDassurance_client2;
         totalDesChargeDeductible +=
             calcuTauxDassurance_client1 + interet + calcuTauxDassurance_client2;
-  
 
-            // add this to appel CAA calcuTauxDassurance_client2
+        // add this to appel CAA calcuTauxDassurance_client2
 
-            
         // double tresorieMois = 0;
         // tresorieMois = loyerAnnuel / 12 * 4;
 
         // if(reportDepert > 0){
         //   tresorieMois += reportDepert;
         // }
-
-        
-
-
 
         double totalDesDepense = taxe_fonciere +
             assurance +
@@ -701,9 +664,7 @@ class ProviderSM extends ChangeNotifier {
             impot +
             grossRepartioon +
             calcuTauxDassurance_client1 +
-            calcuTauxDassurance_client2; 
-
-
+            calcuTauxDassurance_client2;
 
         double fraisDeConstitutionAnne1 = 0;
         if (i == 1) {
@@ -738,18 +699,16 @@ class ProviderSM extends ChangeNotifier {
         if (i == 1) {
           tresorieMois = loyerAnnuel + (loyerAnnuel / 12 * 4) - totalDesDepense;
         } else {
+          tresorieMois = loyerAnnuel - totalDesDepense;
 
-            tresorieMois = loyerAnnuel - totalDesDepense;
-
-
-          if(double.parse(dataOfTAbleau[i-2]["TRESORERIE"].toString()) > 0 ){
-              tresorieMois += double.parse(dataOfTAbleau[i-2]["TRESORERIE"].toString());
-          } 
-
+          if (double.parse(dataOfTAbleau[i - 2]["TRESORERIE"].toString()) > 0) {
+            tresorieMois +=
+                double.parse(dataOfTAbleau[i - 2]["TRESORERIE"].toString());
+          }
         }
 
         double appelCCA = 0;
-        
+
         if (tresorieMois < 0) {
           appelCCA = tresorieMois / 12;
         }
@@ -772,11 +731,10 @@ class ProviderSM extends ChangeNotifier {
                 ? 0
                 : (-tresorieMois / 12);
 
-                 if (i <= annneCredit){
-                    cumuleMoyenLoyer += loyerAnnuel;
-                    cumuleMoyenMoyenne += appelCCA.abs();
-
-                 }
+        if (i <= annneCredit) {
+          cumuleMoyenLoyer += loyerAnnuel;
+          cumuleMoyenMoyenne += appelCCA.abs();
+        }
 
         double crl = 0;
 
@@ -784,12 +742,11 @@ class ProviderSM extends ChangeNotifier {
             int.parse(informationClient['Année de construction']) + 15;
 
         if (anneDeConstruction < DateTime.now().year + i) {
-            crl = loyerAnnuel * 2.5 / 100;
-               if(informationClient[
-                                      "vente_a_soi_meme_suivie_dune_location"] == 0 ){
-                                          crl = 0;
-                                      }
-        
+          crl = loyerAnnuel * 2.5 / 100;
+          if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 0) {
+            crl = 0;
+          }
+
           totalDesDepense += crl;
           totalDesChargeDeductibleSom += crl;
         }
@@ -797,8 +754,7 @@ class ProviderSM extends ChangeNotifier {
         data.add({
           "crl": crl.round().toString(),
           "annee": (i),
-          "fraisDeConstitution":
-              i == 1
+          "fraisDeConstitution": i == 1
               ? (double.parse(informationClient["frais_de_notaire_estime"]) +
                       double.parse(informationClient[
                               "valeur_du_bien_estimee_par_le_client"]) *
@@ -845,13 +801,10 @@ class ProviderSM extends ChangeNotifier {
         dataOfTAbleau = data;
 
         reportDannePrecednete = reportDepert;
-
       }
-    } catch (e) {
-    }
+    } catch (e) {}
 
-
-    informationClient['sommeReparation']= sommeReparation.round().toString();
+    informationClient['sommeReparation'] = sommeReparation.round().toString();
 
     // COMPTE COURANT D'ASSOCIE CUMULE : frais de constitution+12*somme des appel au compte couran
 
@@ -866,38 +819,39 @@ class ProviderSM extends ChangeNotifier {
     double totalChageMoyen = 0;
     double totalloyer = 0;
     try {
-      for (var i = 0; i < dataOfTAbleau.length -3; i++) {
-
-
-
-        totalChageMoyen += double.parse( dataOfTAbleau[i]["taxe fonciere"].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]["assurance"].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]["entretien"].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['admistation gestion'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['Amortissement crédit'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['fraisDeBank'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['Agence immobilière'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['fraisDePTT'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['interet'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['grossRepartioon'].toString());
-        totalChageMoyen += double.parse( dataOfTAbleau[i]['MontantAssurance_pro1'].toString());
+      for (var i = 0; i < dataOfTAbleau.length - 3; i++) {
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]["taxe fonciere"].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]["assurance"].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]["entretien"].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['admistation gestion'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['Amortissement crédit'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['fraisDeBank'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['Agence immobilière'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['fraisDePTT'].toString());
+        totalChageMoyen += double.parse(dataOfTAbleau[i]['interet'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['grossRepartioon'].toString());
+        totalChageMoyen +=
+            double.parse(dataOfTAbleau[i]['MontantAssurance_pro1'].toString());
 
         // ajouter une condition ici voir comment ^^
         // totalChageMoyen += double.parse( dataOfTAbleau[i]['MontantAssurance_pro2'].toString());
 
         totalloyer += double.parse(dataOfTAbleau[i]['loyer annuel'].toString());
-        
       }
     } catch (e) {}
 
-    double calculChargeMen = totalChageMoyen / (dataOfTAbleau.length -3) / 12;
-    totalloyer = totalloyer / (dataOfTAbleau.length -3) / 12;
+    double calculChargeMen = totalChageMoyen / (dataOfTAbleau.length - 3) / 12;
+    totalloyer = totalloyer / (dataOfTAbleau.length - 3) / 12;
 
-
-  
-
-
-        
     var valDubien6 = double.parse(
             informationClient["valeur_du_bien_estimee_par_le_client"]) *
         0.06;
@@ -910,7 +864,6 @@ class ProviderSM extends ChangeNotifier {
     // COMPTE COURANT D'ASSOCIE CUMULE
     // double compteCourantAssocieCumule = fraisDeConstitutionCalc + 12 * totalAppleCCA;
 
-    
     double totalAppleCCATest = totalAppleCCA;
 
     //  REMBOURSEMENT ANNUEL DU CCA : trésorerie de l’année n+3 après la fin du remboursement
@@ -920,18 +873,13 @@ class ProviderSM extends ChangeNotifier {
     double diffFraisDeconst = 0;
 
     diffFraisDeconst = double.parse(
-            informationClient["valeur_du_bien_estimee_par_le_client"]) - double.parse(
-            informationClient["montant_du_credit_bancaire_demande"]);
-    
+            informationClient["valeur_du_bien_estimee_par_le_client"]) -
+        double.parse(informationClient["montant_du_credit_bancaire_demande"]);
 
-    double compteCourantAssocieCumule = 
-         fraisDeConstitutionCalc+ 
+    double compteCourantAssocieCumule = fraisDeConstitutionCalc +
         diffFraisDeconst +
         loyerAnnuelPremierValu / 12 * 4 +
         cumuleTotalCCA;
-
-
-
 
     informationClient["remboursement_in_fine_du_compte_courant"] =
         (compteCourantAssocieCumule).round().toString();
@@ -946,7 +894,6 @@ class ProviderSM extends ChangeNotifier {
     //     .toString();
     var calRem = mensualiteDucredit_calculer();
 
-
     if (double.parse(informationClient["appel_mensuel_en_compte_courant"]) <
         0) {
       informationClient["appel_mensuel_en_compte_courant"] = "0";
@@ -958,13 +905,12 @@ class ProviderSM extends ChangeNotifier {
 
     if ((compteCourantAssocieCumule / tresori_N2).round() > 0) {
       informationClient[
-            "duree_du_remboursement_in_fine_du_compte_courant_(en annee)"] =
-        (compteCourantAssocieCumule / tresori_N2).round().toString();
+              "duree_du_remboursement_in_fine_du_compte_courant_(en annee)"] =
+          (compteCourantAssocieCumule / tresori_N2).round().toString();
     } else {
       informationClient[
           "duree_du_remboursement_in_fine_du_compte_courant_(en annee)"] = "0";
     }
-  
 
     // calcler la liquidite degageur
     var valuLis = ((double.parse(
@@ -975,8 +921,6 @@ class ProviderSM extends ChangeNotifier {
         double.parse(informationClient['frais_de_notaire_estime'])));
 
     informationClient['liquidites_degagees'] = valuLis.toString();
-
-
 
     // =============== this is liquidite
 
@@ -994,16 +938,16 @@ class ProviderSM extends ChangeNotifier {
             'CHARGE_MENSUELLE_APRES_REMBOURSEMENT_DU_CREDIT_DU_CREDIT'] =
         ((loyerAnnuel / 12) - (tresori_N2 / 12)).round().toString();
 
-    informationClient['Credit_immobilier_de_la_SCI'] = (cumuleMoyenMoyenne / int.parse(informationClient["duree_de_remboursement"]))
+    informationClient['Credit_immobilier_de_la_SCI'] = (cumuleMoyenMoyenne /
+            int.parse(informationClient["duree_de_remboursement"]))
         .round()
         .toString();
 
     informationClient['REMBOURSEMENT_DU_COMPTE_COURANT'] =
         (tresori_N2 / 12).round().toString();
 
-  
-
-    informationClient['Loyer_initial_paye_à_la_SCI'] =(totalloyer).round().toString();
+    informationClient['Loyer_initial_paye_à_la_SCI'] =
+        (totalloyer).round().toString();
     informationClient['Loyer_revis'] = (loyerAnnuel / 12).round().toString();
 
     informationClient['remboursem_infirne_compte_courant'] =
@@ -1014,9 +958,8 @@ class ProviderSM extends ChangeNotifier {
     informationClient['interet_demprins_cumul'] =
         cumulInteretDemprins.round().toString();
 
-
     informationClient['CHARGE_MENSUELLE_PENDANT_LA_DUREE_DU_CREDIT'] =
-(cumuleMoyenLoyer /
+        (cumuleMoyenLoyer /
                     12 /
                     int.parse(informationClient["duree_de_remboursement"]) +
                 cumuleMoyenMoyenne /
@@ -1025,20 +968,17 @@ class ProviderSM extends ChangeNotifier {
             .round()
             .toString();
 
+    (calculChargeMen).round().toString();
 
-        ( calculChargeMen).round().toString();
-
-
-
- if(informationClient[
-                                      "vente_a_soi_meme_suivie_dune_location"] == 1 ){
-                                        informationClient['cumuleMoyenLoyer'] = '0';
-                                      }
-                                      else {
-          informationClient['cumuleMoyenLoyer'] = (cumuleMoyenLoyer  / 12 / int.parse(
-                  informationClient["duree_de_remboursement"]) ).round().toString();
-                                      }
-
+    if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 1) {
+      informationClient['cumuleMoyenLoyer'] = '0';
+    } else {
+      informationClient['cumuleMoyenLoyer'] = (cumuleMoyenLoyer /
+              12 /
+              int.parse(informationClient["duree_de_remboursement"]))
+          .round()
+          .toString();
+    }
 
     var apple_de_tresosire_sci = (double.parse(
             informationClient['CHARGE_MENSUELLE_PENDANT_LA_DUREE_DU_CREDIT']) -
@@ -1050,7 +990,6 @@ class ProviderSM extends ChangeNotifier {
       informationClient['Appel_de_tresorerie_de_la_SCI'] =
           apple_de_tresosire_sci;
     }
-
 
     formatNumberToEur();
   }
@@ -1131,6 +1070,31 @@ class ProviderSM extends ChangeNotifier {
       return 'Veuillez entrer une valeur valide ';
     }
     return null;
+  };
+
+  Function(String) validatorTextFieldisDoubleQutotie = (value) {
+    String patttern = '^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$';
+    RegExp regExp = new RegExp(patttern);
+    if (value.length == 0) {
+      return 'le champ est obligatoire !';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Veuillez entrer une valeur valide ';
+    }
+
+    double parsedValue;
+    try {
+      parsedValue = double.parse(value);
+    } catch (e) {
+      // If parsing fails, return false
+      return "Veuillez entrer une valeur valide";
+    }
+
+    // Check if the parsed value is between 0 and 100 (inclusive)
+    if (parsedValue >= 0 && parsedValue <= 100) {
+      return null;
+    } else {
+      return "Enter un nombre entre 0 et 100";
+    }
   };
 
 //===============================================================================
