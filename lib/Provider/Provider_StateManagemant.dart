@@ -723,6 +723,7 @@ class ProviderSM extends ChangeNotifier {
 
         double crl = 0;
 
+
         int anneDeConstruction =
             int.parse(informationClient['Année de construction']) + 15;
 

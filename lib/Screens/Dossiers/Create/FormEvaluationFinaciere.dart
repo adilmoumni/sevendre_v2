@@ -187,9 +187,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                      left: 8,
-                    ),
+                    padding: EdgeInsets.only(left: 8),
                     child: Text(
                       "Durée de remboursement du crédit bancaire (années)",
                       style: TextStyle(
@@ -270,6 +268,18 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                         //list of dropdown items
                         items: [for (var i = 5; i <= 25; i++) i],
                         onChanged: (int item) {
+                          try {
+                            double capacite = double.parse(model
+                                    .informationClient[
+                                "capacite_maximal_de_rembouresement_mensuel"]);
+                            montantCreditBancaireDemandecontroller.text =
+                                (capacite * item * 12).toString();
+                            model.informationClient[
+                                    "montant_du_credit_bancaire_demande"] =
+                                montantCreditBancaireDemandecontroller.text;
+                          } catch (e) {
+                            print("Error: $e");
+                          }
                           model.informationClient["duree_de_remboursement"] =
                               item.toString();
                         },
@@ -289,7 +299,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             child: TextFieldHelper2(
                 controller: tauxDinteretMoyencontrolle,
                 width: widthTextField,
-                // validator: model.validatorTextFieldisDouble,
                 labelField: "Taux d’intérêt du crédit-immobilier en %",
                 isDouble: true,
                 enabled: false,

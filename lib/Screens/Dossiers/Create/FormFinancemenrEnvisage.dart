@@ -73,7 +73,6 @@ class _FormFinancemenrEnvisageState extends State<FormFinancemenrEnvisage> {
               width: widthTextField,
               labelField: "Durée de remboursement",
               helperText: "Durée de remboursement",
-              // validator: model.validatorTextFieldisDouble,
               isDouble: true,
             ),
           ),
