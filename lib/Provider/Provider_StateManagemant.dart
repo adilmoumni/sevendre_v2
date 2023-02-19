@@ -722,17 +722,15 @@ class ProviderSM extends ChangeNotifier {
         }
 
         double crl = 0;
-
-
         int anneDeConstruction =
             int.parse(informationClient['Année de construction']) + 15;
 
         if (anneDeConstruction < DateTime.now().year + i) {
-          crl = loyerAnnuel * 2.5 / 100;
-          if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 0) {
-            crl = 0;
-          }
 
+          crl = loyerAnnuel * 2.5 / 100;
+          // 1 mean non && 0 mean oui
+          if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 1) crl = 0;
+        
           totalDesDepense += crl;
           totalDesChargeDeductibleSom += crl;
         }

@@ -326,14 +326,11 @@ class ScreenPdfNew extends StatelessWidget {
 
     pw.Table recettesAnuelles(int start, int lenght) {
       return pw.Table(
-          // defaultColumnWidth: FixedColumnWidth(18.0),
           border: pw.TableBorder.all(
               color: PdfColor.fromHex('#3f5e59'),
               style: pw.BorderStyle.solid,
               width: 0.5),
           children: [
-            // for (int i = 0; i < dA.length; i++)
-
             pw.TableRow(children: [
               pw.Container(
                   color: PdfColor.fromHex('#8cc981'),
