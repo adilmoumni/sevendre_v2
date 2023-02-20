@@ -468,10 +468,8 @@ class _FormRevenuNetmensuelDeCreditState
   }
 
   _printLatestValue2(ProviderSM model) {
-   
-    model.informationClient[
-            "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] =
-        revenueNetDeCreditP1Controller.text;
+
+    model.informationClient["revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] = revenueNetDeCreditP1Controller.text;
 
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
