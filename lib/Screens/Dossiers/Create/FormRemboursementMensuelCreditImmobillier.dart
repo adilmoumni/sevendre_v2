@@ -22,34 +22,27 @@ class _FormRemboursementMensuelCreditImmobillierState
 
     return Form(
       key: model.formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            true
-                ? "assets/images/validation.png"
-                : "assets/images/refuser.gif",
-            height: 300.0,
-            width: 300.0,
-          ),
-
-
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-                // test == false
-                true
-                    ? "Félicitation votre crédit est possible"
-                    : "veuillez modifier les informations du crédit immobilier",
-                style: TextStyle(
-                    color: test == false ? Color(0xFF06464b) : Colors.red,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600)),
-          ),
-
-
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              true ? "assets/images/validation.png" : "assets/images/refuser.gif",
+              height: 300.0,
+              width: 300.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Félicitation votre crédit est possible",
+                  style: TextStyle(
+                      color: test == false ? Color(0xFF06464b) : Colors.red,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600)),
+            ),
+          ],
+        ),
       ),
     );
   }

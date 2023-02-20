@@ -184,11 +184,17 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                         if (widget.modifier == true) {
                           updateDossier2(idDossier);
                         } else {
-                          addDossier();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ScreenPdfNew(
+                                      model.informationClient,
+                                      model.dataOfTAbleau,
+                                      isSecondClientSelect:
+                                          model.informationClient[
+                                              'isSecondeUserChecked'])));
                         }
                       }
-
-                      //
                     },
                     child: Container(
                       width: 230,

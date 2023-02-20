@@ -301,7 +301,7 @@ class _ProfileClientState extends State<ProfileClient> {
                             child: ButtonWidgetHelper(
                               width: 200,
                               height: 40,
-                              textButton: "Enregistrer ",
+                              textButton: "Enregistrer qsdfqsd",
                               icon: Icon(
                                 Icons.save,
                                 color: Colors.white,
@@ -310,8 +310,6 @@ class _ProfileClientState extends State<ProfileClient> {
                               onTap: () {
                                 _changePassword(
                                     ancienPassowrd.text, noveauPassowrd.text);
-                                // Navigator.pushNamed(context, '/client/add');
-                                // Navigator.pushNamed(context, '/folder/1');
                               },
                             ),
                           ),
