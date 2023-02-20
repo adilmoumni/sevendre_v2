@@ -201,7 +201,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                       height: 40.0,
                       decoration: new BoxDecoration(
                         color: Color(0xFF045258),
-                        // border: new Border.all(color: Colors.white, width: 2.0),
                         borderRadius: new BorderRadius.circular(50.0),
                       ),
                       child: Center(
@@ -246,7 +245,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                           model.informationClient["uidClient"] =
                               widget.uidClient;
                         }
-                        // uidclient33
                       }
 
                       if (model.formKey.currentState.validate()) {
