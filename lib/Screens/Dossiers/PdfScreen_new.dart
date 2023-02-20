@@ -41,9 +41,7 @@ enum value_dossier {
   loyer_initial_paye_a_la_sci,
 
   montant_credit_mensuel_societe
-
 }
-
 
 enum value_table {
   CRL,
@@ -82,7 +80,7 @@ class ScreenPdfNew extends StatelessWidget {
     try {
       String getValue;
       switch (valTable) {
-         case value_table.CRL:
+        case value_table.CRL:
           getValue = this.dataOfTAbleau[index]['crl'].toString();
           break;
         case value_table.loyer_annuel:
@@ -120,7 +118,7 @@ class ScreenPdfNew extends StatelessWidget {
           break;
         case value_table.interets_demprunt:
           getValue = this.dataOfTAbleau[index]['interet'].toString();
-          
+
           break;
         case value_table.grosses_reparations:
           getValue = this.dataOfTAbleau[index]['grossRepartioon'].toString();
@@ -167,7 +165,6 @@ class ScreenPdfNew extends StatelessWidget {
       return "";
     }
   }
-
 
   getValueDossier(value_dossier valDossier) {
     try {
@@ -254,7 +251,6 @@ class ScreenPdfNew extends StatelessWidget {
           val = this.dataDossier['montant_credit_mensuel_societe'].toString();
           break;
 
-
         default:
       }
 
@@ -291,7 +287,6 @@ class ScreenPdfNew extends StatelessWidget {
       return 0;
     }
   }
-
 
   PdfPageFormat format = PdfPageFormat.a4;
   pw.Document doc;
@@ -392,7 +387,6 @@ class ScreenPdfNew extends StatelessWidget {
                       fontSize: 7,
                     ),
                   ),
-
                 ),
             ])
             //--------
@@ -495,16 +489,12 @@ class ScreenPdfNew extends StatelessWidget {
 
             isSecondClientSelect
                 ? depenses("Assurance du prêt associé 2", start, lenght,
-                value_table.montant_assurance_proprietaire_2)
+                    value_table.montant_assurance_proprietaire_2)
                 : pw.TableRow(children: []),
 
-
-      
-               
-                
             depenses("Intérêts du crédit", start, lenght,
                 value_table.interets_demprunt),
-                
+
             depenses("Grosses réparations", start, lenght,
                 value_table.grosses_reparations),
             depenses("Impôt sur les sociétés", start, lenght,
@@ -513,7 +503,6 @@ class ScreenPdfNew extends StatelessWidget {
                 value_table.amortissement_de_limmeuble),
             depenses("Total charges déductibles", start, lenght,
                 value_table.total_charges_deductibles),
-
 
             //TOTAL DÉPENSES
 
@@ -589,14 +578,11 @@ class ScreenPdfNew extends StatelessWidget {
 
     pw.Table hypotheses() {
       return pw.Table(
-          // defaultColumnWidth: pw.FixedColumnWidth(18.0),
           border: pw.TableBorder.all(
               color: PdfColor.fromHex('#3f5e59'),
               style: pw.BorderStyle.solid,
               width: 0.5),
           children: [
-            // for (int i = 0; i < dA.length; i++)
-
             pw.TableRow(children: [
               pw.Container(
                 color: PdfColor.fromHex('#eaebeb'),
@@ -612,17 +598,31 @@ class ScreenPdfNew extends StatelessWidget {
                         fontWeight: pw.FontWeight.bold)),
               ),
               pw.Container(
-                width: 128,
+                width: 128 / 2,
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
                 child: pw.Text('Prêt immobilier à taux fixe',
+                    textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
-                      fontSize: 8.0,
+                      fontSize: 6.0,
+                      font: fontMontserrat,
+                    )),
+              ),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text("Crédit vendeur",
+                    textAlign: pw.TextAlign.center,
+                    style: pw.TextStyle(
+                      fontSize: 6.0,
                       font: fontMontserrat,
                     )),
               ),
             ]),
+
             pw.TableRow(children: [
               pw.Container(
                 color: PdfColor.fromHex('#eaebeb'),
@@ -638,7 +638,7 @@ class ScreenPdfNew extends StatelessWidget {
                         fontWeight: pw.FontWeight.bold)),
               ),
               pw.Container(
-                width: 128,
+                width: 128 / 2,
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
@@ -647,6 +647,17 @@ class ScreenPdfNew extends StatelessWidget {
                     style: pw.TextStyle(
                       font: font,
                       fontSize: 8.0,
+                    )),
+              ),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
                     )),
               ),
             ]),
@@ -665,7 +676,7 @@ class ScreenPdfNew extends StatelessWidget {
                         fontWeight: pw.FontWeight.bold)),
               ),
               pw.Container(
-                width: 128,
+                width: 128 / 2,
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
@@ -674,6 +685,17 @@ class ScreenPdfNew extends StatelessWidget {
                     style: pw.TextStyle(
                       font: font,
                       fontSize: 8.0,
+                    )),
+              ),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
                     )),
               ),
             ]),
@@ -693,7 +715,7 @@ class ScreenPdfNew extends StatelessWidget {
                     )),
               ),
               pw.Container(
-                width: 128,
+                width: 128 / 2,
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
@@ -703,8 +725,18 @@ class ScreenPdfNew extends StatelessWidget {
                       fontSize: 8.0,
                     )),
               ),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
+                    )),
+              ),
             ]),
-        
             pw.TableRow(children: [
               pw.Container(
                 color: PdfColor.fromHex('#eaebeb'),
@@ -721,7 +753,7 @@ class ScreenPdfNew extends StatelessWidget {
                     )),
               ),
               pw.Container(
-                width: 128,
+                width: 128 / 2,
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
@@ -732,6 +764,17 @@ class ScreenPdfNew extends StatelessWidget {
                     style: pw.TextStyle(
                       font: font,
                       fontSize: 8.0,
+                    )),
+              ),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
                     )),
               ),
             ]),
@@ -753,7 +796,7 @@ class ScreenPdfNew extends StatelessWidget {
                           )),
                     ),
                     pw.Container(
-                      width: 128,
+                      width: 128 / 2,
                       height: 17,
                       padding: pw.EdgeInsets.all(3),
                       alignment: pw.Alignment.center,
@@ -766,6 +809,17 @@ class ScreenPdfNew extends StatelessWidget {
                             fontSize: 8.0,
                           )),
                     ),
+                    pw.Container(
+                      width: 128 / 2,
+                      height: 17,
+                      padding: pw.EdgeInsets.all(3),
+                      alignment: pw.Alignment.center,
+                      child: pw.Text(" ----- ",
+                          style: pw.TextStyle(
+                            fontSize: 8.0,
+                            font: fontMontserrat,
+                          )),
+                    ),
                   ])
                 : pw.TableRow(children: []),
             //--------
@@ -776,44 +830,90 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text('Montant du crédit mensuel de la société',
+                child: pw.Text('Échéance mensuelle',
                     style: pw.TextStyle(
                       font: font,
-                      fontSize: 6.5,
+                      fontSize: 7,
                       fontWeight: pw.FontWeight.bold,
                       color: PdfColor.fromHex('#3f5e59'),
                     )),
               ),
               pw.Container(
-                  width: 128,
+                  width: 128 / 2,
                   height: 17,
                   alignment: pw.Alignment.center,
                   child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.center,
                       mainAxisAlignment: pw.MainAxisAlignment.center,
                       children: [
-
-                        pw.Text(getValueDossier(value_dossier.montant_credit_mensuel_societe),
-                
-                    style: pw.TextStyle(font: font, fontSize: 7.0)),
-
+                        pw.Text(
+                            getValueDossier(
+                                value_dossier.montant_credit_mensuel_societe),
+                            style: pw.TextStyle(font: font, fontSize: 7.0)),
                       ])),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
+                    )),
+              ),
             ]),
 
-         
+            pw.TableRow(children: [
+              pw.Container(
+                color: PdfColor.fromHex('#eaebeb'),
+                width: 128,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text('Remboursement PT',
+                    style: pw.TextStyle(
+                      font: font,
+                      fontSize: 7,
+                      fontWeight: pw.FontWeight.bold,
+                      color: PdfColor.fromHex('#3f5e59'),
+                    )),
+              ),
+              pw.Container(
+                  width: 128 / 2,
+                  height: 17,
+                  alignment: pw.Alignment.center,
+                  child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.center,
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        pw.Text(
+                            getValueDossier(
+                                value_dossier.montant_credit_mensuel_societe),
+                            style: pw.TextStyle(font: font, fontSize: 7.0)),
+                      ])),
+              pw.Container(
+                width: 128 / 2,
+                height: 17,
+                padding: pw.EdgeInsets.all(3),
+                alignment: pw.Alignment.center,
+                child: pw.Text(" ----- ",
+                    style: pw.TextStyle(
+                      fontSize: 8.0,
+                      font: fontMontserrat,
+                    )),
+              ),
+            ]),
           ]);
     }
 
     pw.Table revisionsAnnuelles() {
       return pw.Table(
-          // defaultColumnWidth: FixedColumnWidth(18.0),
           border: pw.TableBorder.all(
               color: PdfColor.fromHex('#3f5e59'),
               style: pw.BorderStyle.solid,
               width: 0.5),
           children: [
-            // for (int i = 0; i < dA.length; i++)
-
             pw.TableRow(children: [
               pw.Container(
                 color: PdfColor.fromHex('#eaebeb'),
@@ -834,7 +934,6 @@ class ScreenPdfNew extends StatelessWidget {
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
                 child: pw.Text(getValueDossier(value_dossier.loyers) + ' %',
-                
                     style: pw.TextStyle(font: font, fontSize: 7.0)),
               ),
             ]),
@@ -894,15 +993,11 @@ class ScreenPdfNew extends StatelessWidget {
 
     pw.Table tableauDeBord() {
       return pw.Table(
-
-          // defaultColumnWidth: FixedColumnWidth(18.0),
           border: pw.TableBorder.all(
               color: PdfColor.fromHex('#3f5e59'),
               style: pw.BorderStyle.solid,
               width: 0.5),
           children: [
-            // for (int i = 0; i < dA.length; i++)
-
             pw.TableRow(children: [
               pw.Container(
                 width: 289.1,
@@ -1019,7 +1114,6 @@ class ScreenPdfNew extends StatelessWidget {
                     getValueDossier(value_dossier
                             .charge_mensuelle_pendant_la_duree_du_credit) +
                         ' €',
-
                     style: pw.TextStyle(
                         font: font,
                         fontSize: 14.0,
@@ -1106,7 +1200,6 @@ class ScreenPdfNew extends StatelessWidget {
                 alignment: pw.Alignment.center,
                 child: pw.Text(
                     getValueDossier(value_dossier.interet_du_credit) + ' €',
-
                     style: pw.TextStyle(font: font, fontSize: 6.0)),
               ),
               pw.Container(
@@ -1270,7 +1363,7 @@ class ScreenPdfNew extends StatelessWidget {
                         )),
                   ]),
             ),
-            pw.SizedBox(height: 25),
+            pw.SizedBox(height: 20),
             pw.Padding(
                 padding: pw.EdgeInsets.only(
                     left: 39.6, right: 39.6, bottom: 0.00255),
@@ -1294,7 +1387,7 @@ class ScreenPdfNew extends StatelessWidget {
                                         )))),
                             pw.SizedBox(height: 11),
                             hypotheses(),
-                            pw.SizedBox(height: 17),
+                            pw.SizedBox(height: 11),
                             pw.Container(
                                 child: pw.Center(
                                     child: pw.Text("RÉVISIONS ANNUELLES",
@@ -1304,7 +1397,7 @@ class ScreenPdfNew extends StatelessWidget {
                                             fontSize: 11)))),
                             pw.SizedBox(height: 11),
                             revisionsAnnuelles(),
-                            pw.SizedBox(height: 16.5),
+                            pw.SizedBox(height: 10.5),
                             pw.Container(
                                 padding: pw.EdgeInsets.all(5),
                                 margin: pw.EdgeInsets.only(left: 0),
@@ -1418,7 +1511,6 @@ class ScreenPdfNew extends StatelessWidget {
         },
       ),
     );
-
 
     doc.addPage(pw.Page(
         clip: true,
@@ -1572,10 +1664,9 @@ class ScreenPdfNew extends StatelessWidget {
                       pw.Text(
                         "",
                         style: pw.TextStyle(
-                          font: font,
-                          color: PdfColor.fromHex('#3f5e59'),
-                            fontSize: 12
-                        ),
+                            font: font,
+                            color: PdfColor.fromHex('#3f5e59'),
+                            fontSize: 12),
                       ),
                     ],
                   ),
@@ -1782,7 +1873,7 @@ class ScreenPdfNew extends StatelessWidget {
           })); // Page
 
     }
-      
+
     return doc.save();
   }
 
