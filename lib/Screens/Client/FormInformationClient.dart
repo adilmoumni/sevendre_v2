@@ -365,7 +365,6 @@ class _FormClientState extends State<FormClient> {
                                           'si vous retourner au menu les donnés sera perdu',
                                       btnOkOnPress: () {
                                         debugPrint('OnClcik');
-                                        // Navigator.pushNamed(context, '/folder/1');
                                       },
                                       buttonsTextStyle :TextStyle(fontSize: 11),
                                       btnOkText: checkwidth 
@@ -1359,28 +1358,18 @@ for (var i = 16; i < 101; i++) i.toString()
                                           context, '/TableauDeBoard');
                                     },
                                     btnOkText:checkwidth ? '':  "dashboard",
-
-                                    // btnCancelOnPress: () {
-                                    //   Navigator.pushNamed(context, '/TableauDeBoard');
-                                    // },
                                     btnOkIcon: Icons.dashboard,
                                     onDissmissCallback: (type) {
                                       debugPrint(
                                           'Dialog Dissmiss from callback $type');
                                     })
                                   ..show())
-                            // Navigator.pushNamed(context, '/client/add');
-                            // Navigator.pushNamed(context, '/folder/1');*
 
                             : FirebaseFirestore.instance
                                 .collection('clients')
                                 .add(model.client1)
                                 .then((value) {
-                                print('------------------');
-                                print(value.id);
-
                                 model.saveUidClient(value.id);
-                                print('------------------');
 
                                 AwesomeDialog(
                                     width: widthTextField+70,
@@ -1413,25 +1402,6 @@ for (var i = 16; i < 101; i++) i.toString()
                       }
                     },
                   ),
-                  // GestureDetector(
-                  //   onTap: () {},
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: Wrap(
-                  //       children: [
-                  //         Text("Voir les dossiers de ce client ",
-                  //             style: TextStyle(
-                  //               color: Color(0xFF045258),
-                  //             )),
-                  //         Icon(
-                  //           Icons.arrow_forward,
-                  //           color: Color(0xFF045258),
-                  //           size: 15,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

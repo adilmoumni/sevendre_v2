@@ -455,15 +455,12 @@ class _FormRevenuNetmensuelDeCreditState
   }
 
   _printLatestValue1(ProviderSM model) {
-    print('Received form first controller: ${revenuePAnnuelController.text}');
-
     model.informationClient["revenu_annuel_global_net"] =
         revenuePAnnuelController.text;
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 
     _printLatestValue3(ProviderSM model) {
-    print('Received form first controller: ${revenuePAnnuelController.text}');
 
     model.informationClient["revenu_annuel_global_net"] =
         revenuePAnnuelController.text;
@@ -471,8 +468,7 @@ class _FormRevenuNetmensuelDeCreditState
   }
 
   _printLatestValue2(ProviderSM model) {
-    print(
-        'Received form first controller: ${revenueNetDeCreditP1Controller.text}');
+   
     model.informationClient[
             "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] =
         revenueNetDeCreditP1Controller.text;
@@ -481,8 +477,7 @@ class _FormRevenuNetmensuelDeCreditState
   }
 
   printLatestValueRevenueLocatif(ProviderSM model) {
-    print(
-        'Received form first controller: ${revenueP1LocatifController.text}');
+
            revenueNetDeCreditP2Controller.text = model.informationClient[
         "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"] = revenueNetDeCreditP2Controller.text;
     model.informationClient[

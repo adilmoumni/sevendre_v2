@@ -23,10 +23,6 @@ class AuthGoogle {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       prefs.setString("uidUser", user.uid);
-
-      print(prefs.getString("uidUser"));
-
-      // Navigator.pushReplacementNamed(context, '/TableauDeBoard');
       try {
         final usersRecord = await UsersRecord.collection.doc(user.uid).get();
         Map<String, dynamic> userGet = usersRecord.data();

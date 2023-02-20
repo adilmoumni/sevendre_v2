@@ -14,7 +14,6 @@ import 'dart:html' as html;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'dart:typed_data';
 
-
 // import 'package:pdf/pdf.dart';
 // import 'package:pdf/widgets.dart' as pw;
 // import 'package:printing/printing.dart';
@@ -29,8 +28,7 @@ class StepperButtonWidget extends StatefulWidget {
       this.dataKey,
       this.uidClient,
       this.modifier,
-      this.nombreCliet
-      })
+      this.nombreCliet})
       : super(key: key);
 
   int maxStepper = 0;
@@ -60,16 +58,15 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
   Widget build(BuildContext context) {
     var model = Provider.of<ProviderSM>(context);
 
-    var checkwidth  = (MediaQuery.of(context).size.width <= 350) ;
+    var checkwidth = (MediaQuery.of(context).size.width <= 350);
 
     void addDossier() {
       FirebaseFirestore.instance
           .collection('dossiers-v2')
           .add(model.informationClient)
           .then((value) {
-
         AwesomeDialog(
-            width: widthTextField+70,
+            width: widthTextField + 70,
             context: context,
             animType: AnimType.LEFTSLIDE,
             headerAnimationLoop: false,
@@ -79,33 +76,24 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             title: 'Succes',
             desc: 'Le dossier a enregistré avec succès',
             btnOkOnPress: () {
-              debugPrint('OnClcik');
-              // Navigator.pushNamed(context, '/folder/1');
-              // _createPDF(model.informationClient).then(
-              //     (value) => Navigator.pushNamed(context, '/TableauDeBoard'));
-                   Navigator.push(
-    context,
+              Navigator.push(
+                context,
                 MaterialPageRoute(
                     builder: (context) => ScreenPdfNew(
                         model.informationClient, model.dataOfTAbleau,
                         isSecondClientSelect:
                             model.informationClient['isSecondeUserChecked'])),
-  );
+              );
             },
-            btnOkText: checkwidth ?'':"Télecharger le Pdf",
-            btnCancelText: checkwidth ?'':"Retour",
+            btnOkText: checkwidth ? '' : "Télecharger le Pdf",
+            btnCancelText: checkwidth ? '' : "Retour",
             btnCancelOnPress: () {
-               Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    StepperScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StepperScreen()));
             },
             btnOkIcon: Icons.save,
             btnCancelIcon: Icons.dashboard,
-            onDissmissCallback: (type) {
-              // debugPrint('Dialog Dissmiss from callback $type');
-            })
+            onDissmissCallback: (type) {})
           ..show();
       });
     }
@@ -116,10 +104,8 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
           .doc(id)
           .update(model.informationClient)
           .then((value) {
-        // print(value.id);
-
         AwesomeDialog(
-            width: widthTextField+70,
+            width: widthTextField + 70,
             context: context,
             animType: AnimType.LEFTSLIDE,
             headerAnimationLoop: false,
@@ -128,29 +114,27 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             title: 'Succes',
             desc: 'Le dossier a été enregistré avec succès',
             btnOkOnPress: () {
-
-                           Navigator.push(
-    context,
+              Navigator.push(
+                context,
                 MaterialPageRoute(
                     builder: (context) => ScreenPdfNew(
                         model.informationClient, model.dataOfTAbleau,
                         isSecondClientSelect:
-                               model.informationClient['isSecondeUserChecked'])),
-  );
+                            model.informationClient['isSecondeUserChecked'])),
+              );
 
               // Navigator.pushNamed(context, '/folder/1');
               // _createPDF(model.informationClient).then(
               //     (value) => Navigator.pushNamed(context, '/TableauDeBoard'));
             },
-            btnOkText:checkwidth ?'': "Télecharger le Pdf",
-            btnCancelText:checkwidth ?'': "dashboard",
+            btnOkText: checkwidth ? '' : "Télecharger le Pdf",
+            btnCancelText: checkwidth ? '' : "dashboard",
             btnCancelOnPress: () {
               Navigator.pushNamed(context, '/TableauDeBoard');
             },
             btnOkIcon: Icons.save,
             btnCancelIcon: Icons.dashboard,
-            onDissmissCallback: (type) {
-            })
+            onDissmissCallback: (type) {})
           ..show();
       });
     }
@@ -158,8 +142,7 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Visibility(
-        visible: model.steppe!= 4,
-
+        visible: model.steppe != 4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,7 +155,8 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                     ),
                     onTap: () {
                       var i = model.steppe + 2;
-                      html.window.history.pushState(null, "Home", "/#/folder/$i");
+                      html.window.history
+                          .pushState(null, "Home", "/#/folder/$i");
                       model.returnSteppe();
                     },
                     child: Container(
@@ -196,8 +180,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
             model.getterSteppe + 1 == widget.maxStepper
                 ? InkWell(
                     onTap: () {
-
-
                       if (model.formKey.currentState.validate()) {
                         if (widget.modifier == true) {
                           updateDossier2(idDossier);
@@ -205,7 +187,6 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                           addDossier();
                         }
                       }
-
 
                       //
                     },
@@ -244,90 +225,87 @@ class _StepperButtonWidgetState extends State<StepperButtonWidget> {
                       ),
                     ),
                   )
+                : ButtonWidgetHelper(
+                    width: 200,
+                    height: 40.0,
+                    onTap: () async {
+                      if (widget.modifier == true) {
+                      } else {
+                        model.getIsSecondeUseerSelected();
 
-                    : ButtonWidgetHelper(
-                        width: 200,
-                        height: 40.0,
-                        onTap: () async {
-                          if (widget.modifier == true) {
-                          } else {
-                            model.getIsSecondeUseerSelected();
+                        if (model.steppe == 3 && widget.uidClient == "" ||
+                            widget.uidClient == null) {
+                          model.getUidClient();
+                        } else {
+                          model.informationClient["uidClient"] =
+                              widget.uidClient;
+                        }
+                        // uidclient33
+                      }
 
-                            if (model.steppe == 3 && widget.uidClient == "" || widget.uidClient ==null) {
-                               model.getUidClient();
-                            } else {
-                             model.informationClient["uidClient"] =
-                                  widget.uidClient;
-                            }
-                            // uidclient33
+                      if (model.formKey.currentState.validate()) {
+                        if (model.steppe == 2) {
+                          double montantDuCredit = double.parse(
+                              model.informationClient[
+                                  'montant_du_credit_bancaire_demande']);
+                          double valDuBien = double.parse(
+                              model.informationClient[
+                                  "valeur_du_bien_estimee_par_le_client"]);
+
+                          if (montantDuCredit > valDuBien) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    'Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier.')));
+                            return;
                           }
+                        }
 
+                        var i = model.steppe + 2;
+                        html.window.history
+                            .pushState(null, "Home", "/#/folder/$i");
+                        model.nextSteppe();
+                        model.scrollToIndex();
 
-                          if (model.formKey.currentState.validate()) {
+                        model.steppe == 1
+                            ? model.informationClient["reparation"] =
+                                model.lisGrosseReparation
+                            : print("!!");
 
-                            if(model.steppe == 2 ){
+                        model.steppe == 3
+                            ? model.mensualiteDucredit_calculer()
+                            : print("pas de calcul");
 
-                                  double montantDuCredit = double.parse( model.informationClient['montant_du_credit_bancaire_demande']);
-                                  double valDuBien = double.parse(model.informationClient["valeur_du_bien_estimee_par_le_client"]);
+                        if (model.steppe == 3) {
+                          model.calculeRemboursementInfinCompteCourant(
+                              model.mensualiteDucredit_calculer());
+                        }
 
-                                  if(montantDuCredit > valDuBien){
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Le montant du crédit bancaire demandé peut-être égal au maximum à la valeur du bien immobilier.')));
-                                    return;
+                        if (model.steppe == 4) {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.setBool("check", false);
+                        }
 
-                                  }
-                                }
-
-                                
-                            var i = model.steppe + 2;
-                            html.window.history
-                                .pushState(null, "Home", "/#/folder/$i");
-                            model.nextSteppe();
-                            model.scrollToIndex();
-
-                            model.steppe == 1
-                                ? model.informationClient["reparation"] =
-                                    model.lisGrosseReparation
-                                : print("!!");
-
-                                
-                            model.steppe == 3
-                                ? model.mensualiteDucredit_calculer()
-                                : print("pas de calcul");
-
-                            if (model.steppe == 3) {
-                              model.calculeRemboursementInfinCompteCourant(
-                                  model.mensualiteDucredit_calculer());
-                            }
-
-                            if (model.steppe == 4) {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.setBool("check", false);
-                            }
-
-
-
-                            Scrollable.ensureVisible(
-                                widget.dataKey.currentContext);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Les champs son obligatoire')),
-                            );
-                          }
-                        },
-                        textButton: "Suivant",
-                        icon: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: Colors.white,
-                          size: 12,
-                        ),
-                      )
+                        Scrollable.ensureVisible(widget.dataKey.currentContext);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Les champs son obligatoire')),
+                        );
+                      }
+                    },
+                    textButton: "Suivant",
+                    icon: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                      size: 12,
+                    ),
+                  )
           ],
         ),
       ),
     );
-  } 
+  }
 }
 
 Future<Uint8List> _readImageData(String name) async {

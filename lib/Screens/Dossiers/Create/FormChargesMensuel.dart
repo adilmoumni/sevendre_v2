@@ -300,23 +300,16 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
   }
 
   _printLatestValue1(ProviderSM model) {
-    print('Received form first controller: ${interetDuCreditController.text}');
-
     model.informationClient["Interet_du_credit"] =
         interetDuCreditController.text;
   }
 
   _printLatestValue3(ProviderSM model) {
-    print('Received form first controller: ${fraisDeNotaireController.text}');
-
     model.informationClient["frais_de_notaire_estime"] =
         fraisDeNotaireController.text;
   }
 
   _printLatestValue4(ProviderSM model) {
-    print(
-        'Received form first controller: ${remboursementMeensuelDuCreditController.text}');
-
     model.informationClient["remboursement_mensuel_du_credit"] =
         remboursementMeensuelDuCreditController.text;
   }

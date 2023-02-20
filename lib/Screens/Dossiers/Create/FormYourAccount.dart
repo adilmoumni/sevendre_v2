@@ -330,7 +330,6 @@ class _FormYourAccountState extends State<FormYourAccount> {
 
                       model.nextSteppe();
 
-                      print(userCredential);
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Le code de sms est incorrect")));

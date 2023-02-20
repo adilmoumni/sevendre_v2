@@ -124,16 +124,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                     User user =
                                         await AuthGoogle.sendPasswordResetEmail(
                                             _emailTextController.text, context);
-                                    print(' valdate');
 
                                     setState(() {
                                       visibleButton = false;
                                     });
-                                  } else {
-                                    print('not valdate');
                                   }
-
-                                  // }
                                 },
                                 child: new Container(
                                   width:

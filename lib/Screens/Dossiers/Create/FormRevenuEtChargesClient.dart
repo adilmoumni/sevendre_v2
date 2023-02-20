@@ -110,10 +110,8 @@ class _FormFormRevenuEtChargesClientState
   bool isSecondSelected = false;
 
   getUserByUID(String uid) async {
-    DocumentReference doc_ref =
-        FirebaseFirestore.instance.collection("clients").doc(uid);
 
-    DocumentSnapshot docSnap = await doc_ref.get();
+    DocumentSnapshot docSnap = await FirebaseFirestore.instance.collection("clients").doc(uid).get();
 
 
     if ((docSnap['email2'].toString().isNotEmpty)) {
@@ -359,9 +357,6 @@ class _FormFormRevenuEtChargesClientState
                     isDouble: true,
                     onChanged: (val) {
                       model.informationClient["loyer_annule_infor"] = val;
-
-                      print(model.informationClient[
-                          "valeur_du_bien_estimee_par_le_client"]);
                     }),
               ),
 
@@ -768,9 +763,6 @@ class _FormFormRevenuEtChargesClientState
                                 model.lisGrosseReparation[i]["annees"] = "1";
                               }
                               model.lisGrosseReparation[i]["montant"] = val;
-                              // grosseReparation["annees"] = val;
-
-                              print(model.lisGrosseReparation);
                             },
                           ),
                           Visibility(
@@ -778,7 +770,6 @@ class _FormFormRevenuEtChargesClientState
                             child: IconButton(
                                 onPressed: () {
                                   model.lisGrosseReparation.removeAt(i);
-                                  print(model.lisGrosseReparation);
 
                                   setState(() {
                                     model.grossRepartoin--;
@@ -969,6 +960,5 @@ class _FormFormRevenuEtChargesClientState
   }
 
   _printLatestValue1(ProviderSM model) {
-    print('Received form first controller: ${motantController.text}');
   }
 }

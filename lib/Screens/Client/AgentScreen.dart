@@ -33,7 +33,6 @@ class _ProfileClientState extends State<ProfileClient> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     ancienPassowrd.text = prefs.getString("currentPassword");
     currentPasswordCheck = prefs.getString("currentPassword");
-    print(prefs.getString("currentPassword"));
   }
 
   setCurrentPassword(String newPassword) async {
@@ -146,7 +145,6 @@ class _ProfileClientState extends State<ProfileClient> {
                 nomController.text = snapshot.data["first_name"];
                 prenomController.text = snapshot.data["last_name"];
                 emailController.text = snapshot.data["email"];
-                print(snapshot.data["first_name"]);
               }
 
               return Center(

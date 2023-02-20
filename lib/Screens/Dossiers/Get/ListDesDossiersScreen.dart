@@ -254,22 +254,12 @@ class _ListDesDossiersState extends State<ListDesDossiers> {
                                                         model.informationClient =
                                                             e.data();
                                                         modification = e.data();
-                                                        print(model
-                                                                .informationClient[
-                                                            "code_postal"]);
-                                                        // value['docId'] = e.id;
+                                                      
                                                         saveIdDossier(e.id);
-                                                        print(e.id);
                                                         return model
                                                             .informationClient;
                                                       }).toList();
-
-                                                      // model.informationClient[
-                                                      //       "assurence"] =
-                                                      //   "2000";
-
-                                                      // final DocumentSnapshot  ds = snapshotMusic.data.docs;
-                                                      Navigator.push(
+    Navigator.push(
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) => StepperScreen(

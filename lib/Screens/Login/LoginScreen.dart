@@ -42,17 +42,12 @@ class _LoginScreensState extends State<LoginScreens> {
     var firstValue = 60000 * (0.012 / 12); // valide
     var secondValue = 1 - (1 + (0.012 / 12));
     var exponent = -(12 * 6);
-    print(firstValue);
-    print(secondValue);
-    print(exponent);
 
     var power = pow(-0.0001, exponent);
-    print(power);
 
     var mensualite_du_credi =
         (60000 * (0.012 / 12)) / pow((1 - (1 + (0.012 / 12))), -(12 * 6));
 
-    print(mensualite_du_credi);
   }
 
   @override
