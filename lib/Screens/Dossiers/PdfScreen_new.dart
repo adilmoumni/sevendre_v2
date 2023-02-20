@@ -267,10 +267,6 @@ class ScreenPdfNew extends StatelessWidget {
                         .dataDossier['montant_credit_mensuel_societe']
                         .toString());
 
-
-            print('=================== input ');
-            print(input);
-
             String output = input.toString();
             int decimalIndex = output.indexOf('.');
             if (decimalIndex != -1) {
@@ -728,7 +724,7 @@ class ScreenPdfNew extends StatelessWidget {
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
                 child: pw.Text(
-                    getValueDossier(value_dossier.credit_vendeur_duree_du_pret),
+                    getValueDossier(value_dossier.credit_vendeur_duree_du_pret) + " ans", 
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
