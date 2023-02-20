@@ -256,16 +256,19 @@ class ScreenPdfNew extends StatelessWidget {
         case value_dossier.credit_vendeur:
           val = this.dataDossier['CREDIT_VENDEUR'].toString();
           break;
-        case  value_dossier.credit_vendeur_duree_du_pret:
+        case value_dossier.credit_vendeur_duree_du_pret:
           try {
             val = "";
+            
+            double montantDuCredit = double.parse(
+                this.dataDossier['montant_credit_mensuel_societe'].toString());
 
-            double input =
-                double.parse(this.dataDossier['CREDIT_VENDEUR'].toString()) /
-                    12 /
-                    double.parse(this
-                        .dataDossier['montant_credit_mensuel_societe']
-                        .toString());
+            double creditVendeur =
+                double.parse(this.dataDossier['CREDIT_VENDEUR'].toString());
+
+            if(montantDuCredit == 0) return "0";
+
+            double input = creditVendeur / 12 / montantDuCredit;
 
             String output = input.toString();
             int decimalIndex = output.indexOf('.');
@@ -274,9 +277,8 @@ class ScreenPdfNew extends StatelessWidget {
             }
 
             val = output;
-            print(val);
           } catch (e) {
-            val = "-";
+            val = "0";
           }
 
           break;
@@ -293,7 +295,7 @@ class ScreenPdfNew extends StatelessWidget {
               value_dossier.taux_de_lassurance_emprunteur_assure_2_quotite) {
         return val;
       }
-      if ( valDossier == value_dossier.credit_vendeur_duree_du_pret) return val;
+      if (valDossier == value_dossier.credit_vendeur_duree_du_pret) return val;
       return formatNumber(value: val).toString();
     } catch (e) {
       return '';
@@ -644,10 +646,10 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text("Crédit vendeur",
+                child: pw.Text("Paiement à terme",
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
-                      fontSize: 6.0,
+                      fontSize: 7.0,
                       font: fontMontserrat,
                     )),
               ),
@@ -724,7 +726,9 @@ class ScreenPdfNew extends StatelessWidget {
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
                 child: pw.Text(
-                    getValueDossier(value_dossier.credit_vendeur_duree_du_pret) + " ans", 
+                    getValueDossier(
+                            value_dossier.credit_vendeur_duree_du_pret) +
+                        " ans",
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -1390,6 +1394,30 @@ class ScreenPdfNew extends StatelessWidget {
                                           fontSize: 12),
                                     ),
                                   ]),
+                      
+                                   pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      pw.CrossAxisAlignment.center,
+                                  children: [
+                                    pw.Text(
+                                      'CRÉDIT VENDEUR : ',
+                                      style: pw.TextStyle(
+                                          font: font,
+                                          color: PdfColor.fromHex('#3f5e59'),
+                                          fontSize: 10),
+                                    ),
+                                    pw.Text(
+                                      getValueDossier(
+                                              value_dossier.credit_vendeur) +
+                                          ' €',
+                                      style: pw.TextStyle(
+                                          font: font,
+                                          color: PdfColor.fromHex('#3f5e59'),
+                                          fontSize: 12),
+                                    ),
+                                  ]),
                             ],
                           ),
                         )),
@@ -1627,6 +1655,7 @@ class ScreenPdfNew extends StatelessWidget {
                                       fontSize: 11),
                                 ),
                               ]),
+
                         ])
                   ]),
             ),
