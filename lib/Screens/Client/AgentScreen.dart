@@ -301,7 +301,7 @@ class _ProfileClientState extends State<ProfileClient> {
                             child: ButtonWidgetHelper(
                               width: 200,
                               height: 40,
-                              textButton: "Enregistrer qsdfqsd",
+                              textButton: "Enregistrer",
                               icon: Icon(
                                 Icons.save,
                                 color: Colors.white,

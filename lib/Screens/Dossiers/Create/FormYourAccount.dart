@@ -12,6 +12,8 @@ import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../PdfScreen_new.dart';
+
 class FormYourAccount extends StatefulWidget {
   const FormYourAccount({Key key}) : super(key: key);
 
@@ -207,7 +209,17 @@ class _FormYourAccountState extends State<FormYourAccount> {
                         model.informationClient['uidClient'] =
                             userCredential.user.uid;
 
-                        model.nextSteppe();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ScreenPdfNew(
+                                    model.informationClient,
+                                    model.dataOfTAbleau,
+                                    isSecondClientSelect:
+                                        model.informationClient[
+                                            'isSecondeUserChecked'])));
+
+                        // model.nextSteppe();
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text("Le code de sms est incorrect")));

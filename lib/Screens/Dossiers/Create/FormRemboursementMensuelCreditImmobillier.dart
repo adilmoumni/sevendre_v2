@@ -29,7 +29,7 @@ class _FormRemboursementMensuelCreditImmobillierState
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              true ? "assets/images/validation.png" : "assets/images/refuser.gif",
+              "assets/images/validation.png",
               height: 300.0,
               width: 300.0,
             ),
