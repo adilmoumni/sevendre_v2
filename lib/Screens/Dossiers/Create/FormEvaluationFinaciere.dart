@@ -102,6 +102,10 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
 
   TextEditingController montantCreditBancaireDemandecontroller =
       TextEditingController(text: "1234");
+
+  TextEditingController creditVendeurController =
+      TextEditingController(text: "");
+
   TextEditingController dureeDeRemboursementcontrolle =
       TextEditingController(text: "1234");
   TextEditingController tauxDinteretMoyencontrolle =
@@ -127,6 +131,8 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             (capacite * duree * 12).toString();
         model.informationClient["montant_du_credit_bancaire_demande"] =
             montantCreditBancaireDemandecontroller.text;
+
+
       } catch (e) {
         print("Error: $e");
       }
@@ -134,6 +140,14 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
       montantCreditBancaireDemandecontroller.text =
           model.informationClient["montant_du_credit_bancaire_demande"];
     }
+
+            creditVendeurController.text = (double.parse(model.informationClient[
+                    "valeur_du_bien_estimee_par_le_client"]) -
+                double.parse(model
+                    .informationClient["montant_du_credit_bancaire_demande"]))
+            .toString();
+        model.informationClient["CREDIT_VENDEUR"] =
+            creditVendeurController.text;
 
     dureeDeRemboursementcontrolle.text =
         model.informationClient["duree_de_remboursement"];
@@ -168,7 +182,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                // controller: controlle1,
                 controller: montantCreditBancaireDemandecontroller,
                 labelField: "Montant du crédit bancaire demandé*",
                 validator: model.validatorTextFieldisDouble,
@@ -176,7 +189,31 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 onChanged: (val) {
                   model.informationClient[
                       "montant_du_credit_bancaire_demande"] = val;
+
+                  // calcule Credit vendeur
+                  try {
+                    creditVendeurController.text = (double.parse(
+                                model.informationClient[
+                                    "valeur_du_bien_estimee_par_le_client"]) -
+                            double.parse(val))
+                        .toString();
+                    model.informationClient["CREDIT_VENDEUR"] =
+                        creditVendeurController.text;
+                  } catch (e) {
+                    creditVendeurController.text = "";
+                    model.informationClient["CREDIT_VENDEUR"] = "";
+                  }
                 }),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                width: widthTextField,
+                enabled: true,
+                controller: creditVendeurController,
+                labelField: "CREDIT VENDEUR ",
+                isDouble: true,
+                onChanged: (val) {}),
           ),
           Padding(
             padding:

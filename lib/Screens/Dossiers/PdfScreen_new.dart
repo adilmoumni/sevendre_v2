@@ -40,7 +40,9 @@ enum value_dossier {
   appel_de_tresorerie_de_la_sci,
   loyer_initial_paye_a_la_sci,
 
-  montant_credit_mensuel_societe
+  montant_credit_mensuel_societe,
+  credit_vendeur,
+  credit_vendeur_duree_du_pret
 }
 
 enum value_table {
@@ -251,6 +253,38 @@ class ScreenPdfNew extends StatelessWidget {
           val = this.dataDossier['montant_credit_mensuel_societe'].toString();
           break;
 
+        case value_dossier.credit_vendeur:
+          val = this.dataDossier['CREDIT_VENDEUR'].toString();
+          break;
+        case  value_dossier.credit_vendeur_duree_du_pret:
+          try {
+            val = "";
+
+            double input =
+                double.parse(this.dataDossier['CREDIT_VENDEUR'].toString()) /
+                    12 /
+                    double.parse(this
+                        .dataDossier['montant_credit_mensuel_societe']
+                        .toString());
+
+
+            print('=================== input ');
+            print(input);
+
+            String output = input.toString();
+            int decimalIndex = output.indexOf('.');
+            if (decimalIndex != -1) {
+              output = output.substring(0, decimalIndex + 3);
+            }
+
+            val = output;
+            print(val);
+          } catch (e) {
+            val = "-";
+          }
+
+          break;
+
         default:
       }
 
@@ -263,7 +297,7 @@ class ScreenPdfNew extends StatelessWidget {
               value_dossier.taux_de_lassurance_emprunteur_assure_2_quotite) {
         return val;
       }
-
+      if ( valDossier == value_dossier.credit_vendeur_duree_du_pret) return val;
       return formatNumber(value: val).toString();
     } catch (e) {
       return '';
@@ -654,7 +688,8 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text(
+                    getValueDossier(value_dossier.credit_vendeur) + " €",
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -692,7 +727,8 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text(
+                    getValueDossier(value_dossier.credit_vendeur_duree_du_pret),
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -730,7 +766,7 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text("0 %",
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -771,7 +807,7 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text("-",
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -814,7 +850,7 @@ class ScreenPdfNew extends StatelessWidget {
                       height: 17,
                       padding: pw.EdgeInsets.all(3),
                       alignment: pw.Alignment.center,
-                      child: pw.Text(" ----- ",
+                      child: pw.Text("-",
                           style: pw.TextStyle(
                             fontSize: 8.0,
                             font: fontMontserrat,
@@ -830,10 +866,10 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text('Échéance mensuelle',
+                child: pw.Text('Echéance mensuelle',
                     style: pw.TextStyle(
                       font: font,
-                      fontSize: 7,
+                      fontSize: 8,
                       fontWeight: pw.FontWeight.bold,
                       color: PdfColor.fromHex('#3f5e59'),
                     )),
@@ -856,7 +892,7 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text("-",
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,
@@ -874,7 +910,7 @@ class ScreenPdfNew extends StatelessWidget {
                 child: pw.Text('Remboursement PT',
                     style: pw.TextStyle(
                       font: font,
-                      fontSize: 7,
+                      fontSize: 8,
                       fontWeight: pw.FontWeight.bold,
                       color: PdfColor.fromHex('#3f5e59'),
                     )),
@@ -887,9 +923,7 @@ class ScreenPdfNew extends StatelessWidget {
                       crossAxisAlignment: pw.CrossAxisAlignment.center,
                       mainAxisAlignment: pw.MainAxisAlignment.center,
                       children: [
-                        pw.Text(
-                            getValueDossier(
-                                value_dossier.montant_credit_mensuel_societe),
+                        pw.Text('-',
                             style: pw.TextStyle(font: font, fontSize: 7.0)),
                       ])),
               pw.Container(
@@ -897,7 +931,9 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text(" ----- ",
+                child: pw.Text(
+                    getValueDossier(
+                        value_dossier.montant_credit_mensuel_societe),
                     style: pw.TextStyle(
                       fontSize: 8.0,
                       font: fontMontserrat,

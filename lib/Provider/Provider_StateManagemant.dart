@@ -93,7 +93,6 @@ class ProviderSM extends ChangeNotifier {
       bool isSecondeUserSelect = prefs.getBool("is_seconde_useer_selected");
       client1["is_seconde_useer_selected"] =
           prefs.getBool("is_seconde_useer_selected");
-
     } catch (e) {}
   }
 
@@ -222,6 +221,8 @@ class ProviderSM extends ChangeNotifier {
     'sommeReparation': '0',
 
     "cumuleMoyenLoyer": '0',
+
+    "CREDIT_VENDEUR": "0",
   };
 
   var dataOfTAbleau = [];
@@ -636,7 +637,6 @@ class ProviderSM extends ChangeNotifier {
         totalDesChargeDeductible +=
             calcuTauxDassurance_client1 + interet + calcuTauxDassurance_client2;
 
-
         double totalDesDepense = taxe_fonciere +
             assurance +
             entretien +
@@ -726,18 +726,25 @@ class ProviderSM extends ChangeNotifier {
             int.parse(informationClient['Année de construction']) + 15;
 
         if (anneDeConstruction < DateTime.now().year + i) {
-
           crl = loyerAnnuel * 2.5 / 100;
           // 1 mean non && 0 mean oui
-          if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 1) crl = 0;
-        
+          if (informationClient["vente_a_soi_meme_suivie_dune_location"] == 1)
+            crl = 0;
+
           totalDesDepense += crl;
           totalDesChargeDeductibleSom += crl;
         }
 
-        // the fisrt year to calculate montant _credit mensual 
-        if(i == 1 ) {
-          informationClient["montant_credit_mensuel_societe"] =  (( totalAmmortisementCredi +  totlalInteterParAnnee +  (calcuTauxDassurance_client1  + calcuTauxDassurance_client2 ) )/12 ).round().toString();
+        // the fisrt year to calculate montant _credit mensual
+        if (i == 1) {
+          informationClient["montant_credit_mensuel_societe"] =
+              ((totalAmmortisementCredi +
+                          totlalInteterParAnnee +
+                          (calcuTauxDassurance_client1 +
+                              calcuTauxDassurance_client2)) /
+                      12)
+                  .round()
+                  .toString();
         }
         data.add({
           "crl": crl.round().toString(),
@@ -830,9 +837,6 @@ class ProviderSM extends ChangeNotifier {
         totalChageMoyen +=
             double.parse(dataOfTAbleau[i]['MontantAssurance_pro1'].toString());
 
-        // ajouter une condition ici voir comment ^^
-        // totalChageMoyen += double.parse( dataOfTAbleau[i]['MontantAssurance_pro2'].toString());
-
         totalloyer += double.parse(dataOfTAbleau[i]['loyer annuel'].toString());
       }
     } catch (e) {}
@@ -877,9 +881,6 @@ class ProviderSM extends ChangeNotifier {
     informationClient["appel_mensuel_en_compte_courant"] =
         (totalAppleCCA / annneCredit).round().toString();
 
-    // var calRem = ((totalAppleCCA / annneCredit) + (loyerAnnuelPremierValu / 12))
-    //     .round()
-    //     .toString();
     var calRem = mensualiteDucredit_calculer();
 
     if (double.parse(informationClient["appel_mensuel_en_compte_courant"]) <
@@ -978,6 +979,11 @@ class ProviderSM extends ChangeNotifier {
       informationClient['Appel_de_tresorerie_de_la_SCI'] =
           apple_de_tresosire_sci;
     }
+
+    // calculate CREDIT VENDEUR
+    informationClient["CREDIT_VENDEUR"] = double.parse(
+            informationClient["valeur_du_bien_estimee_par_le_client"]) -
+        double.parse(informationClient['montant_du_credit_bancaire_demande']);
 
     formatNumberToEur();
   }
