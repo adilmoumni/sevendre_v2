@@ -131,8 +131,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             (capacite * duree * 12).toString();
         model.informationClient["montant_du_credit_bancaire_demande"] =
             montantCreditBancaireDemandecontroller.text;
-
-
       } catch (e) {
         print("Error: $e");
       }
@@ -141,13 +139,12 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
           model.informationClient["montant_du_credit_bancaire_demande"];
     }
 
-            creditVendeurController.text = (double.parse(model.informationClient[
-                    "valeur_du_bien_estimee_par_le_client"]) -
-                double.parse(model
-                    .informationClient["montant_du_credit_bancaire_demande"]))
-            .toString();
-        model.informationClient["CREDIT_VENDEUR"] =
-            creditVendeurController.text;
+    creditVendeurController.text = (double.parse(model
+                .informationClient["valeur_du_bien_estimee_par_le_client"]) -
+            double.parse(
+                model.informationClient["montant_du_credit_bancaire_demande"]))
+        .toString();
+    model.informationClient["CREDIT_VENDEUR"] = creditVendeurController.text;
 
     dureeDeRemboursementcontrolle.text =
         model.informationClient["duree_de_remboursement"];
@@ -175,8 +172,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
     return Form(
       key: model.formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -189,8 +185,6 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                 onChanged: (val) {
                   model.informationClient[
                       "montant_du_credit_bancaire_demande"] = val;
-
-                  // calcule Credit vendeur
                   try {
                     creditVendeurController.text = (double.parse(
                                 model.informationClient[
@@ -314,6 +308,13 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                             model.informationClient[
                                     "montant_du_credit_bancaire_demande"] =
                                 montantCreditBancaireDemandecontroller.text;
+
+                        
+                                creditVendeurController.text = (double.parse(model
+                                        .informationClient[
+                                    "valeur_du_bien_estimee_par_le_client"]) -
+                                double.parse(model.informationClient[
+                                    'montant_du_credit_bancaire_demande'])).toString();
                           } catch (e) {
                             print("Error: $e");
                           }

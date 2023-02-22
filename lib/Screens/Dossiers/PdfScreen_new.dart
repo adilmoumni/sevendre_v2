@@ -634,10 +634,10 @@ class ScreenPdfNew extends StatelessWidget {
                 height: 17,
                 padding: pw.EdgeInsets.all(3),
                 alignment: pw.Alignment.center,
-                child: pw.Text('Prêt immobilier à taux fixe',
+                child: pw.Text('Prêt immobilier',
                     textAlign: pw.TextAlign.center,
                     style: pw.TextStyle(
-                      fontSize: 6.0,
+                      fontSize: 7.0,
                       font: fontMontserrat,
                     )),
               ),
@@ -885,7 +885,7 @@ class ScreenPdfNew extends StatelessWidget {
                         pw.Text(
                             getValueDossier(
                                 value_dossier.montant_credit_mensuel_societe),
-                            style: pw.TextStyle(font: font, fontSize: 7.0)),
+                            style: pw.TextStyle(font: font, fontSize: 8.0)),
                       ])),
               pw.Container(
                 width: 128 / 2,

@@ -22,7 +22,7 @@ class _FormRevenuNetmensuelDeCreditState
 
 //-----------------------Controller Text --------------------------------
 
-  TextEditingController revenueP1Controller = TextEditingController();
+  TextEditingController revenueP1Controller = TextEditingController(text: "");
   TextEditingController revenueP1LocatifController =
       TextEditingController();
 
@@ -98,10 +98,7 @@ class _FormRevenuNetmensuelDeCreditState
     revenueNetDeCreditP1Controller.addListener(() => _printLatestValue2(model));
     revenueNetDeCreditP2Controller.addListener(() => _printLatestValue3(model));
     revenueNetDeCreditP2Controller.addListener(() => printLatestValueRevenueLocatif(model));
-    // revenueP1Controller.addListener(() => _printLatestValue());
 
-    // CalculRevenueAnnuelETCpaciteMaximal(context);
-    // test2();
     super.initState();
   }
 
@@ -112,10 +109,7 @@ class _FormRevenuNetmensuelDeCreditState
       key: model.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -153,7 +147,6 @@ class _FormRevenuNetmensuelDeCreditState
                     width: widthTextField,
                     labelField:
                         "Age du propriétaire",
-                    // helperText: "Entrer Mensualité du crédit",
                     validator: model.validatorTextFieldString,
                     controller: ageDuPro1Controller,
                     isDouble: true,
@@ -172,7 +165,6 @@ class _FormRevenuNetmensuelDeCreditState
                       width: widthTextField,
                       labelField:
                           "Age du co-propriétaire",
-                      // helperText: "Entrer Mensualité du crédit",
                       validator: model.validatorTextFieldString,
                       controller: ageDuPro2Controller,
                       isDouble: true,
@@ -236,9 +228,6 @@ class _FormRevenuNetmensuelDeCreditState
                   model.informationClient[
                           "charges_annuelle_de_credit_en_cours_du_proprieteire_1"] =
                       val;
-
-
-                  // CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),
           ),
 
@@ -338,7 +327,6 @@ class _FormRevenuNetmensuelDeCreditState
                     width: widthTextField,
                     labelField:
                         "Revenus annuel net de crédit en cours du co-propriétaire ",
-                    // validator: model.validatorTextFieldisDouble,
                     controller: revenueNetDeCreditP2Controller,
                     enabled: true,
                     onChanged: (val) {
@@ -480,7 +468,7 @@ class _FormRevenuNetmensuelDeCreditState
         "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"] = revenueNetDeCreditP2Controller.text;
     model.informationClient[
             "revenueP1Locatif"] =
-        revenueP1LocatifController.text;
+    revenueP1LocatifController.text;
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 }

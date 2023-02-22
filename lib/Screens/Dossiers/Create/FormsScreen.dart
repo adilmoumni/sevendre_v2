@@ -117,19 +117,13 @@ class _StepperScreenState extends State<StepperScreen> {
                       return Expanded(
                         flex: 3,
                         child: Container(
-                          // color: Colors.red,
                           height: MediaQuery.of(context).size.height,
                           child: Selector<ProviderSM, ScrollController>(
                               selector: (context, cnt) => cnt.scrollController,
                               builder: (context, con, child) {
                                 return SingleChildScrollView(
                                   controller: con,
-                                  physics:
-                                      // steppe == 6
-                                      //     ?
-                                      AlwaysScrollableScrollPhysics(),
-                                  // : AlwaysScrollableScrollPhysics(),
-                                  // reverse: true,
+                                  physics: AlwaysScrollableScrollPhysics(),
                                   child: Column(
                                     children: [
                                       conditionResponive
@@ -139,7 +133,6 @@ class _StepperScreenState extends State<StepperScreen> {
                                                   color: Color(0xFF045258),
                                                   border: Border(
                                                     bottom: BorderSide(
-                                                      //                   <--- right side
                                                       color: Colors.grey[400],
                                                       width: 1.0,
                                                     ),
@@ -151,19 +144,9 @@ class _StepperScreenState extends State<StepperScreen> {
                                               ),
                                             ),
                                       Container(
-                                        // color : steppe == 6|| steppe == 2 || steppe == 4 || steppe == 7
-                                        // ?Colors.red :Colors.blue,
-                                        height:
-                                            // (steppe == 1 && check == false)||
-                                            steppe == 2 || steppe == 3
-
-                                                // steppe == 6 ||
-
-                                                ? MediaQuery.of(context)
-                                                    .size
-                                                    .height
-                                                : null,
-
+                                        // height:  steppe == 3
+                                        //     ? MediaQuery.of(context).size.height
+                                        //     : null,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -185,11 +168,10 @@ class _StepperScreenState extends State<StepperScreen> {
                                                         child: IconButton(
                                                             color: Colors.white,
                                                             icon: Icon(
-                                                              Icons
-                                                                  .arrow_back_rounded,
-                                                              color: Color(
-                                                                  0xFF045258),
-                                                            ),
+                                                                Icons
+                                                                    .arrow_back_rounded,
+                                                                color: Color(
+                                                                    0xFF045258)),
                                                             onPressed: () {
                                                               AwesomeDialog(
                                                                   buttonsTextStyle:
@@ -217,7 +199,6 @@ class _StepperScreenState extends State<StepperScreen> {
                                                                       () {
                                                                     debugPrint(
                                                                         'OnClcik');
-                                                                    // Navigator.pushNamed(context, '/folder/1');
                                                                   },
                                                                   btnOkText:
                                                                       checkwidth
@@ -303,7 +284,6 @@ class _StepperScreenState extends State<StepperScreen> {
                                                 builder:
                                                     (context, steppe, child) {
                                                   return
-                                                      // color: Colors.blue,
                                                       formsScreens[steppe];
                                                 }),
                                             Padding(
@@ -317,10 +297,6 @@ class _StepperScreenState extends State<StepperScreen> {
                                                   modifier: widget.modifier,
                                                   nombreCliet:
                                                       widget.nombreCliet
-                                                  //             key: dataKey,
-                                                  //             maxStepper: formsScreens.length,
-                                                  //             listForms: formsNameScreens,
-                                                  //             steppe: steppe
                                                   ),
                                             )
 

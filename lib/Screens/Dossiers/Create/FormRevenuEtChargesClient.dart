@@ -133,7 +133,6 @@ class _FormFormRevenuEtChargesClientState
   Widget build(BuildContext context) {
     var model = Provider.of<ProviderSM>(context);
 
-    // model.client1['is_seconde_useer_selected'] = isSecondSelected;
 
     return Form(
       key: model.formKey,

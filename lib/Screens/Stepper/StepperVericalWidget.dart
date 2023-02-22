@@ -27,7 +27,6 @@ class _StepperVericalWidgetState extends State<StepperVericalWidget> {
         Expanded(
           child: SingleChildScrollView(
             controller: model.controller,
-            // scrollDirection: Axis.horizontal,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,29 +34,22 @@ class _StepperVericalWidgetState extends State<StepperVericalWidget> {
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Align(
-                      alignment: Alignment.centerLeft,
-                      child:SvgPicture.asset(
-            "assets/images/Logo_Sevendre.svg",
-            height: 30,
-            color: Colors.white,
-          ),),
+                    alignment: Alignment.centerLeft,
+                    child: SvgPicture.asset(
+                      "assets/images/Logo_Sevendre.svg",
+                      height: 30,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                for (int i = 0;
-                    // i < 2
-                    i < widget.maxStepper;
-                    i++)
+                SizedBox(height: 30),
+                for (int i = 0; i < widget.maxStepper; i++)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        // alignment: Alignment.centerLeft,
-
                         child: Wrap(
-                          //  alignment = WrapAlignment.start,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             Padding(
@@ -116,9 +108,6 @@ class _StepperVericalWidgetState extends State<StepperVericalWidget> {
                           ],
                         ),
                       ),
-                      // i + 1 == widget.maxStepper
-                      //     ? Container()
-                      //     :
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Stack(
