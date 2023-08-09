@@ -12,6 +12,8 @@ import 'dart:html' as html;
 import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../WidgetHelper/ButtonWidgetHelper.dart';
+
 class FormRevenuEtChargesClient extends StatefulWidget {
   String uidClient = "";
   Map<String, Object> modification = {};
@@ -110,9 +112,8 @@ class _FormFormRevenuEtChargesClientState
   bool isSecondSelected = false;
 
   getUserByUID(String uid) async {
-
-    DocumentSnapshot docSnap = await FirebaseFirestore.instance.collection("clients").doc(uid).get();
-
+    DocumentSnapshot docSnap =
+        await FirebaseFirestore.instance.collection("clients").doc(uid).get();
 
     if ((docSnap['email2'].toString().isNotEmpty)) {
       setState(() {
@@ -132,7 +133,6 @@ class _FormFormRevenuEtChargesClientState
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<ProviderSM>(context);
-
 
     return Form(
       key: model.formKey,
@@ -178,18 +178,9 @@ class _FormFormRevenuEtChargesClientState
                           height: 60,
                           child: DropdownSearch<String>(
                             //mode of dropdown
-                            // maxHeight :60,
+                            maxHeight: 160,
                             showSearchBox: false,
                             dropdownSearchDecoration: InputDecoration(
-                                // suffixIcon: checkEmpty == false
-                                //     ? null
-                                //     : InkWell(
-                                //         borderRadius: BorderRadius.circular(20),
-                                //         onTap: () {
-                                //           // widget.controller.clear();
-                                //         },
-                                //         child: Icon(Icons.close,
-                                //             size: 20.0, color: Colors.black)),
                                 fillColor: Colors.white,
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -223,21 +214,8 @@ class _FormFormRevenuEtChargesClientState
                                     borderSide:
                                         BorderSide(color: Color(0xFFe0d4e4))),
                                 labelStyle: TextStyle(
-                                    color:
-                                        // myFocusNode.hasFocus
-                                        //     ? Color(0xFFe0d4e4)
-                                        //     :
-                                        Color.fromRGBO(153, 153, 153, 1))),
+                                    color: Color.fromRGBO(153, 153, 153, 1))),
                             searchBoxDecoration: InputDecoration(
-                                // suffixIcon: checkEmpty == false
-                                //     ? null
-                                //     : InkWell(
-                                //         borderRadius: BorderRadius.circular(20),
-                                //         onTap: () {
-                                //           // widget.controller.clear();
-                                //         },
-                                //         child: Icon(Icons.close,
-                                //             size: 20.0, color: Colors.black)),
                                 fillColor: Colors.white,
                                 filled: true,
                                 border: OutlineInputBorder(
@@ -902,9 +880,9 @@ class _FormFormRevenuEtChargesClientState
                                       "vente_a_soi_meme_suivie_dune_location"],
                                   onChanged: (newValue) {
                                     setState(() {
-                                       model.informationClient[
-                                            "vente_a_soi_meme_suivie_dune_location"] =
-                                        newValue;
+                                      model.informationClient[
+                                              "vente_a_soi_meme_suivie_dune_location"] =
+                                          newValue;
                                     });
                                   },
                                   activeColor: Color(0xFF06464b),
@@ -958,6 +936,5 @@ class _FormFormRevenuEtChargesClientState
     );
   }
 
-  _printLatestValue1(ProviderSM model) {
-  }
+  _printLatestValue1(ProviderSM model) {}
 }

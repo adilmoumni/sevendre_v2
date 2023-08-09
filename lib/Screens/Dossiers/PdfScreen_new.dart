@@ -259,14 +259,14 @@ class ScreenPdfNew extends StatelessWidget {
         case value_dossier.credit_vendeur_duree_du_pret:
           try {
             val = "";
-            
+
             double montantDuCredit = double.parse(
                 this.dataDossier['montant_credit_mensuel_societe'].toString());
 
             double creditVendeur =
                 double.parse(this.dataDossier['CREDIT_VENDEUR'].toString());
 
-            if(montantDuCredit == 0) return "0";
+            if (montantDuCredit == 0) return "0";
 
             double input = creditVendeur / 12 / montantDuCredit;
 
@@ -1394,8 +1394,7 @@ class ScreenPdfNew extends StatelessWidget {
                                           fontSize: 12),
                                     ),
                                   ]),
-                      
-                                   pw.Row(
+                              pw.Row(
                                   mainAxisAlignment:
                                       pw.MainAxisAlignment.center,
                                   crossAxisAlignment:
@@ -1655,7 +1654,6 @@ class ScreenPdfNew extends StatelessWidget {
                                       fontSize: 11),
                                 ),
                               ]),
-
                         ])
                   ]),
             ),

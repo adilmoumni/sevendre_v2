@@ -10,6 +10,17 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProviderSM extends ChangeNotifier {
+  CreditImmobolierDispoInLimineFunction() {
+    return (double.parse(
+                informationClient['montant_du_credit_bancaire_demande']) -
+            double.parse(informationClient['frais_de_notaire_estime']) -
+            double.parse(
+                    informationClient["valeur_du_bien_estimee_par_le_client"]) *
+                informationClient['taux_de_remuneration'])
+        .round()
+        .toString();
+  }
+
   getVariableFromBack() async {
     var doc = await FirebaseFirestore.instance
         .collection("variable")
@@ -177,7 +188,7 @@ class ProviderSM extends ChangeNotifier {
     //---------------------3-------------------
     "montant_du_credit_bancaire_demande": "",
     "duree_de_remboursement": "20",
-    "Taux_interet_Moyen_en_%": "1.62", // from Back
+    "Taux_interet_Moyen_en_%": "3.87", // from Back
 
     //--------------------5--------------------
     "liquidites_degagees": "",
@@ -214,7 +225,7 @@ class ProviderSM extends ChangeNotifier {
     'inflationAutre': '2',
     'inflationTaxFoncier': '5',
     'inflationloyerAnnuel': '1',
-    'tauxInternetBancaire': '1.62',
+    'tauxInternetBancaire': '3.87',
     'impotSurLesSocieteDeuxiemValue': '25',
     'tauxFraisDeNotaire': '7.5',
 
@@ -223,6 +234,8 @@ class ProviderSM extends ChangeNotifier {
     "cumuleMoyenLoyer": '0',
 
     "CREDIT_VENDEUR": "0",
+
+    "taux_de_remuneration": 0.06,
   };
 
   var dataOfTAbleau = [];
@@ -914,14 +927,8 @@ class ProviderSM extends ChangeNotifier {
     // =============== this is liquidite
 
     informationClient['total_des_caa'] = (-totalAppleCCA).round().toString();
-    informationClient['CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE'] = (double.parse(
-                informationClient['montant_du_credit_bancaire_demande']) -
-            double.parse(informationClient['frais_de_notaire_estime']) -
-            double.parse(
-                    informationClient["valeur_du_bien_estimee_par_le_client"]) *
-                0.06)
-        .round()
-        .toString();
+    informationClient['CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE'] =
+        CreditImmobolierDispoInLimineFunction();
 
     informationClient[
             'CHARGE_MENSUELLE_APRES_REMBOURSEMENT_DU_CREDIT_DU_CREDIT'] =
@@ -1016,6 +1023,17 @@ class ProviderSM extends ChangeNotifier {
 //===============================================================================
 //------------------Validation---------------------------------------------------
 //===============================================================================
+
+  // CreditImmobolierDispoInLimineFunction() {
+  //   return (double.parse(
+  //               informationClient['montant_du_credit_bancaire_demande']) -
+  //           double.parse(informationClient['frais_de_notaire_estime']) -
+  //           double.parse(
+  //                   informationClient["valeur_du_bien_estimee_par_le_client"]) *
+  //               informationClient['taux_de_remuneration'])
+  //       .round()
+  //       .toString();
+  // }
 
   Function(String) validatorTextFieldString = (value) {
     if (value == null || value.isEmpty) {

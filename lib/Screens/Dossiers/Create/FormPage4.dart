@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../WidgetHelper/ButtonWidgetHelper.dart';
+
 class FormPage4 extends StatefulWidget {
   const FormPage4({Key key}) : super(key: key);
 
@@ -33,7 +35,7 @@ class _FormPage4State extends State<FormPage4> {
   TextEditingController creditImmoDisponibleInLimineController =
       TextEditingController(text: "");
 
-        TextEditingController montantCreditMensuelSocieteController =
+  TextEditingController montantCreditMensuelSocieteController =
       TextEditingController(text: "");
 
   TextEditingController remboursementInfineDuCompteCourantController =
@@ -41,6 +43,16 @@ class _FormPage4State extends State<FormPage4> {
 
   TextEditingController chargeMensuellePendentLaDureDuCreditController =
       TextEditingController(text: "");
+
+  TextEditingController passwordTauxController =
+      TextEditingController(text: "");
+
+  TextEditingController tauxDeRemunerationController =
+      TextEditingController(text: "");
+
+  bool isPasswordTauxVisible = false;
+  bool isPasswordTauxCorrect = false;
+  bool isPasswordTextIncorrect = false;
 
   @override
   void initState() {
@@ -62,7 +74,7 @@ class _FormPage4State extends State<FormPage4> {
     creditImmoDisponibleInLimineController.text =
         model.informationClient["CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"];
 
-            montantCreditMensuelSocieteController.text =
+    montantCreditMensuelSocieteController.text =
         model.informationClient["montant_credit_mensuel_societe"];
 
     remboursementInfineDuCompteCourantController.text =
@@ -72,6 +84,11 @@ class _FormPage4State extends State<FormPage4> {
         (double.parse(model.informationClient['Credit_immobilier_de_la_SCI']) +
                 double.parse(model.informationClient['cumuleMoyenLoyer']))
             .toString();
+
+    tauxDeRemunerationController.text = (double.parse(
+                model.informationClient["taux_de_remuneration"].toString()) *
+            100)
+        .toString();
 
     super.initState();
   }
@@ -84,24 +101,121 @@ class _FormPage4State extends State<FormPage4> {
     return Form(
       key: model.formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFieldHelper2(
-                width: widthTextField,
-                controller: creditImmoDisponibleInLimineController,
-                labelField: "CRÉDIT IMMOBILIER DISPONIBLE IN LIMINE*",
-                isDouble: true,
-                enabled: true,
-                onChanged: (val) {
-                  model.informationClient[
-                      "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] = val;
-                }),
+          GestureDetector(
+            onDoubleTap: () => setState(() => isPasswordTauxVisible = true),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFieldHelper2(
+                  width: widthTextField,
+                  controller: creditImmoDisponibleInLimineController,
+                  labelField: "CRÉDIT IMMOBILIER DISPONIBLE IN LIMINE*",
+                  isDouble: true,
+                  enabled: true,
+                  onChanged: (val) => model.informationClient[
+                      "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] = val),
+            ),
           ),
-
+          Visibility(
+            visible: isPasswordTauxVisible && !isPasswordTauxCorrect,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TextFieldHelper2(
+                        width: widthTextField / 2,
+                        controller: passwordTauxController,
+                        labelField: "Mode de passe",
+                        typePassword: true,
+                        isText: true,
+                        hintText: "******",
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        if (passwordTauxController.text == "SVASM") {
+                          setState(() {
+                            isPasswordTauxCorrect = true;
+                            isPasswordTextIncorrect = false;
+                            passwordTauxController.text = "";
+                          });
+                        } else
+                          setState(() => isPasswordTextIncorrect = true);
+                      },
+                      padding: EdgeInsets.only(right: 2),
+                      icon: Icon(Icons.check_circle_rounded,
+                          color: Color(0xFF045258), size: 30),
+                    ),
+                  ],
+                ),
+                Visibility(
+                  visible: isPasswordTextIncorrect,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Text('Le mot de passe est incorrect',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: isPasswordTauxCorrect,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFieldHelper2(
+                    width: widthTextField / 2,
+                    controller: tauxDeRemunerationController,
+                    labelField: "Taux de remuneration en %",
+                    isDouble: true,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    model.informationClient['taux_de_remuneration'] =
+                        double.parse(
+                                tauxDeRemunerationController.text.toString()) /
+                            100;
+
+                    model.informationClient[
+                            "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"] =
+                        model.CreditImmobolierDispoInLimineFunction();
+
+                    creditImmoDisponibleInLimineController.text =
+                        model.informationClient[
+                            "CREDIT_IMMOBILIER_DISPONIBLE_IN_LIMINE"];
+
+                    setState(() {
+                      isPasswordTauxVisible = false;
+                      isPasswordTauxCorrect = false;
+                    });
+                  },
+                  padding: EdgeInsets.only(right: 2),
+                  icon: Icon(
+                    Icons.check_circle_rounded,
+                    color: Color(0xFF045258),
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
@@ -110,11 +224,10 @@ class _FormPage4State extends State<FormPage4> {
                 isDouble: true,
                 enabled: true,
                 onChanged: (val) {
-                  model.informationClient[
-                      "montant_credit_mensuel_societe"] = val;
+                  model.informationClient["montant_credit_mensuel_societe"] =
+                      val;
                 }),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(

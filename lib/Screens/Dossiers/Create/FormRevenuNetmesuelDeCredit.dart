@@ -7,8 +7,8 @@ import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FormRevenuNetmensuelDeCredit extends StatefulWidget {
-  int nombreCliet  =1;
-   FormRevenuNetmensuelDeCredit({Key key,this.nombreCliet}) : super(key: key);
+  int nombreCliet = 1;
+  FormRevenuNetmensuelDeCredit({Key key, this.nombreCliet}) : super(key: key);
 
   @override
   _FormRevenuNetmensuelDeCreditState createState() =>
@@ -23,12 +23,9 @@ class _FormRevenuNetmensuelDeCreditState
 //-----------------------Controller Text --------------------------------
 
   TextEditingController revenueP1Controller = TextEditingController(text: "");
-  TextEditingController revenueP1LocatifController =
-      TextEditingController();
+  TextEditingController revenueP1LocatifController = TextEditingController();
 
-   TextEditingController revenueP2LocatifController =
-      TextEditingController();
-
+  TextEditingController revenueP2LocatifController = TextEditingController();
 
   TextEditingController revenueP2Controller = TextEditingController();
   TextEditingController revenueNetDeCreditP1Controller =
@@ -47,14 +44,12 @@ class _FormRevenuNetmensuelDeCreditState
   TextEditingController revenuAnnuelleGlobalNetController =
       TextEditingController();
 
+  TextEditingController codePostalDuDomicileProprietaire =
+      TextEditingController();
+  TextEditingController ageDuPro1Controller = TextEditingController();
+  TextEditingController ageDuPro2Controller = TextEditingController();
 
-        TextEditingController codePostalDuDomicileProprietaire =
-      TextEditingController();
- TextEditingController ageDuPro1Controller =
-      TextEditingController(); TextEditingController ageDuPro2Controller =
-      TextEditingController();
-    
-      bool isSecondeUserChecked =  false;
+  bool isSecondeUserChecked = false;
 //-----------------------Controller Text --------------------------------
 
   @override
@@ -72,8 +67,8 @@ class _FormRevenuNetmensuelDeCreditState
         "charges_annuelle_de_credit_en_cours_du_proprieteire_2"];
     chargeAnunelleDeCreditEnCoursDu1Controller.text = model.informationClient[
         "charges_annuelle_de_credit_en_cours_du_proprieteire_1"];
-       revenueP1LocatifController.text =  model.informationClient[
-            "revenueP1Locatif"] ;
+    revenueP1LocatifController.text =
+        model.informationClient["revenueP1Locatif"];
 
     revenuePAnnuelController.text =
         model.informationClient["revenu_annuel_global_net"];
@@ -84,20 +79,21 @@ class _FormRevenuNetmensuelDeCreditState
     model.informationClient["revenu_annuel_global_net"] =
         revenuePAnnuelController.text;
 
-    codePostalDuDomicileProprietaire.text =  model.informationClient["code_postal_du_domicile_proprietaire"];
-    
-     ageDuPro1Controller.text =  model.informationClient["age_du_propriétaire"];
-     ageDuPro2Controller.text =  model.informationClient["age_du_propriétaire_2"];
+    codePostalDuDomicileProprietaire.text =
+        model.informationClient["code_postal_du_domicile_proprietaire"];
 
+    ageDuPro1Controller.text = model.informationClient["age_du_propriétaire"];
+    ageDuPro2Controller.text = model.informationClient["age_du_propriétaire_2"];
 
-    revenueP2LocatifController.text  = 
-                  model.informationClient["revenue_anuelle_du_proprietaire_2"];
+    revenueP2LocatifController.text =
+        model.informationClient["revenue_anuelle_du_proprietaire_2"];
 
-    isSecondeUserChecked =  model.informationClient['isSecondeUserChecked'];      
+    isSecondeUserChecked = model.informationClient['isSecondeUserChecked'];
     revenuePAnnuelController.addListener(() => _printLatestValue1(model));
     revenueNetDeCreditP1Controller.addListener(() => _printLatestValue2(model));
     revenueNetDeCreditP2Controller.addListener(() => _printLatestValue3(model));
-    revenueNetDeCreditP2Controller.addListener(() => printLatestValueRevenueLocatif(model));
+    revenueNetDeCreditP2Controller
+        .addListener(() => printLatestValueRevenueLocatif(model));
 
     super.initState();
   }
@@ -114,68 +110,57 @@ class _FormRevenuNetmensuelDeCreditState
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField:
-                    "Code postal du domicile du(des) propriétaire(s)*",
+                labelField: "Code postal du domicile du(des) propriétaire(s)*",
                 validator: model.validatorTextFieldString,
                 controller: codePostalDuDomicileProprietaire,
                 onChanged: (val) {
-                  model.informationClient["code_postal_du_domicile_proprietaire"] =
-                      val;
-              
+                  model.informationClient[
+                      "code_postal_du_domicile_proprietaire"] = val;
                 }),
           ),
-
           Container(
-            width: widthTextField,
-            padding: EdgeInsets.only(left: 21,  bottom: 21),
-            child: Row(children: [
-              Checkbox(value: isSecondeUserChecked, onChanged: (val){
-                setState(() {
-                  model.informationClient['isSecondeUserChecked'] = val;
-                  isSecondeUserChecked = val;
-                });
-
-              }),
-              Text('Ajouter un co-propriétaire (option)'),
-            ],)
-          ),
-
-
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFieldHelper2(
-                    width: widthTextField,
-                    labelField:
-                        "Age du propriétaire",
-                    validator: model.validatorTextFieldString,
-                    controller: ageDuPro1Controller,
-                    isDouble: true,
-                    onChanged: (val) {
-                      model.informationClient["age_du_propriétaire"] =
-                          val;
-
-                    }),
-              ),
-
-               Visibility(
-                visible:isSecondeUserChecked ,
-                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFieldHelper2(
-                      width: widthTextField,
-                      labelField:
-                          "Age du co-propriétaire",
-                      validator: model.validatorTextFieldString,
-                      controller: ageDuPro2Controller,
-                      isDouble: true,
+              width: widthTextField,
+              padding: EdgeInsets.only(left: 21, bottom: 21),
+              child: Row(
+                children: [
+                  Checkbox(
+                      value: isSecondeUserChecked,
                       onChanged: (val) {
-                        model.informationClient["age_du_propriétaire_2"] =
-                            val;
-
+                        setState(() {
+                          model.informationClient['isSecondeUserChecked'] = val;
+                          isSecondeUserChecked = val;
+                        });
                       }),
-              ),
-               ),
-
+                  Text('Ajouter un co-propriétaire (option)'),
+                ],
+              )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFieldHelper2(
+                width: widthTextField,
+                labelField: "Age du propriétaire",
+                validator: model.validatorTextFieldString,
+                controller: ageDuPro1Controller,
+                isDouble: true,
+                onChanged: (val) {
+                  model.informationClient["age_du_propriétaire"] = val;
+                }),
+          ),
+          Visibility(
+            visible: isSecondeUserChecked,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFieldHelper2(
+                  width: widthTextField,
+                  labelField: "Age du co-propriétaire",
+                  validator: model.validatorTextFieldString,
+                  controller: ageDuPro2Controller,
+                  isDouble: true,
+                  onChanged: (val) {
+                    model.informationClient["age_du_propriétaire_2"] = val;
+                  }),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -205,13 +190,11 @@ class _FormRevenuNetmensuelDeCreditState
                 onChanged: (val) {
                   // this is the champs must be changed  we can take juste 70%
 
-                  model.informationClient["revenueP1Locatif"] =
-                      val;
+                  model.informationClient["revenueP1Locatif"] = val;
                   calculRvnAnetCreditduprop1();
                   CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
@@ -222,7 +205,6 @@ class _FormRevenuNetmensuelDeCreditState
                 controller: chargeAnunelleDeCreditEnCoursDu1Controller,
                 isDouble: true,
                 onChanged: (val) {
-
                   calculRvnAnetCreditduprop1();
                   CalculRevenueAnnuelETCpaciteMaximal(context);
                   model.informationClient[
@@ -230,8 +212,7 @@ class _FormRevenuNetmensuelDeCreditState
                       val;
                 }),
           ),
-
-            Padding(
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 // isInt: true,
@@ -249,9 +230,6 @@ class _FormRevenuNetmensuelDeCreditState
                   CalculRevenueAnnuelETCpaciteMaximal(context);
                 }),
           ),
-
-
-
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -270,35 +248,33 @@ class _FormRevenuNetmensuelDeCreditState
                         calculRvnAnetCreditduprop2();
                         CalculRevenueAnnuelETCpaciteMaximal(context);
 
-                        model.informationClient['revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2'] = 
-                        revenueNetDeCreditP2Controller.text;
+                        model.informationClient[
+                                'revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2'] =
+                            revenueNetDeCreditP2Controller.text;
                       }),
                 )
               : Container(),
+          Visibility(
+            visible: isSecondeUserChecked,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFieldHelper2(
+                  width: widthTextField,
+                  labelField: "Revenus annuels locatifs du co-propriétaire",
+                  // helperText: "Entrer Mensualité du crédit",
+                  validator: model.validatorTextFieldString,
+                  controller: revenueP2LocatifController,
+                  isDouble: true,
+                  onChanged: (val) {
+                    // this is the champs must be changed  we can take juste 70%
 
-                     Visibility(
-                      visible: isSecondeUserChecked,
-                       child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFieldHelper2(
-                width: widthTextField,
-                labelField: "Revenus annuels locatifs du co-propriétaire",
-                // helperText: "Entrer Mensualité du crédit",
-                validator: model.validatorTextFieldString,
-                controller: revenueP2LocatifController,
-                isDouble: true,
-                onChanged: (val) {
-                  // this is the champs must be changed  we can take juste 70%
-
-                  model.informationClient["revenue_anuelle_du_proprietaire_2"] =
-                      val;
-                  calculRvnAnetCreditduprop2();
-                  CalculRevenueAnnuelETCpaciteMaximal(context);
-                }),
+                    model.informationClient[
+                        "revenue_anuelle_du_proprietaire_2"] = val;
+                    calculRvnAnetCreditduprop2();
+                    CalculRevenueAnnuelETCpaciteMaximal(context);
+                  }),
+            ),
           ),
-                     ),
-
-
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -318,7 +294,6 @@ class _FormRevenuNetmensuelDeCreditState
                       }),
                 )
               : Container(),
-        
           isSecondeUserChecked
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -339,12 +314,12 @@ class _FormRevenuNetmensuelDeCreditState
                   ),
                 )
               : Container(),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFieldHelper2(
                 width: widthTextField,
-                labelField: "Revenus annuel net de crédit en cours des co-propriétaires",
+                labelField:
+                    "Revenus annuel net de crédit en cours des co-propriétaires",
                 // validator: model.validatorTextFieldisDouble,
                 controller: revenuePAnnuelController,
                 isDouble: true,
@@ -376,12 +351,19 @@ class _FormRevenuNetmensuelDeCreditState
   CalculRevenueAnnuelETCpaciteMaximal(context) {
     final model = Provider.of<ProviderSM>(context, listen: false);
 
+    // Check if the client make a repsonse for the question of residence for YEs (1), No (0)
+    bool residancePrincipal =
+        model.informationClient["residence_principale"] == 0 ? true : false;
+
     if (revenueNetDeCreditP2Controller.text.isEmpty) {
       revenuePAnnuelController.text = revenueNetDeCreditP1Controller.text;
       model.informationClient["revenu_annuel_global_net"] =
           revenuePAnnuelController.text;
       capaciteMaximalRemboursementMensuelController.text =
-          (((int.parse(revenuePAnnuelController.text) * 0.35) / 12).round())
+          (((int.parse(revenuePAnnuelController.text) *
+                          (residancePrincipal ? 0.35 : 0.33)) /
+                      12)
+                  .round())
               .toString();
 
       model.informationClient["capacite_maximal_de_rembouresement_mensuel"] =
@@ -396,7 +378,10 @@ class _FormRevenuNetmensuelDeCreditState
               .toString();
 
       capaciteMaximalRemboursementMensuelController.text =
-          (((int.parse(revenuePAnnuelController.text) * 0.35) / 12).round())
+          (((int.parse(revenuePAnnuelController.text) *
+                          (residancePrincipal ? 0.35 : 0.33)) /
+                      12)
+                  .round())
               .toString();
 
       model.informationClient["capacite_maximal_de_rembouresement_mensuel"] =
@@ -418,7 +403,7 @@ class _FormRevenuNetmensuelDeCreditState
 
     int revenuLocatif = int.parse(revenueP1LocatifController.text) ?? 0;
     revenueNetDeCreditP1Controller.text = (int.parse(revenueP1Controller.text) +
-            (revenuLocatif * 0.7).round() -
+            (revenuLocatif * 0.9).round() -
             int.parse(chargeAnunelleDeCreditEnCoursDu1Controller.text))
         .toString();
   }
@@ -432,14 +417,16 @@ class _FormRevenuNetmensuelDeCreditState
         chargeAnunelleDeCreditEnCoursDuP2Controller.text == null) {
       chargeAnunelleDeCreditEnCoursDuP2Controller.text = "";
     }
-    revenueNetDeCreditP2Controller.text = ((int.parse(revenueP2Controller.text) 
-    -
-            int.parse(chargeAnunelleDeCreditEnCoursDuP2Controller.text) ) + ( int.parse( revenueP2LocatifController.text ) * 0.7 ).round())
+    revenueNetDeCreditP2Controller
+        .text = ((int.parse(revenueP2Controller.text) -
+                int.parse(chargeAnunelleDeCreditEnCoursDuP2Controller.text)) +
+            (int.parse(revenueP2LocatifController.text) * 0.9).round())
         .toString();
 
-      if(revenueP2LocatifController.text == null || revenueP2LocatifController.text.isEmpty){
-        revenueP2LocatifController.text = '0';
-      }
+    if (revenueP2LocatifController.text == null ||
+        revenueP2LocatifController.text.isEmpty) {
+      revenueP2LocatifController.text = '0';
+    }
   }
 
   _printLatestValue1(ProviderSM model) {
@@ -448,27 +435,26 @@ class _FormRevenuNetmensuelDeCreditState
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 
-    _printLatestValue3(ProviderSM model) {
-
+  _printLatestValue3(ProviderSM model) {
     model.informationClient["revenu_annuel_global_net"] =
         revenuePAnnuelController.text;
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 
   _printLatestValue2(ProviderSM model) {
-
-    model.informationClient["revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] = revenueNetDeCreditP1Controller.text;
+    model.informationClient[
+            "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_1"] =
+        revenueNetDeCreditP1Controller.text;
 
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 
   printLatestValueRevenueLocatif(ProviderSM model) {
-
-           revenueNetDeCreditP2Controller.text = model.informationClient[
-        "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"] = revenueNetDeCreditP2Controller.text;
-    model.informationClient[
-            "revenueP1Locatif"] =
-    revenueP1LocatifController.text;
+    revenueNetDeCreditP2Controller.text = model.informationClient[
+            "revenu_annuelle_net_de_credit_en_cours_du_proprietaire_2"] =
+        revenueNetDeCreditP2Controller.text;
+    model.informationClient["revenueP1Locatif"] =
+        revenueP1LocatifController.text;
     CalculRevenueAnnuelETCpaciteMaximal(context);
   }
 }

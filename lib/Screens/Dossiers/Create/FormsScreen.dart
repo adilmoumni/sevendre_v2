@@ -283,8 +283,7 @@ class _StepperScreenState extends State<StepperScreen> {
                                                         getterSteppe.steppe,
                                                 builder:
                                                     (context, steppe, child) {
-                                                  return
-                                                      formsScreens[steppe];
+                                                  return formsScreens[steppe];
                                                 }),
                                             Padding(
                                               padding:
@@ -296,8 +295,7 @@ class _StepperScreenState extends State<StepperScreen> {
                                                   uidClient: widget.uidClient,
                                                   modifier: widget.modifier,
                                                   nombreCliet:
-                                                      widget.nombreCliet
-                                                  ),
+                                                      widget.nombreCliet),
                                             )
 
                                             //     }),

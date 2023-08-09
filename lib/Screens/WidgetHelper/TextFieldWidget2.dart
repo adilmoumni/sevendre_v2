@@ -11,6 +11,7 @@ class TextFieldHelper2 extends StatefulWidget {
   final String labelText;
   final ValueChanged<String> onChanged;
   final Function(String) validator;
+  final Function(String) onFieldSubmitted;
   final Widget prefixIcon;
   final double width;
   final bool isDouble;
@@ -40,7 +41,8 @@ class TextFieldHelper2 extends StatefulWidget {
       this.isText,
       this.enabled,
       this.initialValue,
-      this.yap})
+      this.yap,
+      this.onFieldSubmitted})
       : super(key: key);
 
   @override
@@ -76,10 +78,7 @@ class _TextFieldHelperState extends State<TextFieldHelper2> {
   Widget build(BuildContext context) {
     return Container(
         width: widget.width ?? 500,
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20
-        ),
+        padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -154,6 +153,7 @@ class _TextFieldHelperState extends State<TextFieldHelper2> {
                       )
                     : widget.yap == true
                         ? TextFormField(
+                            onFieldSubmitted: widget.onFieldSubmitted,
                             initialValue: widget.initialValue ?? "",
                             enabled: widget.enabled == true ? false : true,
                             obscureText:
@@ -181,19 +181,11 @@ class _TextFieldHelperState extends State<TextFieldHelper2> {
                             inputFormatters: widget.isText == true
                                 ? []
                                 : [
-                                    // widget.isDouble == false
-                                    // ? FilteringTextInputFormatter(
-                                    //     RegExp(r"^\d+\.?\d*$"),
-                                    //     allow: widget.isDouble == true
-                                    //         ? true
-                                    //         : false ?? false)
-                                    // : null
                                     widget.isDouble == true
                                         ? FilteringTextInputFormatter.allow(
                                             RegExp(r'(^\d*\.?\d*)'))
                                         : FilteringTextInputFormatter.allow(
                                             RegExp(r'^[a-zA-Z0-9]+$')),
-
                                     FilteringTextInputFormatter.allow(
                                         RegExp(r'(^\d*\.?\d*)'))
                                   ],

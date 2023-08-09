@@ -297,7 +297,7 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                         mode: Mode.MENU,
 
                         //list of dropdown items
-                        items: [for (var i = 5; i <= 25; i++) i],
+                        items: [7, 10, 15, 20, 25],
                         onChanged: (int item) {
                           try {
                             double capacite = double.parse(model
@@ -309,12 +309,46 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                                     "montant_du_credit_bancaire_demande"] =
                                 montantCreditBancaireDemandecontroller.text;
 
-                        
-                                creditVendeurController.text = (double.parse(model
-                                        .informationClient[
-                                    "valeur_du_bien_estimee_par_le_client"]) -
-                                double.parse(model.informationClient[
-                                    'montant_du_credit_bancaire_demande'])).toString();
+                            creditVendeurController.text = (double.parse(model
+                                            .informationClient[
+                                        "valeur_du_bien_estimee_par_le_client"]) -
+                                    double.parse(model.informationClient[
+                                        'montant_du_credit_bancaire_demande']))
+                                .toString();
+
+                            String taux = "0";
+
+                            if (item == 7) {
+                              taux = "3.57";
+                              model.informationClient[
+                                  "Taux_interet_Moyen_en_%"] = taux;
+
+                              tauxDinteretMoyencontrolle.text = taux;
+                            } else if (item == 10) {
+                              taux = "3.58";
+                              model.informationClient[
+                                  "Taux_interet_Moyen_en_%"] = taux;
+
+                              tauxDinteretMoyencontrolle.text = taux;
+                            } else if (item == 15) {
+                              taux = "3.80";
+                              model.informationClient[
+                                  "Taux_interet_Moyen_en_%"] = taux;
+
+                              tauxDinteretMoyencontrolle.text = taux;
+                            } else if (item == 20) {
+                              taux = "3.87";
+                              model.informationClient[
+                                  "Taux_interet_Moyen_en_%"] = taux;
+
+                              tauxDinteretMoyencontrolle.text = taux;
+                            } else if (item == 25) {
+                              taux = "4.01";
+                              model.informationClient[
+                                  "Taux_interet_Moyen_en_%"] = taux;
+
+                              tauxDinteretMoyencontrolle.text = taux;
+                            }
                           } catch (e) {
                             print("Error: $e");
                           }
