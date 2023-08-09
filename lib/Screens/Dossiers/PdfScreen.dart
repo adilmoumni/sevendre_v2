@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:html';
 import 'dart:io';
@@ -36,20 +35,16 @@ class _ScreePdfState extends State<ScreenPdf> {
     printPDF();
   }
 
-  
-
   setList() async {
     setState(() {
-
       reparation = widget.dataDossier["reparation"];
     });
     font = await PdfGoogleFonts.latoBold();
-
   }
+
   var font;
 
   pw.Table dataDepense(int start, int lenght) {
-    
     return pw.Table(
         // defaultColumnWidth: FixedColumnWidth(18.0),
         border: pw.TableBorder.all(
@@ -62,8 +57,7 @@ class _ScreePdfState extends State<ScreenPdf> {
                 width: 300,
                 padding: pw.EdgeInsets.all(5),
                 child: pw.Text("DEPENSES ANNUELLES",
-                    style: pw.TextStyle(
-                        fontSize: 8.0))),
+                    style: pw.TextStyle(fontSize: 8.0))),
             for (int i = start; i < lenght; i++)
               pw.Container(
                   alignment: pw.Alignment.center,
@@ -86,12 +80,6 @@ class _ScreePdfState extends State<ScreenPdf> {
                   width: 300,
                   padding: pw.EdgeInsets.all(5),
                   child: pw.Text(
-                      // (Frais de notaire + la valeur de bien ) * 0,06
-                      //     i == 0
-                      //  ?  ( double.parse(widget.dataDossier["fraisDeConstitution"]) + double.parse(widget.dataDossier["valeur_du_bien_estimee_par_le_client"])
-                      //  * 0.06).toString()
-
-                      //     :
                       widget.dataOfTAbleau[i]["fraisDeConstitution"]
                               .toString() ??
                           "0",
@@ -247,8 +235,6 @@ class _ScreePdfState extends State<ScreenPdf> {
                       style: pw.TextStyle(fontSize: 8.0)))
           ]),
 
-
-
           pw.TableRow(children: [
             pw.Container(
                 width: 300,
@@ -285,11 +271,6 @@ class _ScreePdfState extends State<ScreenPdf> {
                       style: pw.TextStyle(fontSize: 8.0)))
           ]),
 
-
-
-
-
-
           pw.TableRow(children: [
             pw.Container(
                 width: 300,
@@ -314,7 +295,8 @@ class _ScreePdfState extends State<ScreenPdf> {
             pw.Container(
                 width: 300,
                 padding: pw.EdgeInsets.all(5),
-                child: pw.Text("Grose réparation",
+                child: pw.Text(
+                  "Grose réparation",
                   style: pw.TextStyle(
                     fontSize: 8.0,
                     font: font,
@@ -481,8 +463,7 @@ class _ScreePdfState extends State<ScreenPdf> {
                 width: 300,
                 padding: pw.EdgeInsets.all(5),
                 child: pw.Text("RECETTES ANNUELLES",
-                    style: pw.TextStyle(
-                        fontSize: 8.0))),
+                    style: pw.TextStyle(fontSize: 8.0))),
             for (int i = start; i < lenght; i++)
               pw.Container(
                   alignment: pw.Alignment.center,
@@ -1059,7 +1040,6 @@ class _ScreePdfState extends State<ScreenPdf> {
     final font = await PdfGoogleFonts.latoBold();
 
     pdf.addPage(
-      
         pw.Page(
           pageFormat: format,
           margin: pw.EdgeInsets.all(5),
@@ -1084,7 +1064,6 @@ class _ScreePdfState extends State<ScreenPdf> {
                             children: [
                               pw.Text('VASM / SCI LAZARRA',
                                   style: pw.TextStyle(
-
                                     font: font,
                                     fontSize: 20,
                                     fontWeight: pw.FontWeight.bold,
@@ -1443,8 +1422,8 @@ class _ScreePdfState extends State<ScreenPdf> {
                       pw.Container(
                           padding: pw.EdgeInsets.all(5),
                           child: pw.Text(
-                              widget.dataDossier[
-                                  "Appel_de_tresorerie_de_la_SCI"]
+                              widget
+                                  .dataDossier["Appel_de_tresorerie_de_la_SCI"]
                                   .toString(),
                               style: pw.TextStyle(fontSize: 8.0)))
                     ]),
@@ -1499,7 +1478,6 @@ class _ScreePdfState extends State<ScreenPdf> {
         j < int.parse(widget.dataDossier["duree_de_remboursement"]) + 3 ?? 1;
         j++) {
       if (j == 0) {
-
         pdf.addPage(
             pw.Page(
               margin: pw.EdgeInsets.all(5),

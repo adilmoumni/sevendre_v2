@@ -227,7 +227,7 @@ class ScreenPdfNew extends StatelessWidget {
         case value_dossier.honoraire:
           val = (double.parse(this
                       .dataDossier["valeur_du_bien_estimee_par_le_client"]) *
-                  0.06)
+                  this.dataDossier['taux_de_remuneration'])
               .round()
               .toString();
           break;

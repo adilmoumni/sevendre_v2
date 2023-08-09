@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:plan_de_financement/Provider/Provider_StateManagemant.dart';
 import 'package:plan_de_financement/Screens/WidgetHelper/TextFieldWidget2.dart';
@@ -20,13 +19,11 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
   double widthTextField = 600;
   double widthTextField2 = 200;
 
-
   TextEditingController liquiditesDegageesController = TextEditingController();
   TextEditingController remboursementInFineDuCompteCourantController =
       TextEditingController();
 
-      TextEditingController RemboursementMensuelDuCredi =
-      TextEditingController();
+  TextEditingController RemboursementMensuelDuCredi = TextEditingController();
   TextEditingController remboursementMeensuelDuCreditController =
       TextEditingController();
   TextEditingController appelMensuelEnCompteCourantController =
@@ -43,14 +40,13 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
   @override
   void initState() {
     final model = Provider.of<ProviderSM>(context, listen: false);
-    if(model.informationClient["reparation"] != [])
-    {
+    if (model.informationClient["reparation"] != []) {
       model.calculeRemboursementInfinCompteCourant(
           model.mensualiteDucredit_calculer());
     }
 
-   
-  RemboursementMensuelDuCredi.text = model.informationClient['remboursement_mensuel_du_credit'];
+    RemboursementMensuelDuCredi.text =
+        model.informationClient['remboursement_mensuel_du_credit'];
 //---------------------------------Controller---------------------
 
     liquiditesDegageesController.text =
@@ -80,13 +76,13 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
     model.informationClient["Honoraire_se_vendre_a_asoi-meme"] = (double.parse(
                 model.informationClient[
                     "valeur_du_bien_estimee_par_le_client"]) *
-            0.06).round()
+            model.informationClient['taux_de_remuneration'])
+        .round()
         .toString();
     honoraireSeVendreaASoimemeController.text =
-    model.informationClient["Honoraire_se_vendre_a_asoi-meme"];
+        model.informationClient["Honoraire_se_vendre_a_asoi-meme"];
     liquiditesDegageesController.text =
         model.informationClient['liquidites_degagees'];
-
 
     interetDuCreditController.addListener(() => _printLatestValue1(model));
     fraisDeNotaireController.addListener(() => _printLatestValue3(model));
@@ -101,7 +97,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
   Widget build(BuildContext context) {
     // var conditionResponive = (MediaQuery.of(context).size.width >= 1024);
     var model = Provider.of<ProviderSM>(context);
-  var checkWidth  = (MediaQuery.of(context).size.width <= 450);
+    var checkWidth = (MediaQuery.of(context).size.width <= 450);
 
     return Form(
       key: model.formKey,
@@ -140,7 +136,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
                       "remboursement_in_fine_du_compte_courant"] = val;
                 }),
           ),
-         Container(
+          Container(
               height: 2, width: widthTextField / 2, color: Colors.grey[400]),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -178,8 +174,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
               enabled: true,
               controller: appelMensuelEnCompteCourantController,
               onChanged: (val) {
-                model.informationClient["Appel_de_tresorerie_de_la_SCI"] =
-                    val;
+                model.informationClient["Appel_de_tresorerie_de_la_SCI"] = val;
               },
               isDouble: true,
             ),
@@ -225,10 +220,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
-                    width:checkWidth
-                    
-                    ? widthTextField
-                    :widthTextField2,
+                    width: checkWidth ? widthTextField : widthTextField2,
                     labelField: "Intérêt du crédit\n ",
                     helperText: "Intérêt du crédit\n ",
                     // validator: model.validatorTextFieldisDouble,
@@ -243,10 +235,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
-                    width: checkWidth
-                    
-                    ? widthTextField
-                    :widthTextField2,
+                    width: checkWidth ? widthTextField : widthTextField2,
                     labelField: "Frais notaire\n ",
                     helperText: "Frais notaire",
                     enabled: true,
@@ -261,10 +250,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
-                    width: checkWidth
-                    
-                    ? widthTextField
-                    :widthTextField2,
+                    width: checkWidth ? widthTextField : widthTextField2,
                     labelField: "Impôts sur les sociétés",
                     helperText: "Impôts sur les sociétés",
                     controller: impotSurLesSocietesController,
@@ -277,10 +263,7 @@ class _FormChargesMensuelState extends State<FormChargesMensuel> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFieldHelper2(
-                    width: checkWidth
-                    
-                    ? widthTextField
-                    :widthTextField2,
+                    width: checkWidth ? widthTextField : widthTextField2,
                     labelField: "Honoraire se vendre à soi-même",
                     helperText: "Honoraire se vendre à soi-même",
                     controller: honoraireSeVendreaASoimemeController,

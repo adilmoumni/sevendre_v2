@@ -363,7 +363,7 @@ class ProviderSM extends ChangeNotifier {
 
     var cal = double.parse(
             informationClient["valeur_du_bien_estimee_par_le_client"]) *
-        0.06;
+        informationClient['taux_de_remuneration'];
     double fraisDeConstitution = double.parse(
             informationClient["frais_de_notaire_estime"]) +
         cal; // il est calculer juste la premier années c'est dans la condition i!==0>
@@ -670,7 +670,7 @@ class ProviderSM extends ChangeNotifier {
               (double.parse(informationClient["frais_de_notaire_estime"]) +
                   double.parse(informationClient[
                           "valeur_du_bien_estimee_par_le_client"]) *
-                      0.06);
+                      informationClient['taux_de_remuneration']);
         }
         double totalDesChargeDeductibleSom = fraisDeConstitutionAnne1 +
             taxe_fonciere +
@@ -766,7 +766,7 @@ class ProviderSM extends ChangeNotifier {
               ? (double.parse(informationClient["frais_de_notaire_estime"]) +
                       double.parse(informationClient[
                               "valeur_du_bien_estimee_par_le_client"]) *
-                          0.06)
+                          informationClient['taux_de_remuneration'])
                   .round()
                   .toString()
               : 0,
@@ -859,12 +859,12 @@ class ProviderSM extends ChangeNotifier {
 
     var valDubien6 = double.parse(
             informationClient["valeur_du_bien_estimee_par_le_client"]) *
-        0.06;
+        informationClient['taux_de_remuneration'];
     double fraisDeConstitutionCalc =
         (double.parse(informationClient["frais_de_notaire_estime"]) +
             double.parse(
                     informationClient["valeur_du_bien_estimee_par_le_client"]) *
-                0.06);
+                informationClient['taux_de_remuneration']);
 
     // COMPTE COURANT D'ASSOCIE CUMULE
     // double compteCourantAssocieCumule = fraisDeConstitutionCalc + 12 * totalAppleCCA;
@@ -919,7 +919,7 @@ class ProviderSM extends ChangeNotifier {
             informationClient["montant_du_credit_bancaire_demande"]) -
         double.parse(
                 informationClient["valeur_du_bien_estimee_par_le_client"]) *
-            0.06 -
+            informationClient['taux_de_remuneration'] -
         double.parse(informationClient['frais_de_notaire_estime'])));
 
     informationClient['liquidites_degagees'] = valuLis.toString();
