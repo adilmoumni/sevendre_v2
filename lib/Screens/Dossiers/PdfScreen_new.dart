@@ -1213,20 +1213,29 @@ class ScreenPdfNew extends StatelessWidget {
                       mainAxisAlignment: pw.MainAxisAlignment.center,
                       children: [
                         pw.Center(
-                            child: pw.Text("Honoraire",
+                            child: pw.Text("Honoraires",
                                 style: pw.TextStyle(
                                     font: font,
                                     fontSize: 7.0,
                                     color: PdfColor.fromHex('#405f5a')))),
                         pw.Center(
                           child: pw.Text(
-                            'SEVENDREASOIMEME',
+                            'SEVENDREASOIMEME*',
                             style: pw.TextStyle(
                                 font: font,
                                 fontSize: 7.0,
                                 color: PdfColor.fromHex('#405f5a')),
                           ),
-                        )
+                        ),
+                        pw.Center(
+                          child: pw.Text(
+                            '* à partir de = sur devis, nous consulter',
+                            style: pw.TextStyle(
+                                font: font,
+                                fontSize: 4.0,
+                                color: PdfColor.fromHex('#405f5a')),
+                          ),
+                        ),
                       ])),
             ]),
             pw.TableRow(children: [

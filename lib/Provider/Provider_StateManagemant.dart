@@ -280,6 +280,7 @@ class ProviderSM extends ChangeNotifier {
 
     var mensualiteDuCredi = ((montantDuCredit * (tauxInteretMoyen / 12))) /
         (1 - pow((1 + (tauxInteretMoyen / 12)), -(12 * dureRemboursement)));
+        
     return mensualiteDuCredi;
   }
 

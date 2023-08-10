@@ -127,8 +127,20 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
             double.parse(model.informationClient["duree_de_remboursement"]);
         double capacite = double.parse(model
             .informationClient["capacite_maximal_de_rembouresement_mensuel"]);
-        montantCreditBancaireDemandecontroller.text =
-            (capacite * duree * 12).toString();
+
+        double mcbd = (capacite *
+            int.parse(model.informationClient["duree_de_remboursement"]) *
+            12);
+
+        if (mcbd >
+            double.parse(model
+                .informationClient["valeur_du_bien_estimee_par_le_client"])) {
+          montantCreditBancaireDemandecontroller.text =
+              model.informationClient["valeur_du_bien_estimee_par_le_client"];
+        } else {
+          montantCreditBancaireDemandecontroller.text = mcbd.toString();
+        }
+
         model.informationClient["montant_du_credit_bancaire_demande"] =
             montantCreditBancaireDemandecontroller.text;
       } catch (e) {
@@ -159,6 +171,34 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
 
     taux_de_lassurance_emprunteur_assure_2_quotite.text = model
         .informationClient["taux_de_lassurance_emprunteur_assure_2_quotite"];
+
+    // this is the same coede used in the dropdown for "durée de remboursement"  just to keep the update in init state
+    /////////////////////////////////////////////////////////////////////////////
+    double capacite = double.parse(
+        model.informationClient["capacite_maximal_de_rembouresement_mensuel"]);
+
+    double mcbd = (capacite *
+        int.parse(model.informationClient["duree_de_remboursement"]) *
+        12);
+
+    if (mcbd >
+        double.parse(
+            model.informationClient["valeur_du_bien_estimee_par_le_client"])) {
+      montantCreditBancaireDemandecontroller.text =
+          model.informationClient["valeur_du_bien_estimee_par_le_client"];
+    } else {
+      montantCreditBancaireDemandecontroller.text = mcbd.toString();
+    }
+
+    model.informationClient["montant_du_credit_bancaire_demande"] =
+        montantCreditBancaireDemandecontroller.text;
+
+    creditVendeurController.text = (double.parse(model
+                .informationClient["valeur_du_bien_estimee_par_le_client"]) -
+            double.parse(
+                model.informationClient['montant_du_credit_bancaire_demande']))
+        .toString();
+    /////////////////////////////////////////////////////////////////////////////
 
     getUserCheck(model);
 
@@ -297,14 +337,28 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
                         mode: Mode.MENU,
 
                         //list of dropdown items
+                        // make for in one line of this list [1, 2]
+
                         items: [7, 10, 15, 20, 25],
                         onChanged: (int item) {
                           try {
                             double capacite = double.parse(model
                                     .informationClient[
                                 "capacite_maximal_de_rembouresement_mensuel"]);
-                            montantCreditBancaireDemandecontroller.text =
-                                (capacite * item * 12).toString();
+
+                            double mcbd = (capacite * item * 12);
+
+                            if (mcbd >
+                                double.parse(model.informationClient[
+                                    "valeur_du_bien_estimee_par_le_client"])) {
+                              montantCreditBancaireDemandecontroller.text =
+                                  model.informationClient[
+                                      "valeur_du_bien_estimee_par_le_client"];
+                            } else {
+                              montantCreditBancaireDemandecontroller.text =
+                                  mcbd.toString();
+                            }
+
                             model.informationClient[
                                     "montant_du_credit_bancaire_demande"] =
                                 montantCreditBancaireDemandecontroller.text;
@@ -318,37 +372,20 @@ class _FormEvaluationFinaciereState extends State<FormEvaluationFinaciere> {
 
                             String taux = "0";
 
-                            if (item == 7) {
+                            if (item == 7)
                               taux = "3.57";
-                              model.informationClient[
-                                  "Taux_interet_Moyen_en_%"] = taux;
-
-                              tauxDinteretMoyencontrolle.text = taux;
-                            } else if (item == 10) {
+                            else if (item == 10)
                               taux = "3.58";
-                              model.informationClient[
-                                  "Taux_interet_Moyen_en_%"] = taux;
-
-                              tauxDinteretMoyencontrolle.text = taux;
-                            } else if (item == 15) {
+                            else if (item == 15)
                               taux = "3.80";
-                              model.informationClient[
-                                  "Taux_interet_Moyen_en_%"] = taux;
-
-                              tauxDinteretMoyencontrolle.text = taux;
-                            } else if (item == 20) {
+                            else if (item == 20)
                               taux = "3.87";
-                              model.informationClient[
-                                  "Taux_interet_Moyen_en_%"] = taux;
+                            else if (item == 25) taux = "4.01";
 
-                              tauxDinteretMoyencontrolle.text = taux;
-                            } else if (item == 25) {
-                              taux = "4.01";
-                              model.informationClient[
-                                  "Taux_interet_Moyen_en_%"] = taux;
+                            model.informationClient["Taux_interet_Moyen_en_%"] =
+                                taux;
 
-                              tauxDinteretMoyencontrolle.text = taux;
-                            }
+                            tauxDinteretMoyencontrolle.text = taux;
                           } catch (e) {
                             print("Error: $e");
                           }
