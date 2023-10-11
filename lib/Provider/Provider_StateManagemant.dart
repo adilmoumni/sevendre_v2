@@ -11,9 +11,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProviderSM extends ChangeNotifier {
   CreditImmobolierDispoInLimineFunction() {
+    print(
+        "-------------------------- CreditImmobolierDispoInLimineFunction --------------------------");
+    print(
+        "-------------------------- ----------------------------------- --------------------------");
+    print(informationClient['montant_du_credit_bancaire_demande']);
+    print(informationClient['frais_de_notaire_estime']);
+    print(informationClient['capital_restant_a_devoir']);
+    print(informationClient['valeur_du_bien_estimee_par_le_client']);
+    print(informationClient['taux_de_remuneration']);
+    // 18600
     return (double.parse(
                 informationClient['montant_du_credit_bancaire_demande']) -
             double.parse(informationClient['frais_de_notaire_estime']) -
+            double.parse(informationClient['capital_restant_a_devoir']) -
             double.parse(
                     informationClient["valeur_du_bien_estimee_par_le_client"]) *
                 informationClient['taux_de_remuneration'])
@@ -162,6 +173,7 @@ class ProviderSM extends ChangeNotifier {
     "type_de_bien": "",
     "code_postal": "",
     "valeur_du_bien_estimee_par_le_client": "",
+    "capital_restant_a_devoir": "",
     "residence_principale": 1,
     "frais_de_notaire_estime": "",
     "assurence": "",
@@ -280,7 +292,7 @@ class ProviderSM extends ChangeNotifier {
 
     var mensualiteDuCredi = ((montantDuCredit * (tauxInteretMoyen / 12))) /
         (1 - pow((1 + (tauxInteretMoyen / 12)), -(12 * dureRemboursement)));
-        
+
     return mensualiteDuCredi;
   }
 

@@ -52,6 +52,8 @@ class _FormFormRevenuEtChargesClientState
       TextEditingController();
   TextEditingController annesController = TextEditingController();
   TextEditingController motantController = TextEditingController();
+  TextEditingController CapitalRestantADevoirController =
+      TextEditingController();
 
   var list = new List<int>.generate(25, (i) => i + 1);
   List<int> listSelcted = new List<int>.generate(25, (i) => i + 0);
@@ -93,6 +95,9 @@ class _FormFormRevenuEtChargesClientState
     taxeFonciereController.text = model.informationClient["taxe_fonciere"];
     chargeDeCropoEntretienController.text =
         model.informationClient["charge_De_Cropo_Entretien"];
+
+    CapitalRestantADevoirController.text =
+        model.informationClient['capital_restant_a_devoir'];
 
     motantController.addListener(() => _printLatestValue1(model));
 
@@ -320,6 +325,20 @@ class _FormFormRevenuEtChargesClientState
 
                       model.informationClient["frais_de_notaire"] =
                           fraisDeNotaire;
+                    }),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldHelper2(
+                    controller: CapitalRestantADevoirController,
+                    width: widthTextField,
+                    labelText: "Capital restant à devoir",
+                    labelField: "Capital restant à devoir",
+                    validator: model.validatorTextFieldisDouble,
+                    isDouble: true,
+                    onChanged: (val) {
+                      model.informationClient["capital_restant_a_devoir"] = val;
                     }),
               ),
 
